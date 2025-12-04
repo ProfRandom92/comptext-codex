@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-We release patches for security vulnerabilities for the following versions:
+We release patches for security vulnerabilities in the following versions:
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -11,40 +11,26 @@ We release patches for security vulnerabilities for the following versions:
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within the CompText ecosystem, please send an email to security@comptext.dev. All security vulnerabilities will be promptly addressed.
+**Please do not report security vulnerabilities through public GitHub issues.**
 
-**Please do not create public GitHub issues for security vulnerabilities.**
+Instead, please report them via email to: [security contact needed]
 
-### What to include in your report:
+You should receive a response within 48 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
 
-- Type of vulnerability
-- Full paths of source file(s) related to the vulnerability
-- Location of the affected source code (tag/branch/commit or direct URL)
+Please include the following information:
+
+- Type of issue (e.g., buffer overflow, SQL injection, cross-site scripting)
+- Full paths of source file(s) related to the manifestation of the issue
+- The location of the affected source code (tag/branch/commit or direct URL)
+- Any special configuration required to reproduce the issue
 - Step-by-step instructions to reproduce the issue
 - Proof-of-concept or exploit code (if possible)
-- Impact of the vulnerability
+- Impact of the issue, including how an attacker might exploit it
 
-### What to expect:
+## Preferred Languages
 
-- Acknowledgment of your report within 48 hours
-- Regular updates on the progress
-- Credit in the security advisory (if desired)
+We prefer all communications to be in English or German.
 
-## Security Best Practices
+## Policy
 
-When using CompText:
-
-1. **API Keys**: Never commit API keys or credentials to version control
-2. **Dependencies**: Keep dependencies up to date
-3. **Validation**: Always validate input when using CompText DSL
-4. **Permissions**: Use least-privilege principles for MCP server access
-
-## Security Updates
-
-Security updates are released as patch versions (e.g., 1.0.1, 1.0.2) and are announced through:
-
-- GitHub Security Advisories
-- Release notes
-- Mailing list (security@comptext.dev)
-
-Thank you for helping keep CompText and our users safe!
+We follow the principle of Coordinated Vulnerability Disclosure.
