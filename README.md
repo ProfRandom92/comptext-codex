@@ -12,42 +12,30 @@ CompText is a DSL designed to replace verbose natural language prompts with comp
 
 ### Before vs After
 
-❌ **Natural Language (127 tokens):**
+❌ **Natural Language (26 tokens via whitespace heuristic):**
 > "Please analyze this Python code, identify performance bottlenecks, suggest optimizations with code examples, explain the reasoning behind each optimization, and provide benchmark comparisons showing expected improvements"
 
-✅ **CompText (23 tokens):**
+✅ **CompText (4 tokens via whitespace heuristic):**
 ```
 @CODE_ANALYZE[perf_bottleneck] + @CODE_OPT[explain=detail, bench=compare]
 ```
 
-**Result: 70% token reduction** while being MORE precise.
+**Result: ~85% token reduction** while being MORE precise.
 
 ---
 
 ## 📦 What's Included?
 
-### **13 Production Modules**
+### **Core Modules (Built-In)**
 
-- **Module A - General**: Core commands, file ops, workflows
-- **Module B - Programming**: Code analysis, optimization, debugging
-- **Module C - Visualization**: Charts, diagrams, presentations  
-- **Module D - AI Control**: Model config, prompt engineering
-- **Module E - ML Pipelines**: AutoML, feature engineering
-- **Module F - Documentation**: API docs, tutorials, changelogs
-- **Module G - Testing**: Test generation, coverage, benchmarks
-- **Module H - Database**: Schema design, query optimization
-- **Module I - Security**: Vulnerability scans, compliance  
-- **Module J - DevOps**: CI/CD, containerization, monitoring
-- **Module K - Frontend/UI**: Component generation, responsive design
-- **Module L - ETL**: Data pipelines, transformations
-- **Module M - MCP Integration**: Multi-agent communication
+- **General**: Summarization, translation, pattern extraction
+- **Programming**: Code analysis, optimization, debugging, docs, security scan
+- **Visualization**: Chart/diagram/dashboard blueprints
+- **AI Control**: Model config, prompt optimization, chain planning
 
-### **55+ Ready-to-Use Examples**
-- React dashboards with Tailwind CSS
-- Kubernetes CI/CD pipelines
-- ML workflows with AutoML
-- GDPR compliance implementations
-- Complete API documentation generation
+### **Starter Examples**
+- Quick-start snippets in `README.md` and `QUICK_START.md`
+- Parser/executor demo script in the tests to validate token savings
 
 ---
 
@@ -72,7 +60,7 @@ CompText is a DSL designed to replace verbose natural language prompts with comp
 git clone https://github.com/ProfRandom92/comptext-codex.git
 cd comptext-codex
 
-# Install dependencies
+# Install dependencies (optional: all core features use the standard library)
 pip install -r requirements.txt
 
 # Install package
@@ -95,9 +83,29 @@ result = parser.execute(command, code="your_code_here")
 command = "@DOC_GEN[api, format=markdown, include_examples=true]"
 result = parser.execute(command, source_code="...")
 
-# Example 3: ML Pipeline
-command = "@AUTOML[task=classification, metric=f1] + @MODEL_EVAL[cv=5]"
-result = parser.execute(command, dataset="data.csv")
+# Example 3: Chained AI task
+command = "@CHAIN[steps=analyze;optimize;report]"
+result = parser.execute(command)
+```
+
+### Checking Token Savings Programmatically
+
+```python
+from comptext import estimate_tokens, token_reduction
+
+natural = "Please analyze this Python code, identify performance bottlenecks, ..."
+dsl = "@CODE_ANALYZE[perf_bottleneck] + @CODE_OPT[explain=detail, bench=compare]"
+
+natural_tokens, dsl_tokens, reduction = token_reduction(natural, dsl)
+print(natural_tokens, dsl_tokens, reduction)  # 26, 4, ~0.85
+```
+
+Or directly from the CLI:
+
+```bash
+comptext "@CODE_ANALYZE[perf_bottleneck] + @CODE_OPT[explain=detail, bench=compare]" \
+  --natural "Please analyze this Python code, identify performance bottlenecks, ..." \
+  --show-tokens
 ```
 
 ---
@@ -134,8 +142,10 @@ comptext-codex/
 │   ├── __init__.py
 │   ├── parser.py             # Command parser
 │   ├── executor.py           # Command executor
-│   └── modules/              # 13 module implementations
-├── comptext_mcp/             # MCP Server implementation
+│   ├── cli.py                # Command-line interface
+│   ├── data/                 # Packaged CSV helpers
+│   └── modules/              # Command implementations
+├── comptext_mcp/             # MCP Server implementation (optional)
 ├── examples/                 # 55+ usage examples
 ├── tests/                    # pytest test suite
 ├── docs/                     # Documentation
@@ -160,9 +170,9 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 | Metric | Natural Language | CompText | Improvement |
 |--------|------------------|----------|-------------|
-| Tokens per task | 250 avg | 75 avg | **70% reduction** |
-| Ambiguity errors | 15% | 2% | **87% reduction** |
-| Execution time | 1.2s | 0.8s | **33% faster** |
+| Tokens per task (sample above) | 26 | 4 | **~85% reduction** |
+| Ambiguity errors (qualitative) | Higher | Lower | **Fewer retries** |
+| Execution time (prompted runs) | Longer prompts | Short prompts | **Less latency** |
 
 ---
 
