@@ -2,35 +2,31 @@
 
 ## Supported Versions
 
-We release patches for security vulnerabilities in the following versions:
+We release patches for the most recent version as needed.
 
 | Version | Supported          |
-| ------- | ------------------ |
+| ------- | ----------------- |
 | 1.x.x   | :white_check_mark: |
-| < 1.0   | :x:                |
+| < 1.0   | :x:               |
 
 ## Reporting a Vulnerability
 
-**Please do not report security vulnerabilities through public GitHub issues.**
-
-Instead, please report them via email to: [security contact needed]
-
-You should receive a response within 48 hours. If for some reason you do not, please follow up via email to ensure we received your original message.
+If you discover a security vulnerability, please send an e-mail to the maintainers. All security vulnerabilities will be promptly addressed.
 
 Please include the following information:
 
-- Type of issue (e.g., buffer overflow, SQL injection, cross-site scripting)
-- Full paths of source file(s) related to the manifestation of the issue
-- The location of the affected source code (tag/branch/commit or direct URL)
-- Any special configuration required to reproduce the issue
-- Step-by-step instructions to reproduce the issue
-- Proof-of-concept or exploit code (if possible)
-- Impact of the issue, including how an attacker might exploit it
+- A description of the vulnerability
+- Steps to reproduce the vulnerability
+- Possible impact of the vulnerability
+- Any potential solutions or workarounds
 
-## Preferred Languages
+## Security Best Practices
 
-We prefer all communications to be in English or German.
+- Keep dependencies up to date
+- Use strong, unique passwords
+- Enable two-factor authentication where possible
+- Never commit sensitive information (API keys, tokens, passwords)
 
-## Policy
+## Acknowledgments
 
-We follow the principle of Coordinated Vulnerability Disclosure.
+We thank the security research community for helping keep CompText secure.
