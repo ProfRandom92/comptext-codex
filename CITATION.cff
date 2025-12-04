@@ -1,16 +1,18 @@
-cff-version: 1.2.0
-message: "If you use CompText in your research, please cite it as below."
+citation-format: ciff-version
+version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "CompText Codex Library"
 authors:
-  - family-names: "Your Name"
-    given-names: ""
-    orcid: ""
-title: "CompText: Token-Efficient DSL for LLM Interactions"
-version: 1.0.0
-date-released: 2025-12-04
-url: "https://github.com/ProfRandom92/comptext"
-repository-code: "https://github.com/ProfRandom92/comptext"
+  - family-names: "CompText"
+    given-names: "Team"
+type: software
+url: "https://github.com/ProfRandom92/comptext-codex"
+repository-code: "https://github.com/ProfRandom92/comptext-codex"
 keywords:
-  - LLM
-  PDSL†  token-optimization
-  AI†  NAtural-language-processing
-license: MIT
+  - python-library
+  - dsl
+  - llm
+  - token-optimization
+contact:
+  - name: "CompText Maintainers"
+    email: "comptext@example.com"
