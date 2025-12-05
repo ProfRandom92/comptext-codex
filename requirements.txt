@@ -1,10 +1,6 @@
 # Core dependencies
-python>=3.8
-pydantic>=2.0.0
-typing-extensions>=4.5.0
-
-# MCP Server
-mcp>=0.9.0
+# CompText-Codex now relies exclusively on the Python standard library.
+# This keeps the package functional even in offline or proxied environments.
 
 # Optional: Testing
 pytest>=7.4.0
