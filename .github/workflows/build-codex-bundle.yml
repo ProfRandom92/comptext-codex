@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -20,75 +23,51 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pyyaml jsonschema
+          pip install pyyaml jsonschema requests
 
       - name: Validate codex
         run: |
-          python scripts/validate_codex.py --codex-dir codex --schemas-dir schemas
+          python scripts/validate_codex.py --codex-dir codex
 
       - name: Build bundle
         run: |
           python scripts/build_bundle.py --codex-dir codex --output dist/codex.bundle.json
 
-      - name: Create latest-stable copy
+      - name: Create latest-stable alias
         run: |
           cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
-          cp dist/codex.bundle.json.sha256 dist/codex.bundle.latest-stable.json.sha256
+
+      - name: Compute checksums
+        run: |
+          cd dist
+          sha256sum codex.bundle.json > codex.bundle.json.sha256
+          sha256sum codex.bundle.latest-stable.json > codex.bundle.latest-stable.json.sha256
 
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: CompText Codex ${{ github.ref_name }}
+          files: |
+            dist/codex.bundle.json
+            dist/codex.bundle.json.sha256
+            dist/codex.bundle.latest-stable.json
+            dist/codex.bundle.latest-stable.json.sha256
           body: |
-            CompText Codex release ${{ github.ref_name }}
+            ## CompText Codex Release ${{ github.ref_name }}
 
-            ## Assets
+            This release contains the bundled CompText codex definitions.
+
+            ### Assets
             - `codex.bundle.json` - Main bundle file
             - `codex.bundle.latest-stable.json` - Latest stable alias
-            - Checksums (`.sha256` files)
+            - SHA-256 checksums for verification
+
+            ### Usage
+            Configure your MCP server:
+            ```bash
+            CODEX_BUNDLE_URL="https://github.com/ProfRandom92/comptext-codex/releases/latest/download/codex.bundle.latest-stable.json"
+            CODEX_CACHE_DIR="/var/cache/comptext"
+            ```
           draft: false
           prerelease: false
-
-      - name: Upload codex.bundle.json
-        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/codex.bundle.json
-          asset_name: codex.bundle.json
-          asset_content_type: application/json
-
-      - name: Upload codex.bundle.json.sha256
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/codex.bundle.json.sha256
-          asset_name: codex.bundle.json.sha256
-          asset_content_type: text/plain
-
-      - name: Upload codex.bundle.latest-stable.json
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/codex.bundle.latest-stable.json
-          asset_name: codex.bundle.latest-stable.json
-          asset_content_type: application/json
-
-      - name: Upload codex.bundle.latest-stable.json.sha256
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/codex.bundle.latest-stable.json.sha256
-          asset_name: codex.bundle.latest-stable.json.sha256
-          asset_content_type: text/plain
