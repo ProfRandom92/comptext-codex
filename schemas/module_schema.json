@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CompText Module Schema",
+  "type": "object",
+  "required": [
+    "module"
+  ],
+  "properties": {
+    "module": {
+      "type": "object",
+      "required": [
+        "code",
+        "name",
+        "purpose"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-M]$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "stability": {
+          "type": "string",
+          "enum": [
+            "Experimental",
+            "Stable",
+            "Frozen"
+          ]
+        },
+        "mcp_exposed": {
+          "type": "boolean"
+        },
+        "token_priority": {
+          "type": "string",
+          "enum": [
+            "High",
+            "Medium",
+            "Low"
+          ]
+        }
+      }
+    }
+  }
+}
