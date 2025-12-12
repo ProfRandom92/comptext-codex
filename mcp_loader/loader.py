@@ -1,107 +1,102 @@
 #!/usr/bin/env python3
 """
 MCP Loader for CompText Codex Bundle.
+Fetches, caches, and loads the codex bundle from GitHub releases.
 """
+import hashlib
 import json
 import os
 from pathlib import Path
-from urllib.request import urlopen
-from urllib.error import URLError
-import hashlib
+from typing import Dict, Any, Optional
+
+try:
+    import requests
+except ImportError:
+    print("Error: requests package not installed. Run: pip install requests")
+    exit(1)
+
 
 class CodexLoader:
-    """Loader for CompText codex bundles."""
+    """Load and cache CompText codex bundle."""
 
-    def __init__(self, bundle_url=None, cache_dir=None):
-        """
-        Initialize loader.
-
-        Args:
-            bundle_url: URL to codex bundle JSON
-            cache_dir: Local cache directory
-        """
-        self.bundle_url = bundle_url or os.environ.get('CODEX_BUNDLE_URL')
-        self.cache_dir = Path(cache_dir or os.environ.get('CODEX_CACHE_DIR', '/tmp/comptext'))
+    def __init__(self, bundle_url: Optional[str] = None, cache_dir: Optional[str] = None):
+        self.bundle_url = bundle_url or os.getenv(
+            'CODEX_BUNDLE_URL',
+            'https://github.com/ProfRandom92/comptext-codex/releases/latest/download/codex.bundle.latest-stable.json'
+        )
+        self.cache_dir = Path(cache_dir or os.getenv('CODEX_CACHE_DIR', '/var/cache/comptext'))
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.cache_file = self.cache_dir / 'codex.bundle.json'
-        self.codex = None
+        self.checksum_file = self.cache_dir / 'codex.bundle.json.sha256'
 
-    def load(self, force_refresh=False):
-        """
-        Load codex bundle from URL or cache.
+    def _compute_sha256(self, file_path: Path) -> str:
+        """Compute SHA-256 checksum of a file."""
+        sha256 = hashlib.sha256()
+        with open(file_path, 'rb') as f:
+            for chunk in iter(lambda: f.read(4096), b''):
+                sha256.update(chunk)
+        return sha256.hexdigest()
 
-        Args:
-            force_refresh: Force download even if cache exists
+    def _download_bundle(self) -> None:
+        """Download codex bundle from URL."""
+        print(f"Downloading codex bundle from {self.bundle_url}...")
+        response = requests.get(self.bundle_url, timeout=30)
+        response.raise_for_status()
 
-        Returns:
-            dict: Codex bundle data
-        """
-        if not force_refresh and self.cache_file.exists():
-            print(f"Loading codex from cache: {self.cache_file}")
-            with open(self.cache_file, 'r', encoding='utf-8') as f:
-                self.codex = json.load(f)
-            return self.codex
+        # Write bundle
+        with open(self.cache_file, 'wb') as f:
+            f.write(response.content)
 
-        if not self.bundle_url:
-            raise ValueError("No bundle URL specified")
+        # Compute and save checksum
+        checksum = self._compute_sha256(self.cache_file)
+        with open(self.checksum_file, 'w') as f:
+            f.write(checksum)
 
-        print(f"Downloading codex from: {self.bundle_url}")
-        try:
-            with urlopen(self.bundle_url) as response:
-                data = response.read()
-                self.codex = json.loads(data.decode('utf-8'))
+        print(f"✅ Downloaded and cached codex bundle (SHA-256: {checksum[:16]}...)")
 
-                # Cache the bundle
-                with open(self.cache_file, 'wb') as f:
-                    f.write(data)
+    def load(self, force_refresh: bool = False) -> Dict[str, Any]:
+        """Load codex bundle, downloading if necessary."""
+        if force_refresh or not self.cache_file.exists():
+            self._download_bundle()
 
-                print(f"Codex cached to: {self.cache_file}")
-                return self.codex
+        with open(self.cache_file, 'r') as f:
+            return json.load(f)
 
-        except URLError as e:
-            raise Exception(f"Failed to download codex: {e}")
+    def get_modules(self) -> list:
+        """Get list of modules."""
+        bundle = self.load()
+        return bundle.get('modules', [])
 
-    def get_modules(self):
-        """Get all modules."""
-        if not self.codex:
-            self.load()
-        return self.codex.get('codex', {}).get('modules', [])
-
-    def get_commands(self, module=None):
-        """
-        Get commands, optionally filtered by module.
-
-        Args:
-            module: Module code to filter by
-
-        Returns:
-            list: Commands
-        """
-        if not self.codex:
-            self.load()
-
-        commands = self.codex.get('codex', {}).get('commands', [])
-
+    def get_commands(self, module: Optional[str] = None) -> list:
+        """Get list of commands, optionally filtered by module."""
+        bundle = self.load()
+        commands = bundle.get('commands', [])
         if module:
-            return [c for c in commands if c.get('module') == module]
-
+            commands = [cmd for cmd in commands if cmd.get('module') == module]
         return commands
 
-    def get_profiles(self):
-        """Get all profiles."""
-        if not self.codex:
-            self.load()
-        return self.codex.get('codex', {}).get('profiles', [])
+    def get_profiles(self) -> list:
+        """Get list of profiles."""
+        bundle = self.load()
+        return bundle.get('profiles', [])
+
 
 def main():
-    """Example usage."""
+    """CLI for testing the loader."""
     loader = CodexLoader()
-    codex = loader.load()
 
-    print(f"\nCodex Version: {codex.get('version')}")
-    print(f"Modules: {codex.get('metadata', {}).get('modules_count', 0)}")
-    print(f"Commands: {codex.get('metadata', {}).get('commands_count', 0)}")
-    print(f"Profiles: {codex.get('metadata', {}).get('profiles_count', 0)}")
+    print("Loading CompText Codex...")
+    bundle = loader.load()
+
+    print(f"\n📦 Codex Bundle Loaded:")
+    print(f"  Modules: {len(bundle.get('modules', []))}")
+    print(f"  Commands: {len(bundle.get('commands', []))}")
+    print(f"  Profiles: {len(bundle.get('profiles', []))}")
+
+    print("\n📋 Modules:")
+    for module in bundle.get('modules', []):
+        print(f"  [{module['code']}] {module['name']} - {module.get('purpose', 'N/A')}")
+
 
 if __name__ == '__main__':
     main()
