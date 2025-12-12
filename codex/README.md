@@ -1,35 +1,25 @@
-# CompText Codex YAML Definitions
+# CompText Codex Definitions
 
-This directory contains YAML definitions for CompText modules, commands, and profiles.
+This directory contains YAML definitions for the CompText DSL codex.
 
 ## Structure
 
-- `modules/` - Module definitions
-- `commands/` - Command definitions  
-- `profiles/` - Profile definitions
+- `modules.yaml` - Module definitions (A-M codes)
+- `commands.yaml` - Command definitions with syntax and examples
+- `profiles.yaml` - Profile configurations
 
-## Example Module
+## Validation
 
-```yaml
-module:
-  code: "A"
-  name: "Analysis"
-  purpose: "Text analysis and processing"
-  stability: "Stable"
-  mcp_exposed: true
-  token_priority: "High"
+Validate all codex files:
+
+```bash
+python scripts/validate_codex.py --codex-dir codex
 ```
 
-## Example Command
+## Building
 
-```yaml
-commands:
-  - name: "Summarize"
-    command: "@sum"
-    syntax: "@sum <text>"
-    description: "Summarize the provided text"
-    module: "A"
-    example: "@sum This is a long text..."
-    stability: "Stable"
-    mcp_exposed: true
+Build the codex bundle:
+
+```bash
+python scripts/build_bundle.py --codex-dir codex --output dist/codex.bundle.json
 ```
