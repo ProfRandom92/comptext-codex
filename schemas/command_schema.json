@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CompText Command Schema",
+  "type": "object",
+  "required": [
+    "commands"
+  ],
+  "properties": {
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "command",
+          "syntax",
+          "description",
+          "module"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "syntax": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "module": {
+            "type": "string"
+          },
+          "example": {
+            "type": "string"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "token_cost_hint": {
+            "type": "number"
+          },
+          "stability": {
+            "type": "string",
+            "enum": [
+              "Experimental",
+              "Stable",
+              "Frozen"
+            ]
+          },
+          "mcp_exposed": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
