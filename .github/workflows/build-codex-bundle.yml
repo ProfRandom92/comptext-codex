@@ -5,69 +5,54 @@ on:
     tags:
       - 'v*'
 
-permissions:
-  contents: write
-
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
+      
       - name: Install dependencies
         run: |
-          pip install pyyaml jsonschema requests
-
+          pip install pyyaml jsonschema
+      
       - name: Validate codex
         run: |
-          python scripts/validate_codex.py --codex-dir codex
-
+          python scripts/validate_codex.py --codex-dir codex --schemas-dir schemas
+      
       - name: Build bundle
         run: |
           python scripts/build_bundle.py --codex-dir codex --output dist/codex.bundle.json
-
-      - name: Create latest-stable alias
+      
+      - name: Create latest-stable copy
         run: |
           cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
-
-      - name: Compute checksums
-        run: |
-          cd dist
-          sha256sum codex.bundle.json > codex.bundle.json.sha256
-          sha256sum codex.bundle.latest-stable.json > codex.bundle.latest-stable.json.sha256
-
+          cp dist/codex.bundle.json.sha256 dist/codex.bundle.latest-stable.json.sha256
+      
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_name }}
+          name: CompText Codex ${{ github.ref_name }}
+          body: |
+            CompText Codex release ${{ github.ref_name }}
+            
+            ## Assets
+            - `codex.bundle.json` - Main bundle file
+            - `codex.bundle.latest-stable.json` - Latest stable alias
+            - SHA-256 checksums for verification
+          draft: false
+          prerelease: false
           files: |
             dist/codex.bundle.json
             dist/codex.bundle.json.sha256
             dist/codex.bundle.latest-stable.json
             dist/codex.bundle.latest-stable.json.sha256
-          body: |
-            ## CompText Codex Release ${{ github.ref_name }}
-
-            This release contains the bundled CompText codex definitions.
-
-            ### Assets
-            - `codex.bundle.json` - Main bundle file
-            - `codex.bundle.latest-stable.json` - Latest stable alias
-            - SHA-256 checksums for verification
-
-            ### Usage
-            Configure your MCP server:
-            ```bash
-            CODEX_BUNDLE_URL="https://github.com/ProfRandom92/comptext-codex/releases/latest/download/codex.bundle.latest-stable.json"
-            CODEX_CACHE_DIR="/var/cache/comptext"
-            ```
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
