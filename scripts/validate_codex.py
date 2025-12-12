@@ -1,88 +1,96 @@
 #!/usr/bin/env python3
 """
-Validate CompText codex YAML files against JSON schemas.
+Validate CompText Codex YAML files against JSON schemas.
 """
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
-import yaml
+
 try:
+    import yaml
     from jsonschema import validate, ValidationError
 except ImportError:
-    print("ERROR: jsonschema package not installed. Run: pip install jsonschema")
+    print("Error: Required packages not installed. Run: pip install pyyaml jsonschema")
     sys.exit(1)
 
+
 def load_schema(schema_path):
-    """Load JSON schema from file."""
-    with open(schema_path, 'r', encoding='utf-8') as f:
+    """Load a JSON schema file."""
+    with open(schema_path, 'r') as f:
         return json.load(f)
 
-def load_yaml(yaml_path):
-    """Load YAML file."""
-    with open(yaml_path, 'r', encoding='utf-8') as f:
+
+def load_yaml_file(yaml_path):
+    """Load a YAML file."""
+    with open(yaml_path, 'r') as f:
         return yaml.safe_load(f)
 
-def validate_codex_files(codex_dir, schemas_dir):
-    """Validate all YAML files in codex directory."""
-    codex_path = Path(codex_dir)
-    schemas_path = Path(schemas_dir)
 
-    # Define schema mappings
-    schema_map = {
-        'module': schemas_path / 'module_schema.json',
-        'command': schemas_path / 'command_schema.json',
-        'profile': schemas_path / 'profile_schema.json'
-    }
+def validate_codex_file(yaml_path, schema_dir):
+    """Validate a single codex YAML file."""
+    data = load_yaml_file(yaml_path)
 
-    errors = []
-    validated = 0
-
-    for yaml_file in codex_path.glob('**/*.yaml'):
-        try:
-            data = load_yaml(yaml_file)
-
-            # Determine schema type from file content or name
-            if 'module' in data:
-                schema_type = 'module'
-            elif 'commands' in data:
-                schema_type = 'command'
-            elif 'profile' in data:
-                schema_type = 'profile'
-            else:
-                print(f"WARNING: Cannot determine type for {yaml_file}")
-                continue
-
-            schema = load_schema(schema_map[schema_type])
-            validate(instance=data, schema=schema)
-            validated += 1
-            print(f"✓ {yaml_file.name} validated successfully")
-
-        except ValidationError as e:
-            errors.append(f"{yaml_file}: {e.message}")
-            print(f"✗ {yaml_file.name}: {e.message}")
-        except Exception as e:
-            errors.append(f"{yaml_file}: {str(e)}")
-            print(f"✗ {yaml_file.name}: {str(e)}")
-
-    print(f"\nValidation complete: {validated} files validated")
-
-    if errors:
-        print(f"\n{len(errors)} errors found:")
-        for error in errors:
-            print(f"  - {error}")
+    # Determine schema based on file type
+    if 'modules' in data:
+        schema = load_schema(os.path.join(schema_dir, 'modules.schema.json'))
+    elif 'commands' in data:
+        schema = load_schema(os.path.join(schema_dir, 'commands.schema.json'))
+    elif 'profiles' in data:
+        schema = load_schema(os.path.join(schema_dir, 'profiles.schema.json'))
+    else:
+        print(f"⚠️  Unknown codex file type: {yaml_path}")
         return False
-    return True
+
+    try:
+        validate(instance=data, schema=schema)
+        print(f"✅ Valid: {yaml_path}")
+        return True
+    except ValidationError as e:
+        print(f"❌ Invalid: {yaml_path}")
+        print(f"   Error: {e.message}")
+        return False
+
 
 def main():
-    parser = argparse.ArgumentParser(description='Validate CompText codex YAML files')
-    parser.add_argument('--codex-dir', default='codex', help='Directory containing YAML files')
-    parser.add_argument('--schemas-dir', default='schemas', help='Directory containing JSON schemas')
-
+    parser = argparse.ArgumentParser(description='Validate CompText Codex YAML files')
+    parser.add_argument('--codex-dir', default='codex', help='Directory containing codex YAML files')
+    parser.add_argument('--schema-dir', default='schemas', help='Directory containing JSON schemas')
     args = parser.parse_args()
 
-    success = validate_codex_files(args.codex_dir, args.schemas_dir)
-    sys.exit(0 if success else 1)
+    codex_dir = Path(args.codex_dir)
+    schema_dir = Path(args.schema_dir)
+
+    if not codex_dir.exists():
+        print(f"Error: Codex directory not found: {codex_dir}")
+        sys.exit(1)
+
+    if not schema_dir.exists():
+        print(f"Error: Schema directory not found: {schema_dir}")
+        sys.exit(1)
+
+    yaml_files = list(codex_dir.glob('**/*.yaml')) + list(codex_dir.glob('**/*.yml'))
+
+    if not yaml_files:
+        print(f"No YAML files found in {codex_dir}")
+        sys.exit(1)
+
+    print(f"\nValidating {len(yaml_files)} codex file(s)...\n")
+
+    all_valid = True
+    for yaml_file in yaml_files:
+        if not validate_codex_file(yaml_file, schema_dir):
+            all_valid = False
+
+    print()
+    if all_valid:
+        print("✅ All codex files are valid!")
+        sys.exit(0)
+    else:
+        print("❌ Some codex files are invalid.")
+        sys.exit(1)
+
 
 if __name__ == '__main__':
     main()
