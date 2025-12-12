@@ -1,0 +1,94 @@
+name: Build Codex Bundle
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml jsonschema
+
+      - name: Validate codex
+        run: |
+          python scripts/validate_codex.py --codex-dir codex --schemas-dir schemas
+
+      - name: Build bundle
+        run: |
+          python scripts/build_bundle.py --codex-dir codex --output dist/codex.bundle.json
+
+      - name: Create latest-stable copy
+        run: |
+          cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
+          cp dist/codex.bundle.json.sha256 dist/codex.bundle.latest-stable.json.sha256
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: CompText Codex ${{ github.ref_name }}
+          body: |
+            CompText Codex release ${{ github.ref_name }}
+
+            ## Assets
+            - `codex.bundle.json` - Main bundle file
+            - `codex.bundle.latest-stable.json` - Latest stable alias
+            - Checksums (`.sha256` files)
+          draft: false
+          prerelease: false
+
+      - name: Upload codex.bundle.json
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/codex.bundle.json
+          asset_name: codex.bundle.json
+          asset_content_type: application/json
+
+      - name: Upload codex.bundle.json.sha256
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/codex.bundle.json.sha256
+          asset_name: codex.bundle.json.sha256
+          asset_content_type: text/plain
+
+      - name: Upload codex.bundle.latest-stable.json
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/codex.bundle.latest-stable.json
+          asset_name: codex.bundle.latest-stable.json
+          asset_content_type: application/json
+
+      - name: Upload codex.bundle.latest-stable.json.sha256
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/codex.bundle.latest-stable.json.sha256
+          asset_name: codex.bundle.latest-stable.json.sha256
+          asset_content_type: text/plain
