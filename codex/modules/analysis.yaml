@@ -1,0 +1,7 @@
+module:
+  code: "A"
+  name: "Analysis"
+  purpose: "Text analysis and processing commands"
+  stability: "Stable"
+  mcp_exposed: true
+  token_priority: "High"
