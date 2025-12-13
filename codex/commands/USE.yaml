@@ -1,0 +1,18 @@
+id: cmd:USE
+name: USE
+syntax: CMD:USE
+module_id: module:A
+description: Command (auto-extracted)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- USE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:USE (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:USE'
+keywords:
+- cmd

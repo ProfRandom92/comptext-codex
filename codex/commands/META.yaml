@@ -1,0 +1,16 @@
+id: cmd:META
+name: META
+syntax: META:<value>
+module_id: module:A
+description: Parameter key META
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- META
+token_cost_hint: 1
+text_compact: '[PARAM] META
+
+  Syntax: META:<value>'
+keywords:
+- param

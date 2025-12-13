@@ -1,0 +1,16 @@
+id: cmd:PAR_TO_TRENNT_WERTE
+name: PAR_TO_TRENNT_WERTE
+syntax: PAR:→ Trennt Werte
+module_id: module:A
+description: PAR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- PAR:→ Trennt Werte
+token_cost_hint: 4
+text_compact: '[TOKEN] PAR:→ Trennt Werte (A)
+
+  Meaning: '
+keywords:
+- PAR

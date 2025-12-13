@@ -1,0 +1,17 @@
+id: cmd:LNG_RUST
+name: LNG_RUST
+syntax: LNG:RUST
+module_id: module:B
+description: Rust
+examples:
+- 'INPUT: CMD:CODE;LNG:RUST;FB:LNG:PY'
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:RUST
+token_cost_hint: 2
+text_compact: '[TOKEN] LNG:RUST (B)
+
+  Meaning: Rust'
+keywords:
+- LNG

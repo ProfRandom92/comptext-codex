@@ -1,0 +1,21 @@
+id: cmd:MDL_XGB
+name: MDL_XGB
+syntax: MDL:XGB
+module_id: module:E
+description: MDL value
+examples:
+- CMD:PREP;CMD:FEAT;NORM:STD;CMD:TRAIN;MDL:XGB;SPLIT:CV5;CMD:EVAL;METR:F1,AUC
+- CMD:TRAIN;MDL:XGB;HPT:Y→CMD:ETL;SRC:S3;DST:PG|CMD:PIPE;TOOL:GHA;STG:PROD|CMD:TEST;TYP:INTEG;ENV:PROD
+- 'INPUT: CMD:TRAIN;MDL:XGB;HPT:Y→CMD:ETL;SRC:S3;DST:PG|CMD:PIPE;TOOL:GHA;STG:PROD|CMD:TEST;TYP:INTEG'
+- 'code: ''CMD:PREP;SRC:CSV;EDA:Y|CMD:TRAIN;MDL:XGB;CV:5|CMD:EVAL;METRIC:F1,AUC'','
+- '|> CMD:TRAIN;MDL:XGB;SPLIT:CV5'
+stability: stable
+mcp_exposed: true
+aliases:
+- MDL:XGB
+token_cost_hint: 1
+text_compact: '[TOKEN] MDL:XGB (E)
+
+  Meaning: '
+keywords:
+- MDL

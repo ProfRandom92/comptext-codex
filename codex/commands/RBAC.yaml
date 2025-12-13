@@ -1,0 +1,24 @@
+id: cmd:RBAC
+name: RBAC
+syntax: CMD:RBAC
+module_id: module:I
+description: Role-Based Access Control (V3.5.2)
+examples:
+- 'INPUT: CMD:RBAC;ROLES:[ADMIN,USER,GUEST];RES:API'
+- CMD:RBAC;TYP:<rbac-typ>;HIER:<hierarchie>;STORE:<speicher>
+- CMD:RBAC;TYP:BASIC;STORE:MEM;LNG:PY;AUDIT:Y
+- CMD:RBAC;TYP:HIER;HIER:TREE;STORE:DB;LNG:TS;CACHE:Y
+- CMD:RBAC;TYP:${1|BASIC,HIER,ATTR|};STORE:${2|MEM,DB,REDIS|};LNG:${3|PY,TS,JAVA|}${4:;AUDIT:${5|Y,N|}}
+- 'body": ["CMD:RBAC;TYP:${1|BASIC,HIER|};STORE:${2|MEM,DB|}"],'
+stability: stable
+mcp_exposed: true
+aliases:
+- RBAC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:RBAC (I, stable)
+
+  Intent: Role-Based Access Control (V3.5.2)
+
+  Syntax: CMD:RBAC'
+keywords:
+- cmd

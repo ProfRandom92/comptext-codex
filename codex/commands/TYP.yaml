@@ -1,0 +1,26 @@
+id: cmd:TYP
+name: TYP
+syntax: CMD:TYP
+module_id: module:A
+description: CHAIN, TREE, REACT, PLAN
+examples:
+- CMD:TEST;TYP:BENCH;MOD:[A-M];METRIC:TOKEN
+- CMD:AGENT;TYP:<agent-typ>;STEPS:[<steps>];TOOLS:[<tools>]
+- CMD:AGENT;TYP:CHAIN;STEPS:[RESEARCH,ANALYZE,SUMMARIZE]
+- CMD:AGENT;TYP:REACT;TOOLS:[SEARCH,CALC,CODE];MAX_ITER:10
+- CMD:MEM;TYP:<mem-typ>;STORE:<backend>;EMB:<embedding>
+- CMD:MEM;TYP:VEC;STORE:PINECONE;EMB:ADA;CHUNK:512;TOP_K:5
+- CMD:MEM;TYP:HYBRID;STORE:CHROMA,NEO4J;EMB:BGE
+- CMD:AGENT;TYP:REACT | CMD:MEM;TYP:VEC;STORE:CHROMA
+stability: stable
+mcp_exposed: true
+aliases:
+- TYP
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TYP (A, stable)
+
+  Intent: CHAIN, TREE, REACT, PLAN
+
+  Syntax: CMD:TYP'
+keywords:
+- cmd

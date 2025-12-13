@@ -1,0 +1,20 @@
+id: cmd:PRED
+name: PRED
+syntax: CMD:PRED
+module_id: module:E
+description: Vorhersagen
+examples:
+- CMD:PRED;MDL:LR
+- CMD:PRED;MDL:RF;DATA:test-set
+stability: stable
+mcp_exposed: true
+aliases:
+- PRED
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:PRED (E, stable)
+
+  Intent: Vorhersagen
+
+  Syntax: CMD:PRED'
+keywords:
+- cmd

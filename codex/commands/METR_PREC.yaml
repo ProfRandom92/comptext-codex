@@ -1,0 +1,16 @@
+id: cmd:METR_PREC
+name: METR_PREC
+syntax: METR:PREC
+module_id: module:E
+description: METR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:PREC
+token_cost_hint: 2
+text_compact: '[TOKEN] METR:PREC (E)
+
+  Meaning: '
+keywords:
+- METR

@@ -1,0 +1,22 @@
+id: cmd:SWARM
+name: SWARM
+syntax: CMD:SWARM
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:SWARM;NAME:my_team
+- CMD:SWARM;NAME:research_team
+- CMD:SWARM;NAME:code_review
+- CMD:SWARM;NAME:support_team
+stability: stable
+mcp_exposed: true
+aliases:
+- SWARM
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SWARM (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:SWARM'
+keywords:
+- cmd

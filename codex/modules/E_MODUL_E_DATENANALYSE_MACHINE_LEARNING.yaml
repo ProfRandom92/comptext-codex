@@ -1,0 +1,40 @@
+id: module:E
+code: E
+name: 'Modul E: Datenanalyse & Machine Learning'
+purpose: Spezialisierte Befehle für Datenanalyse, statistische Auswertungen und ML-Workflows
+stability: stable
+mcp_exposed: true
+tags:
+- Analyse
+- Erweitert
+command_ids:
+- cmd:EVAL
+- cmd:FEAT
+- cmd:PRED
+- cmd:PREP
+- cmd:TRAIN
+- cmd:MDL_LR
+- cmd:MDL_RF
+- cmd:MDL_XGB
+- cmd:MDL_NN
+- cmd:MDL_KMN
+- cmd:MDL_SVM
+- cmd:MDL_DT
+- cmd:METR_ACC
+- cmd:METR_RMSE
+- cmd:METR_F1
+- cmd:METR_AUC
+- cmd:METR_R2
+- cmd:METR_MAE
+- cmd:METR_PREC
+- cmd:METR_REC
+- cmd:SPLIT_80_20
+- cmd:SPLIT_70_30
+- cmd:SPLIT_CV5
+- cmd:SPLIT_CV10
+- cmd:NORM_STD
+- cmd:NORM_MINMAX
+- cmd:NORM_ROB
+text_compact: '[MODULE] E – Modul E: Datenanalyse & Machine Learning
+
+  Purpose: Spezialisierte Befehle für Datenanalyse, statistische Auswertungen und ML-Workflows'

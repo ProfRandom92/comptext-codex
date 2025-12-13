@@ -1,0 +1,16 @@
+id: cmd:TRANS_AGG
+name: TRANS_AGG
+syntax: TRANS:AGG
+module_id: module:L
+description: TRANS value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TRANS:AGG
+token_cost_hint: 2
+text_compact: '[TOKEN] TRANS:AGG (L)
+
+  Meaning: '
+keywords:
+- TRANS

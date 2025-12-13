@@ -1,0 +1,19 @@
+id: cmd:DEST_DB
+name: DEST_DB
+syntax: DEST:DB
+module_id: module:L
+description: DEST value
+examples:
+- CMD:STRM;SRC:KAFK;DEST:DB;SCHED:RT
+- CMD:UI;FRM:REACT;CSS:TAIL;CTYP:NAV,CARD,TBL;BRKP:ALL;CMD:A11Y;CMD:TEST;TTYP:E2E;FRM:JEST;CMD:ETL;SRC:API;DEST:DB;TRANS:CLN;SCHED:RT
+- CMD:ETL;SRC:API,DB;DEST:DWH;TRANS:CLN,AGG,ENRCH;SCHED:D;CMD:STRM;SRC:KAFK;DEST:DB;SCHED:RT;CMD:TEST;TTYP:INTG;CMD:MON;MON_TYP:LOG,ALRT;CMD:DOC;AUD:TECH
+stability: stable
+mcp_exposed: true
+aliases:
+- DEST:DB
+token_cost_hint: 1
+text_compact: '[TOKEN] DEST:DB (L)
+
+  Meaning: '
+keywords:
+- DEST

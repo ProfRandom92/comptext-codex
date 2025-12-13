@@ -1,0 +1,16 @@
+id: cmd:ENCR_TYP_SHA256
+name: ENCR_TYP_SHA256
+syntax: ENCR_TYP:SHA256
+module_id: module:I
+description: ENCR_TYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ENCR_TYP:SHA256
+token_cost_hint: 3
+text_compact: '[TOKEN] ENCR_TYP:SHA256 (I)
+
+  Meaning: '
+keywords:
+- ENCR_TYP

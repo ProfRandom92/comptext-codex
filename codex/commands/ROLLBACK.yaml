@@ -1,0 +1,20 @@
+id: cmd:ROLLBACK
+name: ROLLBACK
+syntax: CMD:ROLLBACK
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- TRY:→CMD:DEPLOY|CATCH:→CMD:ROLLBACK|FINALLY:→CMD:NOTIFY
+- )|CATCH:→CMD:ROLLBACK
+stability: stable
+mcp_exposed: true
+aliases:
+- ROLLBACK
+token_cost_hint: 2
+text_compact: '[COMMAND] CMD:ROLLBACK (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ROLLBACK'
+keywords:
+- cmd

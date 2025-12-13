@@ -1,0 +1,19 @@
+id: cmd:METR_F1
+name: METR_F1
+syntax: METR:F1
+module_id: module:E
+description: METR value
+examples:
+- CMD:PREP;CMD:FEAT;NORM:STD;CMD:TRAIN;MDL:XGB;SPLIT:CV5;CMD:EVAL;METR:F1,AUC
+- CMD:PREP;CMD:FEAT;NORM:STD;CMD:TRAIN;MDL:RF,XGB;SPLIT:CV5;CMD:EVAL;METR:F1,AUC
+- '|> CMD:EVAL;METR:F1,AUC'
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:F1
+token_cost_hint: 1
+text_compact: '[TOKEN] METR:F1 (E)
+
+  Meaning: '
+keywords:
+- METR

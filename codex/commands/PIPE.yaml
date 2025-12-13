@@ -1,0 +1,26 @@
+id: cmd:PIPE
+name: PIPE
+syntax: CMD:PIPE
+module_id: module:J
+description: Pipeline
+examples:
+- CMD:DOCK;LNG:PY;CMD:K8S;TASK:K8S_DEPLOY;CMD:PIPE;CICD:GHA
+- self.register('DEPLOY', 'CMD:PIPE;K8S:Y;ENV:PROD')
+- CMD:PIPE,DOCK,K8S,TERR,MON
+- CMD:CODE;LNG:PY;FRM:FAPI;CMD:TEST;TTYP:UNIT;CMD:DOCK;CMD:PIPE;CICD:GHA;CLOUD:AWS
+- CMD:PIPE;NAME:fullstack;STEPS:[
+- CMD:PIPE;NAME:ml-workflow;STEPS:[
+- CMD:PIPE;NAME:security-audit;STEPS:[
+- CMD:PIPE;NAME:...;STEPS:[...]
+stability: stable
+mcp_exposed: true
+aliases:
+- PIPE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:PIPE (J, stable)
+
+  Intent: Pipeline
+
+  Syntax: CMD:PIPE'
+keywords:
+- cmd

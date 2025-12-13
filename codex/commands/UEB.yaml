@@ -1,0 +1,18 @@
+id: cmd:UEB
+name: UEB
+syntax: CMD:ÜB
+module_id: module:A
+description: Übersetzen
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ÜB
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ÜB (A, stable)
+
+  Intent: Übersetzen
+
+  Syntax: CMD:ÜB'
+keywords:
+- cmd

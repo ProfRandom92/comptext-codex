@@ -1,0 +1,16 @@
+id: cmd:TRANS_ENRCH
+name: TRANS_ENRCH
+syntax: TRANS:ENRCH
+module_id: module:L
+description: TRANS value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TRANS:ENRCH
+token_cost_hint: 2
+text_compact: '[TOKEN] TRANS:ENRCH (L)
+
+  Meaning: '
+keywords:
+- TRANS

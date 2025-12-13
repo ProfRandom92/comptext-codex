@@ -1,0 +1,18 @@
+id: cmd:STEPS
+name: STEPS
+syntax: CMD:STEPS
+module_id: module:A
+description: '[A,B,C,...]'
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- STEPS
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:STEPS (A, stable)
+
+  Intent: [A,B,C,...]
+
+  Syntax: CMD:STEPS'
+keywords:
+- cmd

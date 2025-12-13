@@ -1,0 +1,25 @@
+id: cmd:CACHE
+name: CACHE
+syntax: CMD:CACHE
+module_id: module:B
+description: Caching-Strategien (LRU/TTL/Redis)
+examples:
+- 'INPUT: CMD:CACHE;STRAT:LRU;TTL:3600'
+- 'INPUT: CMD:API;URL:...;FB:IF:TIMEOUT→CMD:CACHE;FB:IF:RATELIMIT→CMD:QUEUE'
+- CMD:CACHE;STRAT:${1|LRU,LFU,FIFO,TTL|};BACK:${2|MEM,REDIS,FILE,DB|}${3:;TTL:${4:3600}}${5:;MAX:${6:1000}}
+- 'body": ["CMD:CACHE;STRAT:${1|LRU,TTL|};BACK:${2|MEM,REDIS|}"],'
+- CMD:CACHE;STRAT:<strategie>;BACK:<backend>;TTL:<zeit>
+- CMD:CACHE;STRAT:LRU;BACK:MEM;MAX:1000;LNG:PY
+- CMD:CACHE;STRAT:TTL;BACK:REDIS;TTL:3600;INV:TAG;LNG:PY
+stability: stable
+mcp_exposed: true
+aliases:
+- CACHE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CACHE (B, stable)
+
+  Intent: Caching-Strategien (LRU/TTL/Redis)
+
+  Syntax: CMD:CACHE'
+keywords:
+- cmd

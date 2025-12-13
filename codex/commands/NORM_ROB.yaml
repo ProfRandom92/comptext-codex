@@ -1,0 +1,16 @@
+id: cmd:NORM_ROB
+name: NORM_ROB
+syntax: NORM:ROB
+module_id: module:E
+description: NORM value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- NORM:ROB
+token_cost_hint: 2
+text_compact: '[TOKEN] NORM:ROB (E)
+
+  Meaning: '
+keywords:
+- NORM

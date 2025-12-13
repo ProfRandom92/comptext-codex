@@ -1,0 +1,19 @@
+id: module:O
+code: O
+name: 'Modul O & P: Enterprise Features (V3.7.0)'
+purpose: Security, Observability, Caching und Config Management für Enterprise
+stability: experimental
+mcp_exposed: false
+tags:
+- Erweitert
+command_ids:
+- cmd:OBS
+- cmd:OBS_TRACE
+- cmd:OBS_BAGGAGE
+- cmd:OBS_LOG
+- cmd:OBS_METRIC
+- cmd:OBS_REPLAY
+- cmd:SPAN
+text_compact: '[MODULE] O – Modul O & P: Enterprise Features (V3.7.0)
+
+  Purpose: Security, Observability, Caching und Config Management für Enterprise'

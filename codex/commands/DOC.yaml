@@ -1,0 +1,26 @@
+id: cmd:DOC
+name: DOC
+syntax: CMD:DOC
+module_id: module:F
+description: Dokumentieren
+examples:
+- →CMD:DOC;LNG:PY;TYP:API
+- self.register('DOCALL', 'CMD:DOC;TYP:API,README,SPEC')
+- 'EXPECT_EXPAND: CMD:ANAL;TYP:STAT|CMD:DOC;FMT:MD;SRC:$PREV'
+- '- CMD:DOC;FMT:MD'
+- '- CMD:DOC'
+- CMD:DOC,REP,SPEC,APID
+- '|CMD:DOC;FMT:MD'
+- '|> CMD:DOC;FMT:MD;SECT:[RISKS,RECOMMENDATIONS]'
+stability: stable
+mcp_exposed: true
+aliases:
+- DOC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:DOC (F, stable)
+
+  Intent: Dokumentieren
+
+  Syntax: CMD:DOC'
+keywords:
+- cmd

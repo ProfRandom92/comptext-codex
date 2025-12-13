@@ -1,0 +1,19 @@
+id: cmd:SRC_S3
+name: SRC_S3
+syntax: SRC:S3
+module_id: module:L
+description: SRC value
+examples:
+- CMD:TRAIN;MDL:XGB;HPT:Y→CMD:ETL;SRC:S3;DST:PG|CMD:PIPE;TOOL:GHA;STG:PROD|CMD:TEST;TYP:INTEG;ENV:PROD
+- CMD:BTCH;SRC:S3;DEST:LAKE;SCHED:H
+- 'INPUT: CMD:TRAIN;MDL:XGB;HPT:Y→CMD:ETL;SRC:S3;DST:PG|CMD:PIPE;TOOL:GHA;STG:PROD|CMD:TEST;TYP:INTEG'
+stability: stable
+mcp_exposed: true
+aliases:
+- SRC:S3
+token_cost_hint: 1
+text_compact: '[TOKEN] SRC:S3 (L)
+
+  Meaning: '
+keywords:
+- SRC

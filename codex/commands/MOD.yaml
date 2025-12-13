@@ -1,0 +1,20 @@
+id: cmd:MOD
+name: MOD
+syntax: CMD:MOD
+module_id: module:B
+description: Modifizieren
+examples:
+- CMD:MOD;LNG:PY;TASK:update-feature
+- CMD:MOD;RENAME;FROM:old_name;TO:new_name",
+stability: stable
+mcp_exposed: true
+aliases:
+- MOD
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MOD (B, stable)
+
+  Intent: Modifizieren
+
+  Syntax: CMD:MOD'
+keywords:
+- cmd

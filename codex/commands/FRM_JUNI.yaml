@@ -1,0 +1,16 @@
+id: cmd:FRM_JUNI
+name: FRM_JUNI
+syntax: FRM:JUNI
+module_id: module:B
+description: JUnit
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:JUNI
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:JUNI (B)
+
+  Meaning: JUnit'
+keywords:
+- FRM

@@ -1,0 +1,44 @@
+id: module:I
+code: I
+name: 'Modul I: Security & Compliance'
+purpose: Befehle für Sicherheitsanalyse, Compliance-Checks und Best Practices
+stability: stable
+mcp_exposed: true
+tags:
+- Erweitert
+command_ids:
+- cmd:AUTH
+- cmd:COMPL
+- cmd:ENCR
+- cmd:RBAC
+- cmd:SAUD
+- cmd:VULN
+- cmd:SEC_LVL_L
+- cmd:SEC_LVL_M
+- cmd:SEC_LVL_H
+- cmd:SEC_LVL_CRIT
+- cmd:STD_GDPR
+- cmd:STD_HIPAA
+- cmd:STD_PCI
+- cmd:STD_ISO27K
+- cmd:STD_OWASP
+- cmd:ENCR_TYP_AES
+- cmd:ENCR_TYP_RSA
+- cmd:ENCR_TYP_TLS
+- cmd:ENCR_TYP_SHA256
+- cmd:AUTH_MTH_JWT
+- cmd:AUTH_MTH_OA2
+- cmd:AUTH_MTH_SAML
+- cmd:AUTH_MTH_MFA
+- cmd:SEC_ROLE
+- cmd:SEC_SIGN
+- cmd:SEC_QUICK
+- cmd:SEC_POLICY
+- cmd:SEC_RBAC
+- cmd:SEC_ALLOW
+- cmd:SEC_AUDIT
+- cmd:PERM
+- cmd:SCOPE
+text_compact: '[MODULE] I – Modul I: Security & Compliance
+
+  Purpose: Befehle für Sicherheitsanalyse, Compliance-Checks und Best Practices'

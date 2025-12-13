@@ -1,0 +1,16 @@
+id: cmd:FRM_ARFL
+name: FRM_ARFL
+syntax: FRM:ARFL
+module_id: module:B
+description: Airflow
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:ARFL
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:ARFL (B)
+
+  Meaning: Airflow'
+keywords:
+- FRM

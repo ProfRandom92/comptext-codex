@@ -1,0 +1,24 @@
+id: cmd:STY_PRO
+name: STY_PRO
+syntax: STY:PRO
+module_id: module:A
+description: Professionell
+examples:
+- CMD:ZSF;STY:PRO;FMT:LST;LEN:5P
+- CMD:REP;SECT:OVW;DET:L;AUD:MGT;STY:PRO
+- CMD:CODE;LNG:PY;FRM:PND;TASK:DB_CONN;CMD:PREP;NORM:STD;CMD:ANAL;TASK:DESC_STATS;CMD:PLOT;GRPH:LINE,BAR,PIE;AXIS:X=Zeit;Y=Umsatz;COL:VIB;CMD:REP;SECT:OVW;DET:H;INCL:DIAG,TBL;AUD:MGT;STY:PRO
+- CMD:ZSF;LEN:5P;STY:PRO;FMT:LST
+- cmd_v1 = parser.parse("CMD:ZSF;LEN:5P;STY:PRO;FMT:LST")
+- const cmdV1 = parser.parse('CMD:ZSF;LEN:5P;STY:PRO');
+- cmd = parser.parse("CMD:ZSF;LEN:5P;STY:PRO")
+- 'lambda: parser.parse("CMD:ZSF;LEN:5P;STY:PRO"),'
+stability: stable
+mcp_exposed: true
+aliases:
+- STY:PRO
+token_cost_hint: 1
+text_compact: '[TOKEN] STY:PRO (A)
+
+  Meaning: Professionell'
+keywords:
+- STY

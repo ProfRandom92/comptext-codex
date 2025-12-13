@@ -1,0 +1,16 @@
+id: cmd:GRPH_PIE
+name: GRPH_PIE
+syntax: GRPH:PIE
+module_id: module:C
+description: Kuchendiagramm
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- GRPH:PIE
+token_cost_hint: 2
+text_compact: '[TOKEN] GRPH:PIE (C)
+
+  Meaning: Kuchendiagramm'
+keywords:
+- GRPH

@@ -1,0 +1,19 @@
+id: cmd:SEC_AUD
+name: SEC_AUD
+syntax: CMD:SEC_AUD
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- '- Security checks → Use CMD:SEC_AUD, CMD:VULN'
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC_AUD
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SEC_AUD (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:SEC_AUD'
+keywords:
+- cmd

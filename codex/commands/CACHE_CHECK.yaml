@@ -1,0 +1,17 @@
+id: cmd:CACHE_CHECK
+name: CACHE_CHECK
+syntax: CACHE:CHECK
+module_id: module:P
+description: Token (auto-extracted)
+examples:
+- CACHE:CHECK;HASH:sha256:abc123...
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:CHECK
+token_cost_hint: 2
+text_compact: '[TOKEN] CACHE:CHECK (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CACHE

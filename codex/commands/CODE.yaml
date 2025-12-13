@@ -1,0 +1,26 @@
+id: cmd:CODE
+name: CODE
+syntax: CMD:CODE
+module_id: module:B
+description: Code generieren
+examples:
+- CMD:CODE;LNG:PY|CMD:TEST;COV:80|CMD:DOCK;ACT:PUSH
+- CMD:CODE;LNG:PY;FRM:FAST          // 27 Tokens
+- CMD:CODE;LNG:PY;FRM:FAST|CMD:TEST;FRM:PYTEST
+- CMD:CODE;LNG:PY;FRM:FAST;TASK:API;ENDPOINT:/users
+- 'CMD:CODE;TASK:API",  # LNG und FRM aus Context'
+- executor.execute("CMD:CODE;LNG:PY;TASK:model"),
+- executor.execute("CMD:CODE;LNG:PY;TASK:api"),
+- executor.execute("CMD:CODE;LNG:PY;TASK:tests")
+stability: stable
+mcp_exposed: true
+aliases:
+- CODE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CODE (B, stable)
+
+  Intent: Code generieren
+
+  Syntax: CMD:CODE'
+keywords:
+- cmd

@@ -1,0 +1,17 @@
+id: cmd:CTYP_TBL
+name: CTYP_TBL
+syntax: CTYP:TBL
+module_id: module:K
+description: CTYP value
+examples:
+- CMD:UI;FRM:REACT;CSS:TAIL;CTYP:NAV,CARD,FORM;BRKP:ALL;CMD:A11Y;CMD:CMPN;CTYP:TBL;CMD:ANIM;CMD:TEST;TTYP:E2E;FRM:JEST;CMD:DOC;SECT:USE;AUD:DEV
+stability: stable
+mcp_exposed: true
+aliases:
+- CTYP:TBL
+token_cost_hint: 2
+text_compact: '[TOKEN] CTYP:TBL (K)
+
+  Meaning: '
+keywords:
+- CTYP

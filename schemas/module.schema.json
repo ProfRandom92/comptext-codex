@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://comptext.dev/schemas/module.schema.json",
+  "title": "CompText Module",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "code",
+    "name",
+    "purpose",
+    "stability",
+    "mcp_exposed",
+    "tags",
+    "command_ids",
+    "text_compact"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^module:[A-Z0-9_-]+$"
+    },
+    "code": {
+      "type": "string",
+      "pattern": "^[A-Z]$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stability": {
+      "type": "string",
+      "enum": [
+        "experimental",
+        "stable",
+        "frozen",
+        "deprecated"
+      ]
+    },
+    "mcp_exposed": {
+      "type": "boolean"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "command_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^cmd:[A-Z0-9_\\-]+$"
+      },
+      "default": []
+    },
+    "text_compact": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "links": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "spec_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "docs_url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

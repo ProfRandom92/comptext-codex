@@ -1,0 +1,25 @@
+id: cmd:RESET
+name: RESET
+syntax: CMD:RESET
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- '- CMD:RESET'
+- CMD:RESET${1:;${2|LNG,FRM,ENV,DBTYP|}}
+- 'body": ["CMD:RESET${1:;${2:LNG}}"],'
+- CMD:RESET             // Löscht gesamten Kontext-Stack
+- CMD:RESET;LNG         // Löscht nur LNG aus Stack
+- CMD:RESET;LNG,FRM     // Löscht LNG und FRM
+- CMD:RESET
+stability: stable
+mcp_exposed: true
+aliases:
+- RESET
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:RESET (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:RESET'
+keywords:
+- cmd

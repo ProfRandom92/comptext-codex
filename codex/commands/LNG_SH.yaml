@@ -1,0 +1,16 @@
+id: cmd:LNG_SH
+name: LNG_SH
+syntax: LNG:SH
+module_id: module:B
+description: Shell/Bash
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:SH
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:SH (B)
+
+  Meaning: Shell/Bash'
+keywords:
+- LNG

@@ -1,0 +1,26 @@
+id: cmd:MCPS
+name: MCPS
+syntax: CMD:MCPS
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,PIPE;NAME:comptext-orchestrator
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES,PIPE,ERRH;NAME:comptext-mcp;VER:2.0
+- 'INPUT: CMD:MCPS;SDK:PY'
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES;TASK:SETUP
+- CMD:MCPS;SDK:TS;TRANS:SSE;CAP:TOOLS,PRMTS,LOG;PORT:8080;AUTH:APIKEY
+- CMD:MCPS;SDK:PY;TRANS:STDIO;NAME:my-server;VER:1.0.0
+- CMD:MCPS;SDK:TS;TRANS:SSE;CAP:TOOLS,RES,PRMTS,SAMP,LOG;PORT:3000;AUTH:OAUTH2
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES;TARGET:CLAUDE_DESKTOP;TASK:CONFIG
+stability: stable
+mcp_exposed: true
+aliases:
+- MCPS
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MCPS (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:MCPS'
+keywords:
+- cmd

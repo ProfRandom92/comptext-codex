@@ -1,0 +1,16 @@
+id: cmd:GRPH_BOX
+name: GRPH_BOX
+syntax: GRPH:BOX
+module_id: module:C
+description: Box Plot
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- GRPH:BOX
+token_cost_hint: 2
+text_compact: '[TOKEN] GRPH:BOX (C)
+
+  Meaning: Box Plot'
+keywords:
+- GRPH

@@ -1,0 +1,16 @@
+id: cmd:TRG_PT
+name: TRG_PT
+syntax: TRG:PT
+module_id: module:A
+description: TRG value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TRG:PT
+token_cost_hint: 1
+text_compact: '[TOKEN] TRG:PT (A)
+
+  Meaning: '
+keywords:
+- TRG

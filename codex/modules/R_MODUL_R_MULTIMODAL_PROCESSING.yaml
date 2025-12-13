@@ -1,0 +1,14 @@
+id: module:R
+code: R
+name: '👁️ Modul R: Multimodal Processing'
+purpose: Spezifikation für Bild-, Audio- und Dokumentenverarbeitung in V3.7.0
+stability: stable
+mcp_exposed: true
+tags:
+- Erweitert
+- Visualisierung
+command_ids:
+- cmd:MULTI
+text_compact: '[MODULE] R – 👁️ Modul R: Multimodal Processing
+
+  Purpose: Spezifikation für Bild-, Audio- und Dokumentenverarbeitung in V3.7.0'

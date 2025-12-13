@@ -1,0 +1,21 @@
+id: cmd:SPEC
+name: SPEC
+syntax: CMD:SPEC
+module_id: module:F
+description: Spezifikation
+examples:
+- CMD:SPEC;SECT:ARCH;DET:H;AUD:TECH
+- 'INPUT: CMD:CODE;LNG:PY→CMD:APID;FMT:OAS3|CMD:DOC;TYP:README→CMD:SPEC;TPL:RFC'
+- CMD:SPEC;SECT:ARCH,API;AUD:TECH
+stability: stable
+mcp_exposed: true
+aliases:
+- SPEC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SPEC (F, stable)
+
+  Intent: Spezifikation
+
+  Syntax: CMD:SPEC'
+keywords:
+- cmd

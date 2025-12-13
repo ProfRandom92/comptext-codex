@@ -1,0 +1,24 @@
+id: cmd:LNG_JS
+name: LNG_JS
+syntax: LNG:JS
+module_id: module:B
+description: JavaScript
+examples:
+- self.register('JSTEST', 'CMD:TEST;LNG:JS;FRM:JEST')
+- '- CMD:TEST;LNG:JS'
+- 'EXPECT: LNG:JS überschreibt Kontext'
+- 'INPUT: CMD:CODE;LNG:JS |> REASON:CRITIC;CRITERIA:[PERF,SYNTAX];FIX:auto'
+- CMD:FIX;LNG:JS;TASK:ASYNC
+- 'javascript'': ''LNG:JS'','
+- code:modify-v1;LNG:JS;TASK:add-validation;PRESERVE:interface
+- code:optimize-v1;LNG:JS;TARGET:speed;METRIC:latency
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:JS
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:JS (B)
+
+  Meaning: JavaScript'
+keywords:
+- LNG

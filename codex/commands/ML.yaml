@@ -1,0 +1,19 @@
+id: cmd:ML
+name: ML
+syntax: CMD:ML
+module_id: module:A
+description: Command (from Web Playground lexer)
+examples:
+- CMD:ML;TASK:${1|TRAIN,PREDICT,EVAL|}",
+stability: stable
+mcp_exposed: true
+aliases:
+- ML
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ML (A, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:ML'
+keywords:
+- cmd

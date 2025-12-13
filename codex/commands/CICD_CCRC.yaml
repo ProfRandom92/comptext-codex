@@ -1,0 +1,16 @@
+id: cmd:CICD_CCRC
+name: CICD_CCRC
+syntax: CICD:CCRC
+module_id: module:J
+description: CICD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CICD:CCRC
+token_cost_hint: 2
+text_compact: '[TOKEN] CICD:CCRC (J)
+
+  Meaning: '
+keywords:
+- CICD

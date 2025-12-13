@@ -1,0 +1,19 @@
+id: cmd:LNG_GO
+name: LNG_GO
+syntax: LNG:GO
+module_id: module:B
+description: Go
+examples:
+- CMD:CODE;LNG:PY&CMD:CODE;LNG:TS&CMD:CODE;LNG:GO
+- 'code: ''CMD:CODE;LNG:PY&CMD:CODE;LNG:TS&CMD:CODE;LNG:GO'','
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST&CMD:CODE;LNG:TS;FRM:NEST&CMD:CODE;LNG:GO;FRM:GIN'','
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:GO
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:GO (B)
+
+  Meaning: Go'
+keywords:
+- LNG

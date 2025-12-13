@@ -1,0 +1,26 @@
+id: cmd:COV
+name: COV
+syntax: CMD:COV
+module_id: module:G
+description: Coverage
+examples:
+- CMD:CODE;LNG:PY|CMD:TEST;COV:80|CMD:DOCK;ACT:PUSH
+- ALIAS:FULLTEST=CMD:LINT→CMD:TEST→CMD:COV
+- →CMD:TEST;LNG:PY;FRM:PYTEST;COV:80
+- '// Expected: CMD:TEST;LNG:TS;FRM:VITEST;COV:90'
+- 'INPUT: C→T;LNG:PY;FRM:PYTEST;COV:80'
+- 'EXPECT_EXPAND: CMD:CODE;LNG:PY|CMD:TEST;LNG:PY;FRM:PYTEST;COV:80'
+- STEP:CMD:TEST;COV:80;TIMEOUT:60,
+- 'pipeline": "CMD:CODE;LNG:TS;FRM:NEST|CMD:TEST;COV:80|CMD:DOCK|CMD:K8S;ENV:prod",'
+stability: stable
+mcp_exposed: true
+aliases:
+- COV
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:COV (G, stable)
+
+  Intent: Coverage
+
+  Syntax: CMD:COV'
+keywords:
+- cmd

@@ -1,0 +1,18 @@
+id: cmd:TOOLS
+name: TOOLS
+syntax: CMD:TOOLS
+module_id: module:A
+description: '[SEARCH,CALC,CODE,...]'
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TOOLS
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TOOLS (A, stable)
+
+  Intent: [SEARCH,CALC,CODE,...]
+
+  Syntax: CMD:TOOLS'
+keywords:
+- cmd

@@ -1,0 +1,19 @@
+id: cmd:PIP
+name: PIP
+syntax: CMD:PIP
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:PIP;INSTALL:fastapi uvicorn
+stability: stable
+mcp_exposed: true
+aliases:
+- PIP
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:PIP (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:PIP'
+keywords:
+- cmd

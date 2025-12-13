@@ -1,0 +1,18 @@
+id: cmd:MCP
+name: MCP
+syntax: CMD:MCP
+module_id: module:M
+description: Command (from Web Playground lexer)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MCP
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MCP (M, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:MCP'
+keywords:
+- cmd

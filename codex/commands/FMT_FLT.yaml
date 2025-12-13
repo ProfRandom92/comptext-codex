@@ -1,0 +1,18 @@
+id: cmd:FMT_FLT
+name: FMT_FLT
+syntax: FMT:FLT
+module_id: module:A
+description: Fließtext
+examples:
+- CMD:ERKL;STY:INF;FMT:FLT;LEN:3S
+- CMD:ERKL;FMT:FLT
+stability: stable
+mcp_exposed: true
+aliases:
+- FMT:FLT
+token_cost_hint: 1
+text_compact: '[TOKEN] FMT:FLT (A)
+
+  Meaning: Fließtext'
+keywords:
+- FMT

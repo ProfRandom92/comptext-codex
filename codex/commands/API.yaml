@@ -1,0 +1,26 @@
+id: cmd:API
+name: API
+syntax: CMD:API
+module_id: module:A
+description: Command (from Web Playground lexer)
+examples:
+- 'INPUT: TRY:CMD:API;URL:invalid|CATCH:E005→CMD:RETRY|CATCH:E006→CMD:WAIT'
+- 'INPUT: CMD:API;URL:...;FB:IF:TIMEOUT→CMD:CACHE;FB:IF:RATELIMIT→CMD:QUEUE'
+- 'INPUT: CMD:API;URL:flaky;RETRY:3;BACKOFF:EXP'
+- 'INPUT: CMD:API;URL:...;RETRY:3;BACKOFF:LIN;DELAY:2'
+- 'INPUT: CMD:API;URL:...;CB:OPEN:3;RESET:30'
+- 'INPUT: CMD:API;URL:slow;TIMEOUT:1'
+- 'INPUT: CMD:API;URL:limited'
+- 'api'': ''CMD:API'','
+stability: stable
+mcp_exposed: true
+aliases:
+- API
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:API (A, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:API'
+keywords:
+- cmd

@@ -1,0 +1,16 @@
+id: cmd:PREVIEW
+name: PREVIEW
+syntax: PREVIEW:<value>
+module_id: module:A
+description: Parameter key PREVIEW
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- PREVIEW
+token_cost_hint: 1
+text_compact: '[PARAM] PREVIEW
+
+  Syntax: PREVIEW:<value>'
+keywords:
+- param

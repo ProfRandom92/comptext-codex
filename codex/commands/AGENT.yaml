@@ -1,0 +1,23 @@
+id: cmd:AGENT
+name: AGENT
+syntax: CMD:AGENT
+module_id: module:N
+description: Agent Chains
+examples:
+- CMD:AGENT;TYP:<agent-typ>;STEPS:[<steps>];TOOLS:[<tools>]
+- CMD:AGENT;TYP:CHAIN;STEPS:[RESEARCH,ANALYZE,SUMMARIZE]
+- CMD:AGENT;TYP:REACT;TOOLS:[SEARCH,CALC,CODE];MAX_ITER:10
+- CMD:AGENT;TYP:REACT | CMD:MEM;TYP:VEC;STORE:CHROMA
+- CMD:MEM;TYP:VEC;TOP_K:10 | CMD:AGENT;TYP:CHAIN;STEPS:[RETRIEVE,REASON,RESPOND]
+stability: experimental
+mcp_exposed: true
+aliases:
+- AGENT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:AGENT (N, experimental)
+
+  Intent: Agent Chains
+
+  Syntax: CMD:AGENT'
+keywords:
+- cmd

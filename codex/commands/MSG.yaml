@@ -1,0 +1,24 @@
+id: cmd:MSG
+name: MSG
+syntax: MSG:<value>
+module_id: module:A
+description: Parameter key MSG
+examples:
+- 'fallback": "CMD:LOG;MSG:Pipeline failed'
+- 'INPUT: TRY:CMD:CODE;LNG:INVALID|CATCH:ERR→CMD:LOG;MSG:$ERR'
+- 'INPUT: TRY:CMD:A|CATCH:ERR→CMD:LOG;MSG:$ERR|THROW:$ERR'
+- 'INPUT: CMD:THROW;CODE:E100;MSG:"Custom validation failed'
+- TRY:→CMD:ACTION|CATCH:ERR→CMD:LOG;MSG:$ERR
+- TRY:→CMD:DEPLOY|CATCH:E→CMD:ALERT;MSG:$E;CH:SLACK
+- IF:1:EQ:1→CMD:ECHO;MSG:TRUE|ELSE:→CMD:ECHO;MSG:FALSE
+- LOOP:3→CMD:ECHO;MSG:ITER
+stability: stable
+mcp_exposed: true
+aliases:
+- MSG
+token_cost_hint: 1
+text_compact: '[PARAM] MSG
+
+  Syntax: MSG:<value>'
+keywords:
+- param

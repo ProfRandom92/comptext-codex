@@ -1,0 +1,19 @@
+id: cmd:NOTIFY
+name: NOTIFY
+syntax: CMD:NOTIFY
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- TRY:→CMD:DEPLOY|CATCH:→CMD:ROLLBACK|FINALLY:→CMD:NOTIFY
+stability: stable
+mcp_exposed: true
+aliases:
+- NOTIFY
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:NOTIFY (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:NOTIFY'
+keywords:
+- cmd

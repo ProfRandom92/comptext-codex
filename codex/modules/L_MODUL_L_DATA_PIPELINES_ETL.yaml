@@ -1,0 +1,34 @@
+id: module:L
+code: L
+name: 'Modul L: Data Pipelines & ETL'
+purpose: Befehle für Daten-Pipelines, ETL-Prozesse und Data Warehousing
+stability: stable
+mcp_exposed: true
+tags:
+- Analyse
+- Erweitert
+command_ids:
+- cmd:BTCH
+- cmd:ETL
+- cmd:STRM
+- cmd:SRC_DB
+- cmd:SRC_API
+- cmd:SRC_FILE
+- cmd:SRC_S3
+- cmd:SRC_KAFK
+- cmd:SRC_KINE
+- cmd:DEST_DWH
+- cmd:DEST_LAKE
+- cmd:DEST_DB
+- cmd:DEST_S3
+- cmd:TRANS_CLN
+- cmd:TRANS_AGG
+- cmd:TRANS_JOIN
+- cmd:TRANS_ENRCH
+- cmd:SCHED_RT
+- cmd:SCHED_H
+- cmd:SCHED_D
+- cmd:SCHED_W
+text_compact: '[MODULE] L – Modul L: Data Pipelines & ETL
+
+  Purpose: Befehle für Daten-Pipelines, ETL-Prozesse und Data Warehousing'

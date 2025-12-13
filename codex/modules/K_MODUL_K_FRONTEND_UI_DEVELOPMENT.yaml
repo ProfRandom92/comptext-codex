@@ -1,0 +1,27 @@
+id: module:K
+code: K
+name: 'Modul K: Frontend & UI Development'
+purpose: Befehle für Frontend-Entwicklung, UI-Komponenten und responsive Design
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+command_ids:
+- cmd:A11Y
+- cmd:ANIM
+- cmd:CMPN
+- cmd:RESP
+- cmd:UI
+- cmd:CTYP_BTN
+- cmd:CTYP_FORM
+- cmd:CTYP_NAV
+- cmd:CTYP_MODAL
+- cmd:CTYP_CARD
+- cmd:CTYP_TBL
+- cmd:BRKP_MOB
+- cmd:BRKP_TAB
+- cmd:BRKP_DESK
+- cmd:BRKP_ALL
+text_compact: '[MODULE] K – Modul K: Frontend & UI Development
+
+  Purpose: Befehle für Frontend-Entwicklung, UI-Komponenten und responsive Design'

@@ -1,0 +1,25 @@
+id: cmd:VIZ
+name: VIZ
+syntax: CMD:VIZ
+module_id: module:C
+description: Visualisierung analysieren
+examples:
+- 'EXPECT_EXPAND: CMD:DATA;SRC:CSV|CMD:VIZ;TYP:BAR;SRC:$PREV'
+- CMD:VIZ;TYP:LINE;DATA:sales_monthly;TITLE:Umsatzverlauf|CMD:VIZ;TYP:BAR;DATA:sales_category|CMD:VIZ;TYP:PIE;DATA:market_share|CMD:VIZ;TYP:HEAT;DATA:regional|CMD:EXPORT;FMT:HTML,PNG;INTERACT:Y
+- 'INPUT: CMD:VIZ;TYP:3D;FB:TYP:2D;FB:TYP:TABLE'
+- CMD:VIZ;GRPH:SCAT;COL:MONO
+- 'pipeline": "CMD:VIZ;TYP:3D",'
+- 'pipeline": "CMD:VIZ;TYP:3D;FB:CMD:PLOT;TYP:BAR'
+- CMD:VIZ;TYP:3D;FB:TYP:2D;FB:TYP:TABLE
+stability: stable
+mcp_exposed: true
+aliases:
+- VIZ
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:VIZ (C, stable)
+
+  Intent: Visualisierung analysieren
+
+  Syntax: CMD:VIZ'
+keywords:
+- cmd

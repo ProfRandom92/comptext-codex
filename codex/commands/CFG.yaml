@@ -1,0 +1,18 @@
+id: cmd:CFG
+name: CFG
+syntax: CMD:CFG
+module_id: module:A
+description: Command (auto-extracted)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CFG
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CFG (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:CFG'
+keywords:
+- cmd

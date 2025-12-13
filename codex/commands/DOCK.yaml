@@ -1,0 +1,26 @@
+id: cmd:DOCK
+name: DOCK
+syntax: CMD:DOCK
+module_id: module:J
+description: Docker
+examples:
+- CMD:CODE;LNG:PY|CMD:TEST;COV:80|CMD:DOCK;ACT:PUSH
+- CMD:DOCK;LNG:PY;CMD:K8S;TASK:K8S_DEPLOY;CMD:PIPE;CICD:GHA
+- 'EXPECT_EXPAND: CMD:CODE|CMD:TEST|CMD:DOCK'
+- 'INPUT: C→T;LNG:PY|CMD:DOCK;ACT:BUILD'
+- 'EXPECT_EXPAND: CMD:CODE;LNG:PY|CMD:TEST;LNG:PY|CMD:DOCK;ACT:BUILD'
+- '- CMD:DOCK'
+- CMD:CODE;LNG:PY;FRM:FAPI;CMD:TEST;TTYP:UNIT;CMD:DOCK;CMD:PIPE;CICD:GHA;CLOUD:AWS
+- STEP:CMD:DOCK;ACT:BUILD,
+stability: stable
+mcp_exposed: true
+aliases:
+- DOCK
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:DOCK (J, stable)
+
+  Intent: Docker
+
+  Syntax: CMD:DOCK'
+keywords:
+- cmd

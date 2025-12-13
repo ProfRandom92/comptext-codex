@@ -1,0 +1,19 @@
+id: cmd:EXPLAIN
+name: EXPLAIN
+syntax: CMD:EXPLAIN
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- result = module.execute("CMD:EXPLAIN;TOPIC:Python;DEPTH:simple")
+stability: stable
+mcp_exposed: true
+aliases:
+- EXPLAIN
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:EXPLAIN (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:EXPLAIN'
+keywords:
+- cmd

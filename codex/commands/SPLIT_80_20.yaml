@@ -1,0 +1,16 @@
+id: cmd:SPLIT_80_20
+name: SPLIT_80_20
+syntax: SPLIT:80:20
+module_id: module:E
+description: SPLIT value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SPLIT:80:20
+token_cost_hint: 2
+text_compact: '[TOKEN] SPLIT:80:20 (E)
+
+  Meaning: '
+keywords:
+- SPLIT

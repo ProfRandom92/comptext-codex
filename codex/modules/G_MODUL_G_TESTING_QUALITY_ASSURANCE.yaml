@@ -1,0 +1,26 @@
+id: module:G
+code: G
+name: 'Modul G: Testing & Quality Assurance'
+purpose: Befehle für Unit-Tests, Integration-Tests und Code-Qualitätsprüfung
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+command_ids:
+- cmd:COV
+- cmd:LINT
+- cmd:MOCK
+- cmd:SNAP
+- cmd:TEST
+- cmd:TTYP_UNIT
+- cmd:TTYP_INTG
+- cmd:TTYP_E2E
+- cmd:TTYP_PERF
+- cmd:ASRT_EQ
+- cmd:ASRT_NEQ
+- cmd:ASRT_GT
+- cmd:ASRT_LT
+- cmd:ASRT_EXCP
+text_compact: '[MODULE] G – Modul G: Testing & Quality Assurance
+
+  Purpose: Befehle für Unit-Tests, Integration-Tests und Code-Qualitätsprüfung'

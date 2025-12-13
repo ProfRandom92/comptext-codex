@@ -1,0 +1,18 @@
+id: cmd:CONFIG
+name: CONFIG
+syntax: CMD:CONFIG
+module_id: module:P
+description: Command (from Web Playground lexer)
+examples: []
+stability: experimental
+mcp_exposed: false
+aliases:
+- CONFIG
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CONFIG (P, experimental)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:CONFIG'
+keywords:
+- cmd

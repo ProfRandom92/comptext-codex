@@ -1,0 +1,16 @@
+id: cmd:BRKP_TAB
+name: BRKP_TAB
+syntax: BRKP:TAB
+module_id: module:K
+description: BRKP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- BRKP:TAB
+token_cost_hint: 2
+text_compact: '[TOKEN] BRKP:TAB (K)
+
+  Meaning: '
+keywords:
+- BRKP

@@ -1,0 +1,16 @@
+id: cmd:CTYP_MODAL
+name: CTYP_MODAL
+syntax: CTYP:MODAL
+module_id: module:K
+description: CTYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CTYP:MODAL
+token_cost_hint: 2
+text_compact: '[TOKEN] CTYP:MODAL (K)
+
+  Meaning: '
+keywords:
+- CTYP

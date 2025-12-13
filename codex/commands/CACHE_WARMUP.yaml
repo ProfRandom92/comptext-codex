@@ -1,0 +1,17 @@
+id: cmd:CACHE_WARMUP
+name: CACHE_WARMUP
+syntax: CACHE:WARMUP
+module_id: module:P
+description: Token (auto-extracted)
+examples:
+- CACHE:WARMUP;FREQ:top100;PRELOAD:true
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:WARMUP
+token_cost_hint: 3
+text_compact: '[TOKEN] CACHE:WARMUP (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CACHE

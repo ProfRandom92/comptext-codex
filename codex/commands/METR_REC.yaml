@@ -1,0 +1,16 @@
+id: cmd:METR_REC
+name: METR_REC
+syntax: METR:REC
+module_id: module:E
+description: METR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:REC
+token_cost_hint: 2
+text_compact: '[TOKEN] METR:REC (E)
+
+  Meaning: '
+keywords:
+- METR

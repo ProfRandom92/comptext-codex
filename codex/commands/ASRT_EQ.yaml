@@ -1,0 +1,18 @@
+id: cmd:ASRT_EQ
+name: ASRT_EQ
+syntax: ASRT:EQ
+module_id: module:G
+description: ASRT value
+examples:
+- CMD:TEST;TTYP:INTG;ASRT:EQ,EXCP
+- CMD:TEST;TTYP:UNIT;LNG:PY;FRM:PYTE;COV_TRG:90%;CMD:TEST;TTYP:INTG;ASRT:EQ,EXCP;CMD:TEST;TTYP:E2E;TASK:USR_FLOW;CMD:TEST;TTYP:PERF;METR:TIME,MEM;CMD:LINT;TASK:PEP8;CMD:COV;CMD:PLOT;GRPH:BAR;CMD:REP;AUD:DEV
+stability: stable
+mcp_exposed: true
+aliases:
+- ASRT:EQ
+token_cost_hint: 1
+text_compact: '[TOKEN] ASRT:EQ (G)
+
+  Meaning: '
+keywords:
+- ASRT

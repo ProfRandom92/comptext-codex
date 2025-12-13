@@ -1,0 +1,19 @@
+id: cmd:REFAC
+name: REFAC
+syntax: CMD:REFAC
+module_id: module:B
+description: Refactoren
+examples:
+- CMD:REFAC;LNG:PY;TASK:clean-feature
+stability: stable
+mcp_exposed: true
+aliases:
+- REFAC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:REFAC (B, stable)
+
+  Intent: Refactoren
+
+  Syntax: CMD:REFAC'
+keywords:
+- cmd

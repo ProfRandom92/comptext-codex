@@ -1,0 +1,22 @@
+id: module:P
+code: P
+name: 'Modul O & P: Enterprise Features (V3.7.0)'
+purpose: Security, Observability, Caching und Config Management für Enterprise
+stability: experimental
+mcp_exposed: false
+tags:
+- Erweitert
+command_ids:
+- cmd:CONFIG
+- cmd:CACHE_ENABLE
+- cmd:CACHE_REDIS
+- cmd:CACHE_INVAL
+- cmd:CACHE_STORE
+- cmd:CACHE_DEPEND
+- cmd:CACHE_CHECK
+- cmd:CACHE_WARMUP
+- cmd:CONFIG_SET
+- cmd:TTL
+text_compact: '[MODULE] P – Modul O & P: Enterprise Features (V3.7.0)
+
+  Purpose: Security, Observability, Caching und Config Management für Enterprise'

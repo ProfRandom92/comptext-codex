@@ -1,0 +1,18 @@
+id: cmd:MULTI
+name: MULTI
+syntax: CMD:MULTI
+module_id: module:R
+description: Command (from Web Playground lexer)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MULTI
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MULTI (R, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:MULTI'
+keywords:
+- cmd

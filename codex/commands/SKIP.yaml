@@ -1,0 +1,19 @@
+id: cmd:SKIP
+name: SKIP
+syntax: CMD:SKIP
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- IF:MODE:EQ:TEST→LOOP:2→CMD:TEST|ELSE:→CMD:SKIP
+stability: stable
+mcp_exposed: true
+aliases:
+- SKIP
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SKIP (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:SKIP'
+keywords:
+- cmd

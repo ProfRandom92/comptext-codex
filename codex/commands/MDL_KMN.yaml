@@ -1,0 +1,16 @@
+id: cmd:MDL_KMN
+name: MDL_KMN
+syntax: MDL:KMN
+module_id: module:E
+description: MDL value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MDL:KMN
+token_cost_hint: 1
+text_compact: '[TOKEN] MDL:KMN (E)
+
+  Meaning: '
+keywords:
+- MDL

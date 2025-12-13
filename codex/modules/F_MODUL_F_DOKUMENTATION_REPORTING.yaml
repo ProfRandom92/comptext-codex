@@ -1,0 +1,32 @@
+id: module:F
+code: F
+name: 'Modul F: Dokumentation & Reporting'
+purpose: Befehle für automatisierte Dokumentation, Berichte und technische Spezifikationen
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+command_ids:
+- cmd:APID
+- cmd:DOC
+- cmd:REP
+- cmd:SPEC
+- cmd:SECT_OVW
+- cmd:SECT_ARCH
+- cmd:SECT_API
+- cmd:SECT_USE
+- cmd:SECT_TRBL
+- cmd:DET_H
+- cmd:DET_M
+- cmd:DET_L
+- cmd:INCL_CEX
+- cmd:INCL_DIAG
+- cmd:INCL_TBL
+- cmd:INCL_TOC
+- cmd:AUD_DEV
+- cmd:AUD_USR
+- cmd:AUD_MGT
+- cmd:AUD_TECH
+text_compact: '[MODULE] F – Modul F: Dokumentation & Reporting
+
+  Purpose: Befehle für automatisierte Dokumentation, Berichte und technische Spezifikationen'

@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://comptext.dev/schemas/bundle.schema.json",
+  "title": "CompText Codex Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "meta",
+    "modules",
+    "commands",
+    "profiles",
+    "indexes"
+  ],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "codex_name",
+        "version",
+        "build_time_utc",
+        "git_commit",
+        "schema_version",
+        "source"
+      ],
+      "properties": {
+        "codex_name": {
+          "type": "string",
+          "const": "CompText"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "build_time_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "git_commit": {
+          "type": "string",
+          "minLength": 7
+        },
+        "schema_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "repo",
+            "path"
+          ],
+          "properties": {
+            "repo": {
+              "type": "string",
+              "minLength": 1
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://comptext.dev/schemas/module.schema.json",
+        "title": "CompText Module",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "code",
+          "name",
+          "purpose",
+          "stability",
+          "mcp_exposed",
+          "tags",
+          "command_ids",
+          "text_compact"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^module:[A-Z0-9_-]+$"
+          },
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "stability": {
+            "type": "string",
+            "enum": [
+              "experimental",
+              "stable",
+              "frozen",
+              "deprecated"
+            ]
+          },
+          "mcp_exposed": {
+            "type": "boolean"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "command_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^cmd:[A-Z0-9_\\-]+$"
+            },
+            "default": []
+          },
+          "text_compact": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "spec_url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "docs_url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      },
+      "default": []
+    },
+    "commands": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://comptext.dev/schemas/command.schema.json",
+        "title": "CompText Command",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "syntax",
+          "module_id",
+          "description",
+          "examples",
+          "stability",
+          "mcp_exposed",
+          "aliases",
+          "token_cost_hint",
+          "text_compact"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^cmd:[A-Z0-9_\\-]+$"
+          },
+          "name": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_\\-]{2,}$"
+          },
+          "syntax": {
+            "type": "string",
+            "minLength": 1
+          },
+          "module_id": {
+            "type": "string",
+            "pattern": "^module:[A-Z0-9_-]+$"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0,
+            "default": []
+          },
+          "stability": {
+            "type": "string",
+            "enum": [
+              "experimental",
+              "stable",
+              "frozen",
+              "deprecated"
+            ]
+          },
+          "mcp_exposed": {
+            "type": "boolean"
+          },
+          "aliases": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 2
+            },
+            "default": []
+          },
+          "token_cost_hint": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000,
+            "default": 0
+          },
+          "text_compact": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          }
+        }
+      },
+      "default": []
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "https://comptext.dev/schemas/profile.schema.json",
+        "title": "CompText Profile",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "type",
+          "stability",
+          "mcp_exposed",
+          "rules",
+          "text_compact"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^profile:[A-Z0-9:_\\-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "security",
+              "style",
+              "org",
+              "runtime",
+              "quality"
+            ]
+          },
+          "stability": {
+            "type": "string",
+            "enum": [
+              "experimental",
+              "stable",
+              "frozen",
+              "deprecated"
+            ]
+          },
+          "mcp_exposed": {
+            "type": "boolean"
+          },
+          "rules": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "default": []
+          },
+          "text_compact": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          }
+        }
+      },
+      "default": []
+    },
+    "indexes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "by_module_code",
+        "by_command_name",
+        "by_alias",
+        "search"
+      ],
+      "properties": {
+        "by_module_code": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "by_command_name": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "by_alias": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "search": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "kind",
+              "module_code",
+              "stability",
+              "mcp_exposed",
+              "keywords",
+              "text_compact"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "module",
+                  "command",
+                  "profile"
+                ]
+              },
+              "module_code": {
+                "type": "string"
+              },
+              "stability": {
+                "type": "string"
+              },
+              "mcp_exposed": {
+                "type": "boolean"
+              },
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "text_compact": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

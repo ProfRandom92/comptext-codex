@@ -1,0 +1,16 @@
+id: cmd:FRM_MPL
+name: FRM_MPL
+syntax: FRM:MPL
+module_id: module:B
+description: Matplotlib
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:MPL
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:MPL (B)
+
+  Meaning: Matplotlib'
+keywords:
+- FRM

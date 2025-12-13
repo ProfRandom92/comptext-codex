@@ -1,0 +1,19 @@
+id: cmd:FORM
+name: FORM
+syntax: CMD:FORM
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:CMPN;FRM:REACT;LNG:TS;STYLE:TW;CMPN:SIDEBAR,HEADER,NOTIFY|CMD:UI;TYP:DASH;KPI:4;CHART:LINE,BAR,PIE|CMD:TABLE;SORT:Y;FILTER:Y;PAGE:Y|CMD:FORM;TYP:SETTINGS|CMD:STATE;LIB:ZUSTAND;FETCH:RQ;VIZ:RECHARTS;RESP:Y;DARK:Y
+stability: stable
+mcp_exposed: true
+aliases:
+- FORM
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:FORM (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:FORM'
+keywords:
+- cmd

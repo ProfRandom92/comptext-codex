@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://comptext.dev/schemas/profile.schema.json",
+  "title": "CompText Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "type",
+    "stability",
+    "mcp_exposed",
+    "rules",
+    "text_compact"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^profile:[A-Z0-9:_\\-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 2
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "security",
+        "style",
+        "org",
+        "runtime",
+        "quality"
+      ]
+    },
+    "stability": {
+      "type": "string",
+      "enum": [
+        "experimental",
+        "stable",
+        "frozen",
+        "deprecated"
+      ]
+    },
+    "mcp_exposed": {
+      "type": "boolean"
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "default": []
+    },
+    "text_compact": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  }
+}

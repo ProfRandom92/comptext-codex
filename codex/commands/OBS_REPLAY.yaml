@@ -1,0 +1,17 @@
+id: cmd:OBS_REPLAY
+name: OBS_REPLAY
+syntax: OBS:REPLAY
+module_id: module:O
+description: Token (auto-extracted)
+examples:
+- OBS:REPLAY;ERROR_ID:e7f2a1b3;SNAPSHOT:true
+stability: experimental
+mcp_exposed: false
+aliases:
+- OBS:REPLAY
+token_cost_hint: 2
+text_compact: '[TOKEN] OBS:REPLAY (O, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- OBS

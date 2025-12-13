@@ -1,0 +1,18 @@
+id: cmd:CACHE_INVAL
+name: CACHE_INVAL
+syntax: CACHE:INVAL
+module_id: module:P
+description: Token (auto-extracted)
+examples:
+- CACHE:INVAL;PATTERN:tenant:*;REASON:security_update
+- CACHE:INVAL;TAGS:[security,rbac];CASCADE:true;NOTIFY:true
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:INVAL
+token_cost_hint: 2
+text_compact: '[TOKEN] CACHE:INVAL (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CACHE

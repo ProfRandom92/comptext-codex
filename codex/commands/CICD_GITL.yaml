@@ -1,0 +1,16 @@
+id: cmd:CICD_GITL
+name: CICD_GITL
+syntax: CICD:GITL
+module_id: module:J
+description: CICD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CICD:GITL
+token_cost_hint: 2
+text_compact: '[TOKEN] CICD:GITL (J)
+
+  Meaning: '
+keywords:
+- CICD

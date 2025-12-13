@@ -1,0 +1,18 @@
+id: cmd:COST
+name: COST
+syntax: CMD:COST
+module_id: module:A
+description: Command (auto-extracted)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- COST
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:COST (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:COST'
+keywords:
+- cmd

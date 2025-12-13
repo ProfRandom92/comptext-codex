@@ -1,0 +1,19 @@
+id: cmd:SEC_SIGN
+name: SEC_SIGN
+syntax: SEC:SIGN
+module_id: module:I
+description: Token (from Enterprise docs)
+examples:
+- SEC:SIGN;SRC:./script.ct;KEY:./private.pem;ALG:RSA256
+- SEC:SIGN;SRC:./config.ct;KEY:ed25519;VERIFY:true
+- 'code: ''SEC:ROLE;ID:dev;PERM:read|SEC:SIGN;SRC:./plugin.wasm|OBS:TRACE;ID:req_1;SPAN:main|CACHE:ENABLE;TTL:24h'','
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC:SIGN
+token_cost_hint: 2
+text_compact: '[TOKEN] SEC:SIGN (I, stable)
+
+  Meaning: Token (from Enterprise docs)'
+keywords:
+- SEC

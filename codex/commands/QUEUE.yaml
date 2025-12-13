@@ -1,0 +1,19 @@
+id: cmd:QUEUE
+name: QUEUE
+syntax: CMD:QUEUE
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'INPUT: CMD:API;URL:...;FB:IF:TIMEOUT→CMD:CACHE;FB:IF:RATELIMIT→CMD:QUEUE'
+stability: stable
+mcp_exposed: true
+aliases:
+- QUEUE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:QUEUE (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:QUEUE'
+keywords:
+- cmd

@@ -1,0 +1,16 @@
+id: cmd:GRPH_HEAT
+name: GRPH_HEAT
+syntax: GRPH:HEAT
+module_id: module:C
+description: Heatmap
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- GRPH:HEAT
+token_cost_hint: 2
+text_compact: '[TOKEN] GRPH:HEAT (C)
+
+  Meaning: Heatmap'
+keywords:
+- GRPH

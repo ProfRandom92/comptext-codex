@@ -1,0 +1,21 @@
+id: cmd:WAIT
+name: WAIT
+syntax: CMD:WAIT
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'INPUT: TRY:CMD:API;URL:invalid|CATCH:E005→CMD:RETRY|CATCH:E006→CMD:WAIT'
+- LOOP:3→TRY:→CMD:CALL|CATCH:→CMD:WAIT;MS:1000
+- LOOP:5;IDX:n→TRY:→CMD:CALL|CATCH:→CMD:WAIT;MS:$(100*2^$n)
+stability: stable
+mcp_exposed: true
+aliases:
+- WAIT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:WAIT (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:WAIT'
+keywords:
+- cmd

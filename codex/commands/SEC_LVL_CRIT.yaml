@@ -1,0 +1,17 @@
+id: cmd:SEC_LVL_CRIT
+name: SEC_LVL_CRIT
+syntax: SEC_LVL:CRIT
+module_id: module:I
+description: SEC_LVL value
+examples:
+- CMD:VULN;SEC_LVL:CRIT
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC_LVL:CRIT
+token_cost_hint: 3
+text_compact: '[TOKEN] SEC_LVL:CRIT (I)
+
+  Meaning: '
+keywords:
+- SEC_LVL

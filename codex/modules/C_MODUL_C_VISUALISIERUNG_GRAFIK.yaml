@@ -1,0 +1,23 @@
+id: module:C
+code: C
+name: 'Modul C: Visualisierung & Grafik'
+purpose: Befehle für die Erstellung und Anpassung von Datenvisualisierungen
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+- Visualisierung
+command_ids:
+- cmd:COL
+- cmd:PLOT
+- cmd:VIZ
+- cmd:GRPH_LINE
+- cmd:GRPH_BAR
+- cmd:GRPH_SCAT
+- cmd:GRPH_PIE
+- cmd:GRPH_HIST
+- cmd:GRPH_BOX
+- cmd:GRPH_HEAT
+text_compact: '[MODULE] C – Modul C: Visualisierung & Grafik
+
+  Purpose: Befehle für die Erstellung und Anpassung von Datenvisualisierungen'

@@ -1,0 +1,20 @@
+id: cmd:ERKL
+name: ERKL
+syntax: CMD:ERKL
+module_id: module:A
+description: Erklären
+examples:
+- CMD:ERKL;STY:INF;FMT:FLT;LEN:3S
+- CMD:ERKL;FMT:FLT
+stability: stable
+mcp_exposed: true
+aliases:
+- ERKL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ERKL (A, stable)
+
+  Intent: Erklären
+
+  Syntax: CMD:ERKL'
+keywords:
+- cmd

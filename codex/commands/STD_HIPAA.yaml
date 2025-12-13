@@ -1,0 +1,16 @@
+id: cmd:STD_HIPAA
+name: STD_HIPAA
+syntax: STD:HIPAA
+module_id: module:I
+description: STD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- STD:HIPAA
+token_cost_hint: 2
+text_compact: '[TOKEN] STD:HIPAA (I)
+
+  Meaning: '
+keywords:
+- STD

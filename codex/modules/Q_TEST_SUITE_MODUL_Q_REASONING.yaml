@@ -1,0 +1,14 @@
+id: module:Q
+code: Q
+name: '🧪 Test-Suite: Modul Q (Reasoning)'
+purpose: Validierungstests für CoT, ToT und Self-Correction (V3.7.0)
+stability: stable
+mcp_exposed: true
+tags:
+- Analyse
+- Erweitert
+command_ids:
+- cmd:REASON
+text_compact: '[MODULE] Q – 🧪 Test-Suite: Modul Q (Reasoning)
+
+  Purpose: Validierungstests für CoT, ToT und Self-Correction (V3.7.0)'

@@ -1,0 +1,16 @@
+id: cmd:CLOUD_GCP
+name: CLOUD_GCP
+syntax: CLOUD:GCP
+module_id: module:J
+description: CLOUD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CLOUD:GCP
+token_cost_hint: 2
+text_compact: '[TOKEN] CLOUD:GCP (J)
+
+  Meaning: '
+keywords:
+- CLOUD

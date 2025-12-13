@@ -1,0 +1,16 @@
+id: cmd:METR_AUC
+name: METR_AUC
+syntax: METR:AUC
+module_id: module:E
+description: METR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:AUC
+token_cost_hint: 2
+text_compact: '[TOKEN] METR:AUC (E)
+
+  Meaning: '
+keywords:
+- METR

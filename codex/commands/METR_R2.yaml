@@ -1,0 +1,16 @@
+id: cmd:METR_R2
+name: METR_R2
+syntax: METR:R2
+module_id: module:E
+description: METR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:R2
+token_cost_hint: 1
+text_compact: '[TOKEN] METR:R2 (E)
+
+  Meaning: '
+keywords:
+- METR

@@ -1,0 +1,19 @@
+id: cmd:EXEC
+name: EXEC
+syntax: CMD:EXEC
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- KUERZEL:HACK;EXPAND:CMD:EXEC;CODE:"import os; os.system('rm -rf /')
+stability: stable
+mcp_exposed: true
+aliases:
+- EXEC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:EXEC (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:EXEC'
+keywords:
+- cmd

@@ -1,0 +1,24 @@
+id: cmd:VULN
+name: VULN
+syntax: CMD:VULN
+module_id: module:I
+description: Vulnerability Scan
+examples:
+- STEP:CMD:VULN;SCAN:DEP&CMD:SAUD;TYP:CODE,
+- CMD:VULN;SCAN:DEP|CMD:SAUD;CHK:OWASP10,AUTH,AUTHZ,INPUT,SQLI,XSS,TLS,SECRETS|CMD:REP;FMT:PDF;SEV:Y;REC:Y
+- CMD:VULN;SCAN:DEP|CMD:SAUD;TYP:FULL→CMD:QRY;OPT:EXPL|CMD:COMPL;STD:GDPR→CMD:REP;FMT:PDF;TPL:AUDIT
+- '- Security checks → Use CMD:SEC_AUD, CMD:VULN'
+- CMD:VULN;SEC_LVL:CRIT
+- 'INPUT: CMD:VULN;SCAN:DEP|CMD:SAUD;TYP:FULL→CMD:QRY;OPT:EXPL→CMD:REP;FMT:PDF;TPL:AUDIT'
+stability: stable
+mcp_exposed: true
+aliases:
+- VULN
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:VULN (I, stable)
+
+  Intent: Vulnerability Scan
+
+  Syntax: CMD:VULN'
+keywords:
+- cmd

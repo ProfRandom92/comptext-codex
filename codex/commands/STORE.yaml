@@ -1,0 +1,18 @@
+id: cmd:STORE
+name: STORE
+syntax: CMD:STORE
+module_id: module:A
+description: PINECONE, CHROMA, WEAVIATE, QDRANT
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- STORE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:STORE (A, stable)
+
+  Intent: PINECONE, CHROMA, WEAVIATE, QDRANT
+
+  Syntax: CMD:STORE'
+keywords:
+- cmd

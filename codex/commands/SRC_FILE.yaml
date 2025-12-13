@@ -1,0 +1,16 @@
+id: cmd:SRC_FILE
+name: SRC_FILE
+syntax: SRC:FILE
+module_id: module:L
+description: SRC value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SRC:FILE
+token_cost_hint: 2
+text_compact: '[TOKEN] SRC:FILE (L)
+
+  Meaning: '
+keywords:
+- SRC

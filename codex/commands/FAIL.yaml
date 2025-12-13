@@ -1,0 +1,19 @@
+id: cmd:FAIL
+name: FAIL
+syntax: CMD:FAIL
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- TRY:→CMD:FAIL|CATCH:→CMD:ECHO;MSG:CAUGHT
+stability: stable
+mcp_exposed: true
+aliases:
+- FAIL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:FAIL (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:FAIL'
+keywords:
+- cmd

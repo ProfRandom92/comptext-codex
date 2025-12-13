@@ -1,0 +1,20 @@
+id: cmd:FALLBACK
+name: FALLBACK
+syntax: CMD:FALLBACK
+module_id: module:A
+description: RETRY, SKIP, HUMAN
+examples:
+- IF:COND→CMD:ACTION|ELSE:→CMD:FALLBACK
+- TRY:→CMD:RISKY|CATCH:→CMD:FALLBACK
+stability: stable
+mcp_exposed: true
+aliases:
+- FALLBACK
+token_cost_hint: 2
+text_compact: '[COMMAND] CMD:FALLBACK (A, stable)
+
+  Intent: RETRY, SKIP, HUMAN
+
+  Syntax: CMD:FALLBACK'
+keywords:
+- cmd

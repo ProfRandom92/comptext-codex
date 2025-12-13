@@ -1,0 +1,18 @@
+id: cmd:SECT_USE
+name: SECT_USE
+syntax: SECT:USE
+module_id: module:F
+description: SECT value
+examples:
+- CMD:UI;FRM:REACT;CSS:TAIL;CTYP:NAV,CARD,FORM;BRKP:ALL;CMD:A11Y;CMD:CMPN;CTYP:TBL;CMD:ANIM;CMD:TEST;TTYP:E2E;FRM:JEST;CMD:DOC;SECT:USE;AUD:DEV
+- CMD:DOC;SECT:USE,TRBL;AUD:USR
+stability: stable
+mcp_exposed: true
+aliases:
+- SECT:USE
+token_cost_hint: 2
+text_compact: '[TOKEN] SECT:USE (F)
+
+  Meaning: '
+keywords:
+- SECT

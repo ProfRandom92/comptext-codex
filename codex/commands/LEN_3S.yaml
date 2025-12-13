@@ -1,0 +1,17 @@
+id: cmd:LEN_3S
+name: LEN_3S
+syntax: LEN:3S
+module_id: module:A
+description: 3 Sätze
+examples:
+- CMD:ERKL;STY:INF;FMT:FLT;LEN:3S
+stability: stable
+mcp_exposed: true
+aliases:
+- LEN:3S
+token_cost_hint: 1
+text_compact: '[TOKEN] LEN:3S (A)
+
+  Meaning: 3 Sätze'
+keywords:
+- LEN

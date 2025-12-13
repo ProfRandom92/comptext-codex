@@ -1,0 +1,19 @@
+id: cmd:SEC_POLICY
+name: SEC_POLICY
+syntax: SEC:POLICY
+module_id: module:I
+description: Token (auto-extracted)
+examples:
+- SEC:POLICY;ENGINE:opa;FILE:./policy/comptext.rego;MODE:enforce
+- SEC:POLICY;EVAL:dry_run;CONTEXT:{user:dev1,module:B,time:14:30}
+- SEC:POLICY;AUDIT:decisions;RETENTION:90d;EXPORT:s3
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC:POLICY
+token_cost_hint: 2
+text_compact: '[TOKEN] SEC:POLICY (I, stable)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- SEC

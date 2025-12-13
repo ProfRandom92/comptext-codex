@@ -1,0 +1,19 @@
+id: cmd:CELEBRATE
+name: CELEBRATE
+syntax: CMD:CELEBRATE
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:CELEBRATE;REASON:V3.5.2_RELEASE;🎉
+stability: stable
+mcp_exposed: true
+aliases:
+- CELEBRATE
+token_cost_hint: 2
+text_compact: '[COMMAND] CMD:CELEBRATE (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:CELEBRATE'
+keywords:
+- cmd

@@ -1,0 +1,54 @@
+id: module:B
+code: B
+name: 'Modul B: Programmier- & Datenverarbeitung'
+purpose: Befehle für Code-Generierung, Debugging, Modifikation und Optimierung
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+command_ids:
+- cmd:ANAL
+- cmd:CACHE
+- cmd:CODE
+- cmd:FIX
+- cmd:MOD
+- cmd:OPT
+- cmd:PROF
+- cmd:REFAC
+- cmd:LNG_PY
+- cmd:LNG_JS
+- cmd:LNG_TS
+- cmd:LNG_SQL
+- cmd:LNG_SH
+- cmd:LNG_HTM
+- cmd:LNG_CSS
+- cmd:LNG_MD
+- cmd:LNG_JAVA
+- cmd:LNG_GO
+- cmd:LNG_RUST
+- cmd:FRM_PND
+- cmd:FRM_NPY
+- cmd:FRM_MPL
+- cmd:FRM_SKL
+- cmd:FRM_TF
+- cmd:FRM_TRCH
+- cmd:FRM_FAPI
+- cmd:FRM_FLASK
+- cmd:FRM_DJG
+- cmd:FRM_ARFL
+- cmd:FRM_REACT
+- cmd:FRM_VUE
+- cmd:FRM_ANG
+- cmd:FRM_SVLT
+- cmd:FRM_NEXT
+- cmd:FRM_JEST
+- cmd:FRM_PYTE
+- cmd:FRM_JUNI
+- cmd:FRM_MOCH
+- cmd:FRM_TAIL
+- cmd:FRM_BOOT
+- cmd:FRM_MUI
+- cmd:FRM_SASS
+text_compact: '[MODULE] B – Modul B: Programmier- & Datenverarbeitung
+
+  Purpose: Befehle für Code-Generierung, Debugging, Modifikation und Optimierung'

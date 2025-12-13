@@ -1,0 +1,20 @@
+id: cmd:COMP
+name: COMP
+syntax: CMD:COMP
+module_id: module:A
+description: Command (from Web Playground lexer)
+examples:
+- CMD:DOCK;LNG:PY;STG:MULTI;OPT:SIZE|CMD:COMP;SVC:APP,PSQL,REDIS|CMD:K8S;DEPL:3;SVC:LB;CFG:Y;SEC:Y;HPA:Y;ING:TLS;HEALTH:Y;RES:Y
+- 'code: ''CMD:DOCK;LNG:PY;STG:MULTI;OPT:SIZE;BASE:ALPINE|CMD:COMP;SVC:APP,DB,CACHE'','
+stability: stable
+mcp_exposed: true
+aliases:
+- COMP
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:COMP (A, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:COMP'
+keywords:
+- cmd

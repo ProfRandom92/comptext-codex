@@ -1,0 +1,18 @@
+id: cmd:EMB
+name: EMB
+syntax: CMD:EMB
+module_id: module:A
+description: ADA, COHERE, E5, BGE
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- EMB
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:EMB (A, stable)
+
+  Intent: ADA, COHERE, E5, BGE
+
+  Syntax: CMD:EMB'
+keywords:
+- cmd

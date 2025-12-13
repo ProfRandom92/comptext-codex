@@ -1,0 +1,16 @@
+id: cmd:SRC_KINE
+name: SRC_KINE
+syntax: SRC:KINE
+module_id: module:L
+description: SRC value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SRC:KINE
+token_cost_hint: 2
+text_compact: '[TOKEN] SRC:KINE (L)
+
+  Meaning: '
+keywords:
+- SRC

@@ -1,0 +1,16 @@
+id: cmd:FRM_TRCH
+name: FRM_TRCH
+syntax: FRM:TRCH
+module_id: module:B
+description: PyTorch
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:TRCH
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:TRCH (B)
+
+  Meaning: PyTorch'
+keywords:
+- FRM

@@ -1,0 +1,26 @@
+id: cmd:TOOL
+name: TOOL
+syntax: CMD:TOOL
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:TOOL;NAME:execute_pipeline;DESC:CompText Pipeline ausführen;PARAMS:pipeline:str,context:json;RET:json;SDK:PY
+- CMD:TOOL;NAME:get_weather;DESC:Wetter abrufen;PARAMS:location:str,unit:str;SDK:PY
+- CMD:TOOL;NAME:search;DESC:Web-Suche;PARAMS:query:str;RET:json;SDK:PY
+- CMD:TOOL;NAME:db_query;DESC:Datenbank abfragen;PARAMS:sql:str,db:str;VALID:true;SDK:TS
+- CMD:TOOL;NAME:long_task;DESC:Langläufer;ASYNC:true;TIMEOUT:30s;SDK:PY
+- CMD:MCPS;SDK:TS;TRANS:SSE;CAP:TOOLS;CMD:TOOL;NAME:query_db;DBTYP:PSQL;AUTH:JWT;CMD:TEST;TTYP:INTG;CMD:DOCK;CMD:DOC
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,PIPE;CMD:TOOL;NAME:execute_pipeline;PARAMS:pipeline:str,context:json
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES,PRMTS;NAME:claude-assistant;TARGET:CLAUDE_DESKTOP;CMD:TOOL;NAME:search,file_read,db_query;CMD:RES;URI:[file:///docs;CMD:DOC;AUD:DEV](file:///docs;CMD:DOC;AUD:DEV)
+stability: stable
+mcp_exposed: true
+aliases:
+- TOOL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TOOL (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:TOOL'
+keywords:
+- cmd

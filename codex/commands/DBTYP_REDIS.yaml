@@ -1,0 +1,16 @@
+id: cmd:DBTYP_REDIS
+name: DBTYP_REDIS
+syntax: DBTYP:REDIS
+module_id: module:H
+description: Redis
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- DBTYP:REDIS
+token_cost_hint: 2
+text_compact: '[TOKEN] DBTYP:REDIS (H)
+
+  Meaning: Redis'
+keywords:
+- DBTYP

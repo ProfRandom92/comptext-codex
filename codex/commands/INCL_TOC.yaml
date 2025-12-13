@@ -1,0 +1,16 @@
+id: cmd:INCL_TOC
+name: INCL_TOC
+syntax: INCL:TOC
+module_id: module:F
+description: INCL value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- INCL:TOC
+token_cost_hint: 2
+text_compact: '[TOKEN] INCL:TOC (F)
+
+  Meaning: '
+keywords:
+- INCL

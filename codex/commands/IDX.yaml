@@ -1,0 +1,20 @@
+id: cmd:IDX
+name: IDX
+syntax: CMD:IDX
+module_id: module:H
+description: Index erstellen
+examples:
+- CMD:IDX;PERF:IDX_OPT
+- CMD:SCHM;DBTYP:PSQL;REL:1:N,N:M;NORM_LVL:3NF;CMD:IDX;PERF:IDX_OPT;CMD:QRY;PERF:QRY_OPT;CMD:MIG;TASK:ADD_COL,ADD_IDX;CMD:TEST;TTYP:INTG;CMD:DOC;SECT:ARCH;INCL:DIAG,TBL;AUD:TECH
+stability: stable
+mcp_exposed: true
+aliases:
+- IDX
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:IDX (H, stable)
+
+  Intent: Index erstellen
+
+  Syntax: CMD:IDX'
+keywords:
+- cmd

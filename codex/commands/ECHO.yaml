@@ -1,0 +1,23 @@
+id: cmd:ECHO
+name: ECHO
+syntax: CMD:ECHO
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- KUERZEL:MOCK;EXPAND:CMD:ECHO
+- IF:1:EQ:1→CMD:ECHO;MSG:TRUE|ELSE:→CMD:ECHO;MSG:FALSE
+- LOOP:3→CMD:ECHO;MSG:ITER
+- TRY:→CMD:FAIL|CATCH:→CMD:ECHO;MSG:CAUGHT
+- KUERZEL:MYCMD;EXPAND:CMD:ECHO
+stability: stable
+mcp_exposed: true
+aliases:
+- ECHO
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ECHO (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ECHO'
+keywords:
+- cmd

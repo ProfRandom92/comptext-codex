@@ -1,0 +1,22 @@
+id: cmd:SEC_ROLE
+name: SEC_ROLE
+syntax: SEC:ROLE
+module_id: module:I
+description: Defines a security role.
+examples:
+- SEC:ROLE;USER:[john@example.com](mailto:john@example.com);ROLES:[ADMIN,DEVELOPER];SCOPE:project_x
+- SEC:ROLE;USER:$CURRENT_USER;ROLES:[ADMIN];SCOPE:production
+- 'SEC:ROLE'': ''**RBAC Definition** (V3.7)\nDefines a security role.\n\n`ID`: Role ID\n`PERM`: Permissions (r/w/x)'','
+- 'label: ''SEC:ROLE'','
+- 'insertText: ''SEC:ROLE;ID:${1:name};PERM:${2:read}'','
+- 'code: ''SEC:ROLE;ID:dev;PERM:read|SEC:SIGN;SRC:./plugin.wasm|OBS:TRACE;ID:req_1;SPAN:main|CACHE:ENABLE;TTL:24h'','
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC:ROLE
+token_cost_hint: 2
+text_compact: '[TOKEN] SEC:ROLE (I, stable)
+
+  Meaning: Defines a security role.'
+keywords:
+- SEC

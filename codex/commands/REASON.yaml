@@ -1,0 +1,18 @@
+id: cmd:REASON
+name: REASON
+syntax: CMD:REASON
+module_id: module:Q
+description: Command (from Web Playground lexer)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- REASON
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:REASON (Q, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:REASON'
+keywords:
+- cmd

@@ -1,0 +1,23 @@
+id: cmd:LEN_5P
+name: LEN_5P
+syntax: LEN:5P
+module_id: module:A
+description: 5 Absätze
+examples:
+- CMD:ZSF;STY:PRO;FMT:LST;LEN:5P
+- CMD:ZSF;LEN:5P;STY:PRO;FMT:LST
+- cmd_v1 = parser.parse("CMD:ZSF;LEN:5P;STY:PRO;FMT:LST")
+- const cmdV1 = parser.parse('CMD:ZSF;LEN:5P;STY:PRO');
+- cmd = parser.parse("CMD:ZSF;LEN:5P;STY:PRO")
+- 'lambda: parser.parse("CMD:ZSF;LEN:5P;STY:PRO"),'
+- '❌ CMD:ZSF;LEN:5P;STY:PRO [DEPRECATED: Use text:summarize-v1]'
+stability: stable
+mcp_exposed: true
+aliases:
+- LEN:5P
+token_cost_hint: 1
+text_compact: '[TOKEN] LEN:5P (A)
+
+  Meaning: 5 Absätze'
+keywords:
+- LEN

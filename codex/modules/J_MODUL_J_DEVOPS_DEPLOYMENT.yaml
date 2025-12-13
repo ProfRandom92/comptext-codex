@@ -1,0 +1,31 @@
+id: module:J
+code: J
+name: 'Modul J: DevOps & Deployment'
+purpose: Befehle für CI/CD, Container-Orchestrierung und Infrastructure as Code
+stability: stable
+mcp_exposed: true
+tags:
+- Erweitert
+command_ids:
+- cmd:DEPLOY
+- cmd:DOCK
+- cmd:K8S
+- cmd:MON
+- cmd:PIPE
+- cmd:TERR
+- cmd:CLOUD_AWS
+- cmd:CLOUD_AZR
+- cmd:CLOUD_GCP
+- cmd:CLOUD_DO
+- cmd:CICD_GHA
+- cmd:CICD_GITL
+- cmd:CICD_JNKN
+- cmd:CICD_CCRC
+- cmd:MON_TYP_LOG
+- cmd:MON_TYP_METR
+- cmd:MON_TYP_TRACE
+- cmd:MON_TYP_ALRT
+- cmd:ENV
+text_compact: '[MODULE] J – Modul J: DevOps & Deployment
+
+  Purpose: Befehle für CI/CD, Container-Orchestrierung und Infrastructure as Code'

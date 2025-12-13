@@ -1,0 +1,16 @@
+id: cmd:LNG_MD
+name: LNG_MD
+syntax: LNG:MD
+module_id: module:B
+description: Markdown
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:MD
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:MD (B)
+
+  Meaning: Markdown'
+keywords:
+- LNG

@@ -1,0 +1,16 @@
+id: cmd:MON_TYP_ALRT
+name: MON_TYP_ALRT
+syntax: MON_TYP:ALRT
+module_id: module:J
+description: MON_TYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MON_TYP:ALRT
+token_cost_hint: 3
+text_compact: '[TOKEN] MON_TYP:ALRT (J)
+
+  Meaning: '
+keywords:
+- MON_TYP

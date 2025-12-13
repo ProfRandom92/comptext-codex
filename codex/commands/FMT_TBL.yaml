@@ -1,0 +1,16 @@
+id: cmd:FMT_TBL
+name: FMT_TBL
+syntax: FMT:TBL
+module_id: module:A
+description: Tabelle
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FMT:TBL
+token_cost_hint: 1
+text_compact: '[TOKEN] FMT:TBL (A)
+
+  Meaning: Tabelle'
+keywords:
+- FMT

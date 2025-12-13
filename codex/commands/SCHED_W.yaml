@@ -1,0 +1,16 @@
+id: cmd:SCHED_W
+name: SCHED_W
+syntax: SCHED:W
+module_id: module:L
+description: SCHED value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SCHED:W
+token_cost_hint: 1
+text_compact: '[TOKEN] SCHED:W (L)
+
+  Meaning: '
+keywords:
+- SCHED

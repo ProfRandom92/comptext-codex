@@ -1,0 +1,25 @@
+id: cmd:SNAP
+name: SNAP
+syntax: CMD:SNAP
+module_id: module:G
+description: Snapshot-Tests (V3.5.2)
+examples:
+- 'INPUT: CMD:SNAP;CMPN:Button;FRM:JEST'
+- CMD:SNAP;TYP:<snap-typ>;TGT:<ziel>;FRM:<framework>
+- CMD:SNAP;TYP:UI;TGT:CMPN;LNG:TS;FRM:REACT
+- CMD:SNAP;TYP:API;SER:JSON;DIFF:SEM;LNG:PY
+- CMD:SNAP;TYP:UI;DIFF:VIS;SER:IMG;FRM:PLAY
+- CMD:SNAP;TYP:${1|UI,API,DATA,DOM|};TGT:${2|CMPN,PAGE,RESP|}${3:;DIFF:${4|STRICT,SEM,VIS|}}
+- 'body": ["CMD:SNAP;TYP:${1|UI,API,DATA|};DIFF:${2|STRICT,SEM|}"],'
+stability: stable
+mcp_exposed: true
+aliases:
+- SNAP
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SNAP (G, stable)
+
+  Intent: Snapshot-Tests (V3.5.2)
+
+  Syntax: CMD:SNAP'
+keywords:
+- cmd

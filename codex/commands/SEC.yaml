@@ -1,0 +1,18 @@
+id: cmd:SEC
+name: SEC
+syntax: CMD:SEC
+module_id: module:A
+description: Command (from Web Playground lexer)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SEC (A, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:SEC'
+keywords:
+- cmd

@@ -1,0 +1,12 @@
+id: profile:SEC_ENTERPRISE
+name: SEC_ENTERPRISE
+type: security
+stability: stable
+mcp_exposed: true
+rules:
+- Default deny. Require explicit allow for sensitive operations.
+- Do not exfiltrate secrets; redact tokens and credentials.
+- Prefer least-privilege RBAC patterns; log audit evidence.
+text_compact: '[PROFILE] SEC_ENTERPRISE
+
+  Security-first defaults for enterprise contexts.'

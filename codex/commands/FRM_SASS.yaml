@@ -1,0 +1,16 @@
+id: cmd:FRM_SASS
+name: FRM_SASS
+syntax: FRM:SASS
+module_id: module:B
+description: Sass
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:SASS
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:SASS (B)
+
+  Meaning: Sass'
+keywords:
+- FRM

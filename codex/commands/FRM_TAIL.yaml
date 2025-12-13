@@ -1,0 +1,16 @@
+id: cmd:FRM_TAIL
+name: FRM_TAIL
+syntax: FRM:TAIL
+module_id: module:B
+description: Tailwind
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:TAIL
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:TAIL (B)
+
+  Meaning: Tailwind'
+keywords:
+- FRM

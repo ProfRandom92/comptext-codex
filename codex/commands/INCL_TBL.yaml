@@ -1,0 +1,16 @@
+id: cmd:INCL_TBL
+name: INCL_TBL
+syntax: INCL:TBL
+module_id: module:F
+description: INCL value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- INCL:TBL
+token_cost_hint: 2
+text_compact: '[TOKEN] INCL:TBL (F)
+
+  Meaning: '
+keywords:
+- INCL

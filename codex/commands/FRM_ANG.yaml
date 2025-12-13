@@ -1,0 +1,16 @@
+id: cmd:FRM_ANG
+name: FRM_ANG
+syntax: FRM:ANG
+module_id: module:B
+description: Angular
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:ANG
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:ANG (B)
+
+  Meaning: Angular'
+keywords:
+- FRM

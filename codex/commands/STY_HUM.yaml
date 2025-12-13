@@ -1,0 +1,16 @@
+id: cmd:STY_HUM
+name: STY_HUM
+syntax: STY:HUM
+module_id: module:A
+description: Humorvoll
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- STY:HUM
+token_cost_hint: 1
+text_compact: '[TOKEN] STY:HUM (A)
+
+  Meaning: Humorvoll'
+keywords:
+- STY

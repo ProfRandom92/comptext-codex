@@ -1,0 +1,18 @@
+id: cmd:CHUNK
+name: CHUNK
+syntax: CMD:CHUNK
+module_id: module:A
+description: <tokens>
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CHUNK
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CHUNK (A, stable)
+
+  Intent: <tokens>
+
+  Syntax: CMD:CHUNK'
+keywords:
+- cmd

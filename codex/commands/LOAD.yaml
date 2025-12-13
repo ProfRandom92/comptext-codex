@@ -1,0 +1,19 @@
+id: cmd:LOAD
+name: LOAD
+syntax: CMD:LOAD
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- TRY:CMD:TRAIN;MDL:RF|CATCH:ERR→CMD:LOAD;MDL:CACHED→CMD:PLOT
+stability: stable
+mcp_exposed: true
+aliases:
+- LOAD
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:LOAD (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:LOAD'
+keywords:
+- cmd

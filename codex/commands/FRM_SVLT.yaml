@@ -1,0 +1,16 @@
+id: cmd:FRM_SVLT
+name: FRM_SVLT
+syntax: FRM:SVLT
+module_id: module:B
+description: Svelte
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:SVLT
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:SVLT (B)
+
+  Meaning: Svelte'
+keywords:
+- FRM

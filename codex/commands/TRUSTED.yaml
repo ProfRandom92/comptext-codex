@@ -1,0 +1,16 @@
+id: cmd:TRUSTED
+name: TRUSTED
+syntax: TRUSTED:<value>
+module_id: module:A
+description: Parameter key TRUSTED
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TRUSTED
+token_cost_hint: 1
+text_compact: '[PARAM] TRUSTED
+
+  Syntax: TRUSTED:<value>'
+keywords:
+- param

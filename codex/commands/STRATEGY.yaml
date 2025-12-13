@@ -1,0 +1,17 @@
+id: cmd:STRATEGY
+name: STRATEGY
+syntax: STRATEGY:<value>
+module_id: module:A
+description: Parameter key STRATEGY
+examples:
+- CACHE:ENABLE;STRATEGY:content_hash;TTL:24h;STORAGE:redis
+stability: stable
+mcp_exposed: true
+aliases:
+- STRATEGY
+token_cost_hint: 1
+text_compact: '[PARAM] STRATEGY
+
+  Syntax: STRATEGY:<value>'
+keywords:
+- param

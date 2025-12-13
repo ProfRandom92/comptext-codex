@@ -1,0 +1,16 @@
+id: cmd:AUTH_MTH_OA2
+name: AUTH_MTH_OA2
+syntax: AUTH_MTH:OA2
+module_id: module:I
+description: AUTH_MTH value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- AUTH_MTH:OA2
+token_cost_hint: 3
+text_compact: '[TOKEN] AUTH_MTH:OA2 (I)
+
+  Meaning: '
+keywords:
+- AUTH_MTH

@@ -1,0 +1,21 @@
+id: cmd:OBS_TRACE
+name: OBS_TRACE
+syntax: OBS:TRACE
+module_id: module:O
+description: Starts a new trace span.
+examples:
+- OBS:TRACE;BACKEND:otel;CORR_ID:uuid;EXPORT:jaeger
+- 'OBS:TRACE'': ''**Distributed Tracing** (V3.7)\nStarts a new trace span.\n\n`ID`: Trace ID\n`SPAN`: Operation Name'','
+- 'label: ''OBS:TRACE'','
+- 'insertText: ''OBS:TRACE;ID:${1:req_id};SPAN:${2:main}'','
+- 'code: ''SEC:ROLE;ID:dev;PERM:read|SEC:SIGN;SRC:./plugin.wasm|OBS:TRACE;ID:req_1;SPAN:main|CACHE:ENABLE;TTL:24h'','
+stability: experimental
+mcp_exposed: false
+aliases:
+- OBS:TRACE
+token_cost_hint: 2
+text_compact: '[TOKEN] OBS:TRACE (O, experimental)
+
+  Meaning: Starts a new trace span.'
+keywords:
+- OBS

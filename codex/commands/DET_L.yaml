@@ -1,0 +1,16 @@
+id: cmd:DET_L
+name: DET_L
+syntax: DET:L
+module_id: module:F
+description: DET value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- DET:L
+token_cost_hint: 1
+text_compact: '[TOKEN] DET:L (F)
+
+  Meaning: '
+keywords:
+- DET

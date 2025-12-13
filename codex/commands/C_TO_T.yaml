@@ -1,0 +1,23 @@
+id: cmd:C_TO_T
+name: C_TO_T
+syntax: C→T
+module_id: module:A
+description: CODE → TEST
+examples:
+- C→T;LNG:PY;FRM:PYTEST
+- C→T;LNG:PY;FRM:PYTEST;COV:90
+- C→T;LNG:PY;COV:90      // Code→Test
+- C→T;LNG:${1|PY,JS,TS,JAVA,GO|};COV:${2:80}${3:;TYP:${4|UNIT,INTG,E2E|}}
+- C→T;LNG:PY;COV:80
+- C→T;LNG:PY
+stability: stable
+mcp_exposed: true
+aliases:
+- C→T
+token_cost_hint: 1
+text_compact: '[MACRO] C→T
+
+  Expands: CODE → TEST'
+keywords:
+- macro
+- compound

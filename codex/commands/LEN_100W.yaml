@@ -1,0 +1,16 @@
+id: cmd:LEN_100W
+name: LEN_100W
+syntax: LEN:100W
+module_id: module:A
+description: 100 Wörter
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- LEN:100W
+token_cost_hint: 2
+text_compact: '[TOKEN] LEN:100W (A)
+
+  Meaning: 100 Wörter'
+keywords:
+- LEN

@@ -1,0 +1,12 @@
+id: module:D
+code: D
+name: 'Modul D: Erweiterte KI-Steuerung'
+purpose: Fortgeschrittene Befehle für Rollenspiel, kritische Analyse und Parametersteuerung
+stability: stable
+mcp_exposed: true
+tags:
+- Erweitert
+command_ids: []
+text_compact: '[MODULE] D – Modul D: Erweiterte KI-Steuerung
+
+  Purpose: Fortgeschrittene Befehle für Rollenspiel, kritische Analyse und Parametersteuerung'

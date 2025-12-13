@@ -1,0 +1,16 @@
+id: cmd:DBTYP_MONG
+name: DBTYP_MONG
+syntax: DBTYP:MONG
+module_id: module:H
+description: MongoDB
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- DBTYP:MONG
+token_cost_hint: 2
+text_compact: '[TOKEN] DBTYP:MONG (H)
+
+  Meaning: MongoDB'
+keywords:
+- DBTYP

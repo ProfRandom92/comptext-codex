@@ -1,0 +1,17 @@
+id: cmd:DEST_LAKE
+name: DEST_LAKE
+syntax: DEST:LAKE
+module_id: module:L
+description: DEST value
+examples:
+- CMD:BTCH;SRC:S3;DEST:LAKE;SCHED:H
+stability: stable
+mcp_exposed: true
+aliases:
+- DEST:LAKE
+token_cost_hint: 2
+text_compact: '[TOKEN] DEST:LAKE (L)
+
+  Meaning: '
+keywords:
+- DEST

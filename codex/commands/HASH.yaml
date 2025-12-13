@@ -1,0 +1,17 @@
+id: cmd:HASH
+name: HASH
+syntax: HASH:<value>
+module_id: module:A
+description: Parameter key HASH
+examples:
+- CACHE:CHECK;HASH:sha256:abc123...
+stability: stable
+mcp_exposed: true
+aliases:
+- HASH
+token_cost_hint: 1
+text_compact: '[PARAM] HASH
+
+  Syntax: HASH:<value>'
+keywords:
+- param

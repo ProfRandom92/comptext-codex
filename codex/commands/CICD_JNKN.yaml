@@ -1,0 +1,16 @@
+id: cmd:CICD_JNKN
+name: CICD_JNKN
+syntax: CICD:JNKN
+module_id: module:J
+description: CICD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CICD:JNKN
+token_cost_hint: 2
+text_compact: '[TOKEN] CICD:JNKN (J)
+
+  Meaning: '
+keywords:
+- CICD

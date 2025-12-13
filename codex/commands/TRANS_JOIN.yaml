@@ -1,0 +1,16 @@
+id: cmd:TRANS_JOIN
+name: TRANS_JOIN
+syntax: TRANS:JOIN
+module_id: module:L
+description: TRANS value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TRANS:JOIN
+token_cost_hint: 2
+text_compact: '[TOKEN] TRANS:JOIN (L)
+
+  Meaning: '
+keywords:
+- TRANS

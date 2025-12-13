@@ -1,0 +1,12 @@
+id: profile:MCP_MIN_SCOPE
+name: MCP_MIN_SCOPE
+type: runtime
+stability: stable
+mcp_exposed: true
+rules:
+- Expose only stable, high-signal commands via MCP.
+- Hide experimental tokens unless explicitly requested.
+- Prefer query-time filters over large static scopes.
+text_compact: '[PROFILE] MCP_MIN_SCOPE
+
+  Reduce MCP exposed scope to core commands.'

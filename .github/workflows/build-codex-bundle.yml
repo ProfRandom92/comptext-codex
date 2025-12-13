@@ -3,56 +3,113 @@ name: Build Codex Bundle
 on:
   push:
     tags:
-      - 'v*'
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Codex version (e.g., 3.5.1)"
+        required: true
+        default: "0.0.0"
+      prerelease:
+        description: "Mark GitHub release as prerelease"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
 
 jobs:
-  build-and-release:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      tag: ${{ steps.meta.outputs.tag }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
+      - uses: actions/checkout@v4
+
+      - name: Compute version metadata
+        id: meta
+        shell: bash
         run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VER="${{ inputs.version }}"
+            TAG="v${{ inputs.version }}"
+          else
+            TAG="${{ github.ref_name }}"
+            VER="${TAG#v}"
+          fi
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
           pip install pyyaml jsonschema
-      
-      - name: Validate codex
+
+      - name: Validate Codex
         run: |
           python scripts/validate_codex.py --codex-dir codex --schemas-dir schemas
-      
+
       - name: Build bundle
         run: |
-          python scripts/build_bundle.py --codex-dir codex --output dist/codex.bundle.json
-      
-      - name: Create latest-stable copy
+          mkdir -p dist
+          python scripts/build_bundle.py --codex-dir codex --schemas-dir schemas --version "${{ steps.meta.outputs.version }}" --out dist/codex.bundle.json
+
+      - name: Produce checksums and latest-stable alias
+        shell: bash
         run: |
-          cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
-          cp dist/codex.bundle.json.sha256 dist/codex.bundle.latest-stable.json.sha256
-      
-      - name: Create Release
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, pathlib, shutil
+          dist = pathlib.Path("dist")
+          src = dist / "codex.bundle.json"
+          latest = dist / "codex.bundle.latest-stable.json"
+          shutil.copyfile(src, latest)
+
+          def sha256(p: pathlib.Path) -> str:
+            h = hashlib.sha256()
+            with p.open("rb") as f:
+              for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+            return h.hexdigest()
+
+          (dist / "codex.bundle.json.sha256").write_text(sha256(src) + "  codex.bundle.json\n")
+          (dist / "codex.bundle.latest-stable.json.sha256").write_text(sha256(latest) + "  codex.bundle.latest-stable.json\n")
+          PY
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: codex-bundle
+          path: |
+            dist/codex.bundle.json
+            dist/codex.bundle.json.sha256
+            dist/codex.bundle.latest-stable.json
+            dist/codex.bundle.latest-stable.json.sha256
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: codex-bundle
+          path: dist
+
+      - name: Create GitHub Release and upload assets
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: CompText Codex ${{ github.ref_name }}
-          body: |
-            CompText Codex release ${{ github.ref_name }}
-            
-            ## Assets
-            - `codex.bundle.json` - Main bundle file
-            - `codex.bundle.latest-stable.json` - Latest stable alias
-            - SHA-256 checksums for verification
-          draft: false
-          prerelease: false
+          tag_name: ${{ needs.build.outputs.tag }}
+          name: ${{ needs.build.outputs.tag }}
           files: |
             dist/codex.bundle.json
             dist/codex.bundle.json.sha256
             dist/codex.bundle.latest-stable.json
             dist/codex.bundle.latest-stable.json.sha256
+          prerelease: ${{ github.event_name == 'workflow_dispatch' && inputs.prerelease == 'true' || false }}
+          make_latest: true

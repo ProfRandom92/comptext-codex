@@ -1,0 +1,16 @@
+id: cmd:ASRT_NEQ
+name: ASRT_NEQ
+syntax: ASRT:NEQ
+module_id: module:G
+description: ASRT value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ASRT:NEQ
+token_cost_hint: 2
+text_compact: '[TOKEN] ASRT:NEQ (G)
+
+  Meaning: '
+keywords:
+- ASRT

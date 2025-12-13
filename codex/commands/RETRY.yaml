@@ -1,0 +1,21 @@
+id: cmd:RETRY
+name: RETRY
+syntax: CMD:RETRY
+module_id: module:A
+description: <zahl>
+examples:
+- 'INPUT: TRY:CMD:API;URL:invalid|CATCH:E005→CMD:RETRY|CATCH:E006→CMD:WAIT'
+- LOOP:3→CMD:RETRY;TASK:API
+- LOOP:3→CMD:RETRY;TASK:API_CALL
+stability: stable
+mcp_exposed: true
+aliases:
+- RETRY
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:RETRY (A, stable)
+
+  Intent: <zahl>
+
+  Syntax: CMD:RETRY'
+keywords:
+- cmd

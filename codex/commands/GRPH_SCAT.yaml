@@ -1,0 +1,17 @@
+id: cmd:GRPH_SCAT
+name: GRPH_SCAT
+syntax: GRPH:SCAT
+module_id: module:C
+description: Scatter Plot
+examples:
+- CMD:VIZ;GRPH:SCAT;COL:MONO
+stability: stable
+mcp_exposed: true
+aliases:
+- GRPH:SCAT
+token_cost_hint: 2
+text_compact: '[TOKEN] GRPH:SCAT (C)
+
+  Meaning: Scatter Plot'
+keywords:
+- GRPH

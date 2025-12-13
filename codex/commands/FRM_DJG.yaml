@@ -1,0 +1,16 @@
+id: cmd:FRM_DJG
+name: FRM_DJG
+syntax: FRM:DJG
+module_id: module:B
+description: Django
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:DJG
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:DJG (B)
+
+  Meaning: Django'
+keywords:
+- FRM

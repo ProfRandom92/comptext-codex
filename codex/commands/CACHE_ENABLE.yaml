@@ -1,0 +1,19 @@
+id: cmd:CACHE_ENABLE
+name: CACHE_ENABLE
+syntax: CACHE:ENABLE
+module_id: module:P
+description: Enables content-hash caching.
+examples:
+- CACHE:ENABLE;STRATEGY:content_hash;TTL:24h;STORAGE:redis
+- 'CACHE:ENABLE'': ''**Deterministic Caching** (V3.7)\nEnables content-hash caching.\n\n`TTL`: Time to live'','
+- 'code: ''SEC:ROLE;ID:dev;PERM:read|SEC:SIGN;SRC:./plugin.wasm|OBS:TRACE;ID:req_1;SPAN:main|CACHE:ENABLE;TTL:24h'','
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:ENABLE
+token_cost_hint: 3
+text_compact: '[TOKEN] CACHE:ENABLE (P, experimental)
+
+  Meaning: Enables content-hash caching.'
+keywords:
+- CACHE

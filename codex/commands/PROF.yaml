@@ -1,0 +1,26 @@
+id: cmd:PROF
+name: PROF
+syntax: CMD:PROF
+module_id: module:B
+description: Code-Profiling (CPU/MEM/IO)
+examples:
+- 'INPUT: CMD:PROF;LNG:PY;METRIC:TIME,MEM'
+- CMD:PROF;TYP:<profil-typ>;TGT:<ziel>;OUT:<ausgabe>
+- CMD:PROF;TYP:CPU;TGT:FUNC;LNG:PY;OUT:VIZ
+- CMD:PROF;TYP:MEM;TGT:APP;LNG:PY;THRESH:100
+- CMD:PROF;TYP:FULL;TGT:APP;LNG:TS;OUT:JSON
+- CMD:PROF;TYP:${1|CPU,MEM,IO,FULL|};TGT:${2|FUNC,MOD,APP|};OUT:${3|LOG,VIZ,JSON|}${4:;THRESH:${5:100}}
+- 'body": ["CMD:PROF;TYP:${1|CPU,MEM,FULL|};OUT:${2|LOG,VIZ|}"],'
+- EXPAND:CMD:PROF;LNG:PY;TYP:FULL;OUT:VIZ
+stability: stable
+mcp_exposed: true
+aliases:
+- PROF
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:PROF (B, stable)
+
+  Intent: Code-Profiling (CPU/MEM/IO)
+
+  Syntax: CMD:PROF'
+keywords:
+- cmd

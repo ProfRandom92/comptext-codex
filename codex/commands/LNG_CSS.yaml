@@ -1,0 +1,16 @@
+id: cmd:LNG_CSS
+name: LNG_CSS
+syntax: LNG:CSS
+module_id: module:B
+description: CSS
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:CSS
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:CSS (B)
+
+  Meaning: CSS'
+keywords:
+- LNG

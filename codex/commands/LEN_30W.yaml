@@ -1,0 +1,16 @@
+id: cmd:LEN_30W
+name: LEN_30W
+syntax: LEN:30W
+module_id: module:A
+description: 30 Wörter
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- LEN:30W
+token_cost_hint: 1
+text_compact: '[TOKEN] LEN:30W (A)
+
+  Meaning: 30 Wörter'
+keywords:
+- LEN

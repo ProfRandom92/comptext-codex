@@ -1,0 +1,17 @@
+id: cmd:AUD_USR
+name: AUD_USR
+syntax: AUD:USR
+module_id: module:F
+description: AUD value
+examples:
+- CMD:DOC;SECT:USE,TRBL;AUD:USR
+stability: stable
+mcp_exposed: true
+aliases:
+- AUD:USR
+token_cost_hint: 1
+text_compact: '[TOKEN] AUD:USR (F)
+
+  Meaning: '
+keywords:
+- AUD

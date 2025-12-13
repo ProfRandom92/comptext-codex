@@ -1,0 +1,14 @@
+id: module:N
+code: N
+name: '🤖 Modul N: AI Agents & Orchestration'
+purpose: Agent Chains, DAG-Orchestrierung und Vector Memory für komplexe KI-Workflows
+stability: experimental
+mcp_exposed: true
+tags: []
+command_ids:
+- cmd:AGENT
+- cmd:MEM
+- cmd:ORCH
+text_compact: '[MODULE] N – 🤖 Modul N: AI Agents & Orchestration
+
+  Purpose: Agent Chains, DAG-Orchestrierung und Vector Memory für komplexe KI-Workflows'

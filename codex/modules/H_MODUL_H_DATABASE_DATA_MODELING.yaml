@@ -1,0 +1,22 @@
+id: module:H
+code: H
+name: 'Modul H: Database & Data Modeling'
+purpose: Befehle für Datenbankdesign, Schema-Erstellung und Datenmodellierung
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+command_ids:
+- cmd:IDX
+- cmd:MIG
+- cmd:QRY
+- cmd:SCHM
+- cmd:DBTYP_PSQL
+- cmd:DBTYP_MYS
+- cmd:DBTYP_MONG
+- cmd:DBTYP_REDIS
+- cmd:DBTYP_SQLT
+- cmd:DBTYP_MARIA
+text_compact: '[MODULE] H – Modul H: Database & Data Modeling
+
+  Purpose: Befehle für Datenbankdesign, Schema-Erstellung und Datenmodellierung'

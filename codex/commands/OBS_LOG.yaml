@@ -1,0 +1,17 @@
+id: cmd:OBS_LOG
+name: OBS_LOG
+syntax: OBS:LOG
+module_id: module:O
+description: Token (auto-extracted)
+examples:
+- OBS:LOG;LEVEL:info;FORMAT:json;FIELDS:[timestamp,trace_id,command]
+stability: experimental
+mcp_exposed: false
+aliases:
+- OBS:LOG
+token_cost_hint: 1
+text_compact: '[TOKEN] OBS:LOG (O, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- OBS

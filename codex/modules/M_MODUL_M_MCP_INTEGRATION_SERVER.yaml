@@ -1,0 +1,16 @@
+id: module:M
+code: M
+name: 'Modul M: MCP Integration & Server'
+purpose: Befehle für Model Context Protocol Server, Clients, Tools und Resources
+stability: stable
+mcp_exposed: true
+tags:
+- Core
+- Erweitert
+command_ids:
+- cmd:MCP
+- cmd:MCP_TOOL
+- cmd:SDK
+text_compact: '[MODULE] M – Modul M: MCP Integration & Server
+
+  Purpose: Befehle für Model Context Protocol Server, Clients, Tools und Resources'

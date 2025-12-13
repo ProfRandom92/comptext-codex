@@ -1,0 +1,17 @@
+id: cmd:METR_RMSE
+name: METR_RMSE
+syntax: METR:RMSE
+module_id: module:E
+description: METR value
+examples:
+- CMD:EVAL;MDL:NN;METR:RMSE,R2
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:RMSE
+token_cost_hint: 2
+text_compact: '[TOKEN] METR:RMSE (E)
+
+  Meaning: '
+keywords:
+- METR

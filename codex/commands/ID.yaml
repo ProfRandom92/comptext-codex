@@ -1,0 +1,24 @@
+id: cmd:ID
+name: ID
+syntax: ID:<value>
+module_id: module:A
+description: Parameter key ID
+examples:
+- CMD:TEST;TYP:SUITE;ID:V3.5.2_FULL;VERBOSE:Y
+- CMD:TEST;TYP:VAL;ID:COMPOUND_CT
+- CMD:TEST;TYP:VAL;ID:COMPOUND_DV
+- CMD:TEST;TYP:VAL;ID:COMPOUND_AD
+- CMD:TEST;TYP:VAL;ID:COMPOUND_FB
+- CMD:TEST;TYP:VAL;ID:COMPOUND_NESTED
+- CMD:TEST;TYP:VAL;ID:COMPOUND_INVALID
+- CMD:TEST;TYP:VAL;ID:COMPOUND_PIPE
+stability: stable
+mcp_exposed: true
+aliases:
+- ID
+token_cost_hint: 1
+text_compact: '[PARAM] ID
+
+  Syntax: ID:<value>'
+keywords:
+- param

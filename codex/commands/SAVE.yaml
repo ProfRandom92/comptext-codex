@@ -1,0 +1,19 @@
+id: cmd:SAVE
+name: SAVE
+syntax: CMD:SAVE
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:PREP;SRC:CSV;EDA:Y;CLEAN:MV,OUT,ENC|CMD:FEAT;SCALE:Y;SELECT:Y|CMD:TRAIN;MDL:RF,XGB,LR;CV:5;HPT:Y|CMD:EVAL;METRIC:ACC,PREC,REC,F1,AUC;PLOT:CONF,FIMP|CMD:SAVE;FMT:PKL|CMD:REP;FMT:MD
+stability: stable
+mcp_exposed: true
+aliases:
+- SAVE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SAVE (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:SAVE'
+keywords:
+- cmd

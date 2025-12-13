@@ -1,0 +1,19 @@
+id: cmd:AUD_MGT
+name: AUD_MGT
+syntax: AUD:MGT
+module_id: module:F
+description: AUD value
+examples:
+- CMD:REP;SECT:OVW;DET:L;AUD:MGT;STY:PRO
+- CMD:CODE;LNG:PY;FRM:PND;TASK:DB_CONN;CMD:PREP;NORM:STD;CMD:ANAL;TASK:DESC_STATS;CMD:PLOT;GRPH:LINE,BAR,PIE;AXIS:X=Zeit;Y=Umsatz;COL:VIB;CMD:REP;SECT:OVW;DET:H;INCL:DIAG,TBL;AUD:MGT;STY:PRO
+- CMD:REP;SECT:OVW;AUD:MGT
+stability: stable
+mcp_exposed: true
+aliases:
+- AUD:MGT
+token_cost_hint: 1
+text_compact: '[TOKEN] AUD:MGT (F)
+
+  Meaning: '
+keywords:
+- AUD
