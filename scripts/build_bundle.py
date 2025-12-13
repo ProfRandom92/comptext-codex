@@ -54,13 +54,12 @@ def main():
     elif args.output is not None and args.out is None:
         print("Warning: --output is deprecated; prefer --out instead.")
 
-    output_target = (
-        args.out
-        if args.out is not None
-        else args.output
-        if args.output is not None
-        else 'dist/codex.bundle.json'
-    )
+    if args.out is not None:
+        output_target = args.out
+    elif args.output is not None:
+        output_target = args.output
+    else:
+        output_target = 'dist/codex.bundle.json'
 
     if output_target == "":
         print("Warning: empty output path provided; using default dist/codex.bundle.json")

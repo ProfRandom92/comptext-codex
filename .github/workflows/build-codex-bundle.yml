@@ -37,8 +37,6 @@ jobs:
           cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
           sha256sum dist/codex.bundle.json > dist/codex.bundle.json.sha256
           sha256sum dist/codex.bundle.latest-stable.json > dist/codex.bundle.latest-stable.json.sha256
-          test -f dist/codex.bundle.json.sha256
-          test -f dist/codex.bundle.latest-stable.json.sha256
       
       - name: Create Release
         uses: softprops/action-gh-release@v2
