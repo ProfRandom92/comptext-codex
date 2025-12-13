@@ -61,6 +61,7 @@ def main():
     print(f"Building codex bundle from {codex_dir} (version: {args.version})...")
 
     bundle = load_yaml_files(codex_dir)
+    bundle['version'] = args.version
 
     print(f"  Modules: {len(bundle['modules'])}")
     print(f"  Commands: {len(bundle['commands'])}")
