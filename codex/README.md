@@ -21,5 +21,5 @@ python scripts/validate_codex.py --codex-dir codex
 Build the codex bundle:
 
 ```bash
-python scripts/build_bundle.py --codex-dir codex --output dist/codex.bundle.json
+python scripts/build_bundle.py --codex-dir codex --out dist/codex.bundle.json --version v0.0.0
 ```

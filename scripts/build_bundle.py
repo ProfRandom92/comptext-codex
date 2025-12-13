@@ -43,11 +43,24 @@ def load_yaml_files(codex_dir):
 def main():
     parser = argparse.ArgumentParser(description='Build CompText Codex bundle')
     parser.add_argument('--codex-dir', default='codex', help='Directory containing codex YAML files')
-    parser.add_argument('--output', default='dist/codex.bundle.json', help='Output bundle file path')
+    parser.add_argument('--out', dest='out', default=None, help='Output bundle file path')
+    parser.add_argument('--output', dest='output', default=None, help='(deprecated) Output bundle file path (use --out)')
+    parser.add_argument('--version', default='unknown', help='Bundle version identifier')
     args = parser.parse_args()
 
     codex_dir = Path(args.codex_dir)
-    output_path = Path(args.output)
+    if args.out is not None and args.output is not None:
+        print("Warning: both --out and deprecated --output provided; using --out value.")
+        output_target = args.out
+    elif args.out is not None:
+        output_target = args.out
+    elif args.output is not None:
+        print("Warning: --output is deprecated; prefer --out instead.")
+        output_target = args.output
+    else:
+        output_target = 'dist/codex.bundle.json'
+
+    output_path = Path(output_target)
 
     if not codex_dir.exists():
         print(f"Error: Codex directory not found: {codex_dir}")
@@ -56,9 +69,10 @@ def main():
     # Create output directory
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"Building codex bundle from {codex_dir}...")
+    print(f"Building codex bundle from {codex_dir} (version: {args.version})...")
 
     bundle = load_yaml_files(codex_dir)
+    bundle['version'] = args.version
 
     print(f"  Modules: {len(bundle['modules'])}")
     print(f"  Commands: {len(bundle['commands'])}")
