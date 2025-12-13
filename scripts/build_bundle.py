@@ -51,18 +51,13 @@ def main():
     codex_dir = Path(args.codex_dir)
     if args.out is not None and args.output is not None:
         print("Warning: both --out and deprecated --output provided; using --out value.")
-    elif args.output is not None and args.out is None:
-        print("Warning: --output is deprecated; prefer --out instead.")
-
-    if args.out is not None:
+        output_target = args.out
+    elif args.out is not None:
         output_target = args.out
     elif args.output is not None:
+        print("Warning: --output is deprecated; prefer --out instead.")
         output_target = args.output
     else:
-        output_target = 'dist/codex.bundle.json'
-
-    if output_target == "":
-        print("Warning: empty output path provided; using default dist/codex.bundle.json")
         output_target = 'dist/codex.bundle.json'
 
     output_path = Path(output_target)
