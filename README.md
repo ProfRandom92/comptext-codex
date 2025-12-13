@@ -164,6 +164,8 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 | Ambiguity errors | 15% | 2% | **87% reduction** |
 | Execution time | 1.2s | 0.8s | **33% faster** |
 
+**Validated Results:** See [TOKEN_REDUCTION_RESULTS.md](TOKEN_REDUCTION_RESULTS.md) for detailed test results with 16 real-world examples showing **62.8% average token reduction**.
+
 ---
 
 ## 🛠️ Tech Stack
