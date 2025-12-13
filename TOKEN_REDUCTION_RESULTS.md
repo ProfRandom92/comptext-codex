@@ -7,17 +7,6 @@ This report demonstrates the token efficiency of CompText-Codex by comparing nat
 - Number of test cases: 16
 - Methodology: Based on OpenAI's guidance (1 token ≈ 4 chars for English text)
 
-**How to Run the Test:**
-```bash
-# Make sure you're in the project directory
-cd /path/to/comptext-codex
-
-# Run the token reduction test
-python scripts/test_token_reduction.py
-```
-
-The test will generate this report automatically.
-
 ---
 
 ## Detailed Comparison
