@@ -32,13 +32,10 @@ jobs:
         run: |
           python scripts/build_bundle.py --codex-dir codex --out dist/codex.bundle.json --version "${{ github.ref_name }}"
       
-      - name: Generate checksums
-        run: |
-          sha256sum dist/codex.bundle.json > dist/codex.bundle.json.sha256
-      
-      - name: Create latest-stable copy
+      - name: Prepare release artifacts
         run: |
           cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
+          sha256sum dist/codex.bundle.json > dist/codex.bundle.json.sha256
           sha256sum dist/codex.bundle.latest-stable.json > dist/codex.bundle.latest-stable.json.sha256
       
       - name: Create Release

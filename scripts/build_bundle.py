@@ -49,12 +49,22 @@ def main():
     args = parser.parse_args()
 
     codex_dir = Path(args.codex_dir)
-    if args.out and args.output:
+    if args.out is not None and args.output is not None:
         print("Warning: both --out and deprecated --output provided; using --out value.")
-    elif args.output and not args.out:
+    elif args.output is not None and args.out is None:
         print("Warning: --output is deprecated; prefer --out instead.")
 
-    output_path = Path(args.out or args.output or 'dist/codex.bundle.json')
+    if args.out is not None:
+        output_target = args.out
+    elif args.output is not None:
+        output_target = args.output
+    else:
+        output_target = 'dist/codex.bundle.json'
+
+    if not output_target:
+        output_target = 'dist/codex.bundle.json'
+
+    output_path = Path(output_target)
 
     if not codex_dir.exists():
         print(f"Error: Codex directory not found: {codex_dir}")
