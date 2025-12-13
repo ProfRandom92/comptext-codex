@@ -35,10 +35,14 @@ def validate_codex_file(yaml_path, schema_dir):
     # Determine schema based on file type
     if 'modules' in data:
         schema = load_schema(os.path.join(schema_dir, 'modules.schema.json'))
+    elif 'module' in data:
+        schema = load_schema(os.path.join(schema_dir, 'module_schema.json'))
     elif 'commands' in data:
         schema = load_schema(os.path.join(schema_dir, 'commands.schema.json'))
     elif 'profiles' in data:
         schema = load_schema(os.path.join(schema_dir, 'profiles.schema.json'))
+    elif 'profile' in data:
+        schema = load_schema(os.path.join(schema_dir, 'profile_schema.json'))
     else:
         print(f"⚠️  Unknown codex file type: {yaml_path}")
         return False
