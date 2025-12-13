@@ -39,7 +39,7 @@ jobs:
       - name: Create latest-stable copy
         run: |
           cp dist/codex.bundle.json dist/codex.bundle.latest-stable.json
-          cp dist/codex.bundle.json.sha256 dist/codex.bundle.latest-stable.json.sha256
+          sha256sum dist/codex.bundle.latest-stable.json > dist/codex.bundle.latest-stable.json.sha256
       
       - name: Create Release
         uses: softprops/action-gh-release@v2
