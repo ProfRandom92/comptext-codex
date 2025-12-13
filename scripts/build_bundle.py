@@ -61,7 +61,7 @@ def main():
     else:
         output_target = 'dist/codex.bundle.json'
 
-    if not output_target:
+    if output_target == "":
         output_target = 'dist/codex.bundle.json'
 
     output_path = Path(output_target)
