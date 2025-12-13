@@ -5,7 +5,7 @@ This report demonstrates the token efficiency of CompText-Codex by comparing nat
 **Test Configuration:**
 - Tokenizer: GPT-4 approximation (character-based: ~3.5 chars/token for NL, ~4 chars/token for DSL)
 - Number of test cases: 16
-- Methodology: Based on OpenAI's guidance (1 token ≈ 4 chars for English text)
+- Methodology: Character-based counting approximation
 
 ---
 
@@ -164,7 +164,7 @@ This report demonstrates the token efficiency of CompText-Codex by comparing nat
 
 **CompText DSL Command:**
 ```
-@CODE_TRANS[py→js, comments=true]
+@CODE_TRANS[py->js, comments=true]
 ```
 
 **Tokens:** 8

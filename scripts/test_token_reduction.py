@@ -17,10 +17,10 @@ class TokenCounter:
         """
         Initialize the token counter.
 
-        Uses an approximation based on GPT tokenization patterns:
-        - Average English text: ~0.75 tokens per word
-        - Technical text: ~1.3 tokens per word (more complex vocabulary)
-        - Code and special syntax: varies based on context
+        Uses character-based approximation:
+        - Natural language: ~3.5 chars per token (accounts for
+          complex vocabulary and inflections)
+        - CompText DSL: ~4 chars per token (efficient syntax)
         """
         pass
 
@@ -28,12 +28,9 @@ class TokenCounter:
         """
         Count the number of tokens in a text using GPT-4 approximation.
 
-        This approximation is based on OpenAI's guidance that:
-        - 1 token ≈ 4 characters in English on average
-        - Technical instructions often use more complex words that split
-        - Common words: 1 token
-        - Complex words: 2-3 tokens
-        - Punctuation adds tokens
+        This approximation is based on character counting:
+        - CompText DSL: ~4 chars per token (efficient syntax)
+        - Natural language: ~3.5 chars per token (more verbose)
 
         Args:
             text: The text to count tokens for
@@ -41,13 +38,13 @@ class TokenCounter:
         Returns:
             Approximate number of tokens
         """
-        # For CompText commands (contains @ and brackets), use efficient character-based counting
-        if "@" in text and "[" in text:
+        # For CompText commands, use efficient character-based counting
+        # Detection: must start with @ and contain brackets
+        if text.strip().startswith("@") and "[" in text:
             # CompText DSL - optimized, count as ~4 chars per token
             return max(1, len(text) // 4)
         else:
             # Natural language - more verbose tokenization
-            # Words split more, punctuation adds tokens, complex vocabulary
             # Use character count / 3.5 for more accurate representation
             # This accounts for:
             # - Articles, prepositions: separate tokens
@@ -177,7 +174,7 @@ class TokenReductionTest:
             natural_language=(
                 "Translate this Python code to JavaScript with equivalent functionality and comments"
             ),
-            comptext="@CODE_TRANS[py→js, comments=true]",
+            comptext="@CODE_TRANS[py->js, comments=true]",
         )
 
         # Example 9: Refactoring
@@ -311,12 +308,11 @@ class TokenReductionTest:
             )
             f.write("**Test Configuration:**\n")
             f.write(
-                "- Tokenizer: GPT-4 approximation (character-based: ~3.5 chars/token for NL, ~4 chars/token for DSL)\n"
+                "- Tokenizer: GPT-4 approximation (character-based: "
+                "~3.5 chars/token for NL, ~4 chars/token for DSL)\n"
             )
             f.write(f"- Number of test cases: {len(results['examples'])}\n")
-            f.write(
-                "- Methodology: Based on OpenAI's guidance (1 token ≈ 4 chars for English text)\n\n"
-            )
+            f.write("- Methodology: Character-based counting approximation\n\n")
             f.write("---\n\n")
 
             f.write("## Detailed Comparison\n\n")
@@ -385,7 +381,7 @@ class TokenReductionTest:
             f.write("## Cost Implications\n\n")
             f.write("Based on typical LLM API pricing (e.g., GPT-4):\n\n")
 
-            # Assuming $0.03 per 1K tokens for GPT-4 input (as of 2024)
+            # Assuming $0.03 per 1K tokens for GPT-4 input tokens
             price_per_1k = 0.03
             nl_cost = (results["total_nl_tokens"] / 1000) * price_per_1k
             ct_cost = (results["total_ct_tokens"] / 1000) * price_per_1k
