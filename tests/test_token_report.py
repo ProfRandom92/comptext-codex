@@ -30,4 +30,5 @@ def test_render_text_report_includes_module_names():
     report = build_token_report(commands, modules)
     output = render_text_report(report)
     assert "Total commands" in output
-    assert "Core Commands" in output or "Analysis" in output
+    assert "Core Commands" in output
+    assert "Analysis" in output

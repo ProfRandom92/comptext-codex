@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from statistics import mean
-from typing import Dict, Iterable, List, Mapping
+from typing import Iterable, Mapping
 
 import yaml
 
@@ -18,7 +18,7 @@ def _load_yaml(path: Path) -> Mapping:
         raise ValueError(f"Failed to parse YAML file: {path}") from exc
 
 
-def load_commands(codex_dir: Path) -> List[dict]:
+def load_commands(codex_dir: Path) -> list[dict]:
     """Load command definitions from a codex directory."""
     commands: List[dict] = []
     aggregated = codex_dir / "commands.yaml"
@@ -33,7 +33,7 @@ def load_commands(codex_dir: Path) -> List[dict]:
     return commands
 
 
-def load_modules(codex_dir: Path) -> Dict[str, dict]:
+def load_modules(codex_dir: Path) -> dict[str, dict]:
     """Load module definitions keyed by module code."""
     modules: Dict[str, dict] = {}
     aggregated = codex_dir / "modules.yaml"
@@ -65,7 +65,7 @@ def build_token_report(commands: Iterable[dict], modules: Mapping[str, dict]) ->
         if cmd.get("token_cost_hint") is not None
     ]
 
-    module_summary: Dict[str, dict] = {}
+    module_summary: dict[str, dict] = {}
     for cmd in commands_list:
         code = cmd.get("module")
         if not code:
