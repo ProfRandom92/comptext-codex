@@ -11,8 +11,11 @@ import yaml
 
 
 def _load_yaml(path: Path) -> Mapping:
-    with open(path, "r", encoding="utf-8") as handle:
-        return yaml.safe_load(handle) or {}
+    try:
+        with open(path, "r", encoding="utf-8") as handle:
+            return yaml.safe_load(handle) or {}
+    except yaml.YAMLError as exc:
+        raise ValueError(f"Failed to parse YAML file: {path}") from exc
 
 
 def load_commands(codex_dir: Path) -> List[dict]:
@@ -36,13 +39,19 @@ def load_modules(codex_dir: Path) -> Dict[str, dict]:
     aggregated = codex_dir / "modules.yaml"
     if aggregated.exists():
         for item in _load_yaml(aggregated).get("modules", []):
-            modules[item.get("code")] = item
+            code = item.get("code")
+            if not code:
+                continue
+            modules[code] = item
 
     modules_dir = codex_dir / "modules"
     if modules_dir.exists():
         for path in sorted(modules_dir.glob("*.yaml")):
             for item in _load_yaml(path).get("modules", []):
-                modules.setdefault(item.get("code"), item)
+                code = item.get("code")
+                if not code:
+                    continue
+                modules.setdefault(code, item)
 
     return modules
 

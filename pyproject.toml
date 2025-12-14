@@ -47,6 +47,9 @@ dependencies = [
     "click>=8.0.0",
 ]
 
+[project.scripts]
+comptext = "comptext_codex.cli:main"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=7.4.0",
