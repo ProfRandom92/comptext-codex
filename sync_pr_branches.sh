@@ -22,24 +22,38 @@ git fetch origin
 echo ""
 echo "=== Synchronizing feat/codex-v2 with main ==="
 git checkout feat/codex-v2
-git merge main --allow-unrelated-histories --no-edit || {
+if git merge main --allow-unrelated-histories --no-edit; then
+    echo "✅ Merged without conflicts"
+else
     echo "Merge conflicts detected. Resolving by accepting main branch versions..."
-    git checkout --theirs .gitignore README.md .github/workflows/build-codex-bundle.yml scripts/build_bundle.py scripts/validate_codex.py mcp_loader/loader.py
+    # List of expected conflict files - check if they exist and have conflicts
+    for file in .gitignore README.md .github/workflows/build-codex-bundle.yml scripts/build_bundle.py scripts/validate_codex.py mcp_loader/loader.py; do
+        if [ -f "$file" ] && git status --porcelain | grep -q "^UU $file\|^AA $file"; then
+            git checkout --theirs "$file"
+        fi
+    done
     git add .
     git commit -m "Merge main into feat/codex-v2 - resolve conflicts by accepting main versions"
-}
+fi
 echo "✅ feat/codex-v2 synchronized"
 
 # Synchronize codex/alle-comptext-repositorys-funktionsfahig-machen
 echo ""
 echo "=== Synchronizing codex/alle-comptext-repositorys-funktionsfahig-machen with main ==="
 git checkout codex/alle-comptext-repositorys-funktionsfahig-machen
-git merge main --allow-unrelated-histories --no-edit || {
+if git merge main --allow-unrelated-histories --no-edit; then
+    echo "✅ Merged without conflicts"
+else
     echo "Merge conflicts detected. Resolving by accepting main branch versions..."
-    git checkout --theirs README.md SECURITY.md requirements.txt setup.py tests/test_token_reduction.py
+    # List of expected conflict files - check if they exist and have conflicts
+    for file in README.md SECURITY.md requirements.txt setup.py tests/test_token_reduction.py; do
+        if [ -f "$file" ] && git status --porcelain | grep -q "^UU $file\|^AA $file"; then
+            git checkout --theirs "$file"
+        fi
+    done
     git add .
     git commit -m "Merge main into codex/alle-comptext-repositorys-funktionsfahig-machen - resolve conflicts"
-}
+fi
 echo "✅ codex/alle-comptext-repositorys-funktionsfahig-machen synchronized"
 
 # Push both branches

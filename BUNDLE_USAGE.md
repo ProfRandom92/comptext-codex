@@ -6,6 +6,8 @@
 - `feat/codex-v2` - with main merged in, conflicts resolved
 - `codex/alle-comptext-repositorys-funktionsfahig-machen` - with main merged in, conflicts resolved
 
+**Bundle Location**: This bundle file should be in the root of the repository alongside this documentation. If it's missing, you can recreate it using the `sync_pr_branches.sh` script or download it from the PR assets.
+
 ## How to use this bundle
 
 ### Option 1: Extract and push directly (Recommended)
