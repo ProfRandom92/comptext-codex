@@ -99,7 +99,7 @@ def render_text_report(report: Mapping[str, object]) -> str:
     for code in sorted(modules):
         module = modules[code]
         lines.append(
-            f"- {code} ({module.get('name','').strip() or 'Unknown'}): "
+            f"- {code} ({module.get('name', '').strip() or 'Unknown'}): "
             f"{module.get('command_count', 0)} commands, "
             f"avg token cost {module.get('avg_token_cost', 0.0):.1f} "
             f"(priority: {module.get('token_priority', 'n/a')})"

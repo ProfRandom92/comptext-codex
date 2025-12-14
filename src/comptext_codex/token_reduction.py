@@ -102,7 +102,7 @@ def write_report(report_path: Path, content: str) -> None:
 def main(output_path: Path | None = None) -> None:
     """Entry point for running the token reduction suite."""
     report_content = generate_markdown_report(DEFAULT_CASES)
-    target = output_path or Path(__file__).resolve().parents[2] / "TOKEN_REDUCTION_RESULTS.md"
+    target = output_path or Path.cwd() / "TOKEN_REDUCTION_RESULTS.md"
     write_report(target, report_content)
     print(f"✅ Token reduction report written to {target}")
 
