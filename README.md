@@ -79,6 +79,18 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+### Validate codex definitions
+
+```bash
+python scripts/validate_codex.py --codex-dir codex --schema-dir schemas
+```
+
+### Build the codex bundle locally
+
+```bash
+python scripts/build_bundle.py --codex-dir codex --out dist/codex.bundle.json --version v0.0.0
+```
+
 ### Basic Usage
 
 ```python
@@ -173,6 +185,18 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 - **Testing:** pytest, coverage
 - **CI/CD:** GitHub Actions
 - **License:** MIT
+
+---
+
+## 🚢 Release Process
+
+- Push a tag (e.g., `v1.2.3`) to trigger the release workflow.
+- The workflow validates the codex, builds `dist/codex.bundle.json` with the tag as the version, and generates SHA-256 checksums.
+- Release assets include:
+  - `codex.bundle.json`
+  - `codex.bundle.json.sha256`
+  - `codex.bundle.latest-stable.json`
+  - `codex.bundle.latest-stable.json.sha256`
 
 ---
 
