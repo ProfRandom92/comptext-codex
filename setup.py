@@ -47,11 +47,6 @@ setup(
             "mcp>=0.1.0",
         ],
     },
-    entry_points={
-        "console_scripts": [
-            "comptext=comptext_codex.cli:main",
-        ],
-    },
     include_package_data=True,
     package_data={
         "comptext_codex": ["data/*.csv"],
