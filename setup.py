@@ -14,7 +14,8 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ProfRandom92/comptext-codex",
-    packages=find_packages(),
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -30,6 +31,7 @@ setup(
     install_requires=[
         "click>=8.0.0",
         "pydantic>=2.0.0",
+        "pyyaml>=6.0",
         "rich>=13.0.0",
     ],
     extras_require={
