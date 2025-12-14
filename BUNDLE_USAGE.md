@@ -28,6 +28,10 @@ git log feat/codex-v2-synced -5
 git log codex/alle-comptext-repositorys-funktionsfahig-machen-synced -5
 
 # 5. Push to overwrite the remote branches
+# WARNING: --force will overwrite remote branches. Use --force-with-lease for safer alternative.
+# Consider backing up branches first: git branch backup/feat/codex-v2 feat/codex-v2
+echo "⚠️  About to force push. Press Ctrl+C to cancel, Enter to continue..."
+read -r
 git push origin feat/codex-v2-synced:feat/codex-v2 --force
 git push origin codex/alle-comptext-repositorys-funktionsfahig-machen-synced:codex/alle-comptext-repositorys-funktionsfahig-machen --force
 

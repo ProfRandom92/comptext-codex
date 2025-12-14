@@ -17,7 +17,7 @@ Synchronize PR branches #1, #2, and #5 with main branch to make them mergeable.
 git bundle verify pr-sync-bundle.bundle
 
 # 2. Extract both branches
-git fetch pr-sync-bundle.bundle feat/codex-v2:feat/codex-v2-synced && \
+git fetch pr-sync-bundle.bundle feat/codex-v2:feat/codex-v2-synced
 git fetch pr-sync-bundle.bundle codex/alle-comptext-repositorys-funktionsfahig-machen:codex/alle-comptext-repositorys-funktionsfahig-machen-synced
 
 # 3. Push to origin

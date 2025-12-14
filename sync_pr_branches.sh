@@ -26,9 +26,10 @@ if git merge main --allow-unrelated-histories --no-edit; then
     echo "✅ Merged without conflicts"
 else
     echo "Merge conflicts detected. Resolving by accepting main branch versions..."
-    # List of expected conflict files - check if they exist and have conflicts
-    for file in .gitignore README.md .github/workflows/build-codex-bundle.yml scripts/build_bundle.py scripts/validate_codex.py mcp_loader/loader.py; do
-        if [ -f "$file" ] && git status --porcelain | grep -q "^UU $file\|^AA $file"; then
+    # Dynamically detect conflicted files and resolve them
+    git diff --name-only --diff-filter=U | while read -r file; do
+        if [ -f "$file" ]; then
+            echo "  Resolving conflict in: $file"
             git checkout --theirs "$file"
         fi
     done
@@ -45,9 +46,10 @@ if git merge main --allow-unrelated-histories --no-edit; then
     echo "✅ Merged without conflicts"
 else
     echo "Merge conflicts detected. Resolving by accepting main branch versions..."
-    # List of expected conflict files - check if they exist and have conflicts
-    for file in README.md SECURITY.md requirements.txt setup.py tests/test_token_reduction.py; do
-        if [ -f "$file" ] && git status --porcelain | grep -q "^UU $file\|^AA $file"; then
+    # Dynamically detect conflicted files and resolve them
+    git diff --name-only --diff-filter=U | while read -r file; do
+        if [ -f "$file" ]; then
+            echo "  Resolving conflict in: $file"
             git checkout --theirs "$file"
         fi
     done
