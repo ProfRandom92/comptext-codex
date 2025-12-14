@@ -91,6 +91,22 @@ python scripts/validate_codex.py --codex-dir codex --schema-dir schemas
 python scripts/build_bundle.py --codex-dir codex --out dist/codex.bundle.json --version v0.0.0
 ```
 
+### Token reduction test suite
+
+```bash
+python scripts/test_token_reduction.py
+```
+
+This generates `TOKEN_REDUCTION_RESULTS.md` with reproducible sample cases.
+
+### CLI token report
+
+After installing the project, inspect token cost hints directly from the codex:
+
+```bash
+comptext token-report --codex-dir codex --format json
+```
+
 ### Basic Usage
 
 ```python

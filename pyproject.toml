@@ -43,7 +43,12 @@ classifiers = [
 dependencies = [
     "pydantic>=2.0.0",
     "typing-extensions>=4.5.0",
+    "PyYAML>=6.0",
+    "click>=8.0.0",
 ]
+
+[project.scripts]
+comptext = "comptext_codex.cli:main"
 
 [project.optional-dependencies]
 dev = [
