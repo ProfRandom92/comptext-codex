@@ -47,8 +47,4 @@ setup(
             "mcp>=0.1.0",
         ],
     },
-    include_package_data=True,
-    package_data={
-        "comptext_codex": ["data/*.csv"],
-    },
 )
