@@ -4,15 +4,179 @@ modules:
     purpose: Essential CompText DSL commands for text manipulation
     token_priority: high
     mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: prompt_injection_hardened
+      audit_trail: request_id+role
+    privacy:
+      dp_budget: epsilon<=1.0_per_call
+      federated_ready: true
+      retention: ephemeral
 
   - code: B
     name: Analysis
     purpose: Text analysis and insight generation
     token_priority: medium
     mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: model_leakage_guardrails
+      audit_trail: request_id+trace
+    privacy:
+      dp_budget: epsilon<=0.5_per_call
+      federated_ready: true
+      retention: aggregate_only
 
   - code: C
     name: Formatting
     purpose: Document formatting and structure
     token_priority: medium
     mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: template_injection_controls
+      audit_trail: request_id
+    privacy:
+      dp_budget: epsilon<=0.1_per_call
+      federated_ready: false
+      retention: none
+
+  - code: D
+    name: AI Control
+    purpose: Model selection, prompt governance, and safety filters
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: safety_policy_enforced
+      audit_trail: request_id+policy_id
+    privacy:
+      dp_budget: epsilon<=0.5_per_call
+      federated_ready: true
+      retention: policy_hash_only
+
+  - code: E
+    name: ML Pipelines
+    purpose: AutoML, feature engineering, and experiment tracking
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: false
+      threat_model: dataset_access_controlled
+      audit_trail: request_id+dataset_id
+    privacy:
+      dp_budget: epsilon<=2.0_per_job
+      federated_ready: true
+      retention: metrics_only
+
+  - code: F
+    name: Documentation
+    purpose: API docs, tutorials, changelogs, and design docs
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: content_sanitization
+      audit_trail: request_id
+    privacy:
+      dp_budget: epsilon<=0.2_per_call
+      federated_ready: false
+      retention: redact_pii
+
+  - code: G
+    name: Testing
+    purpose: Test generation, coverage insights, and quality gates
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: sandbox_execution
+      audit_trail: request_id+run_id
+    privacy:
+      dp_budget: epsilon<=0.3_per_suite
+      federated_ready: true
+      retention: anonymized_failures
+
+  - code: H
+    name: Database
+    purpose: Schema design, migrations, and query optimization
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: false
+      threat_model: sql_injection_scanning
+      audit_trail: request_id+db_scope
+    privacy:
+      dp_budget: epsilon<=1.0_per_call
+      federated_ready: false
+      retention: schema_only
+
+  - code: I
+    name: Security
+    purpose: Vulnerability scans, compliance checks, and threat modeling
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: zero_trust
+      audit_trail: request_id+severity
+    privacy:
+      dp_budget: epsilon<=0.2_per_scan
+      federated_ready: true
+      retention: findings_only
+
+  - code: J
+    name: DevOps
+    purpose: CI/CD workflows, observability, and release automation
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: supply_chain_checks
+      audit_trail: request_id+pipeline_id
+    privacy:
+      dp_budget: epsilon<=0.1_per_call
+      federated_ready: true
+      retention: pipeline_logs
+
+  - code: K
+    name: Frontend/UI
+    purpose: Component scaffolding, accessibility, and responsive design
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: xsrf_xss_hardening
+      audit_trail: request_id
+    privacy:
+      dp_budget: epsilon<=0.05_per_call
+      federated_ready: false
+      retention: none
+
+  - code: L
+    name: ETL
+    purpose: Data extraction, transformation, and loading with validations
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: false
+      threat_model: data_leakage_controls
+      audit_trail: request_id+lineage
+    privacy:
+      dp_budget: epsilon<=1.0_per_job
+      federated_ready: true
+      retention: lineage_metadata
+
+  - code: M
+    name: MCP Integration
+    purpose: Multi-agent messaging, tool routing, and contract governance
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: capability_scoped
+      audit_trail: request_id+session_id
+    privacy:
+      dp_budget: epsilon<=0.2_per_exchange
+      federated_ready: true
+      retention: audit_log_only

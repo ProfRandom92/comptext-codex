@@ -98,6 +98,11 @@ python scripts/test_token_reduction.py
 ```
 
 This generates `TOKEN_REDUCTION_RESULTS.md` with reproducible sample cases.
+You can also invoke the CLI directly:
+
+```bash
+comptext token-benchmark --output TOKEN_REDUCTION_RESULTS.md
+```
 
 ### CLI token report
 
@@ -134,6 +139,8 @@ result = parser.execute(command, dataset="data.csv")
 
 - **[Quick Start Guide](QUICK_START.md)** - Get up and running in 5 minutes
 - **[Examples](EXAMPLES.md)** - 55+ production-ready examples
+- **[Module Catalog](codex/MODULE_CATALOG.md)** - 13 modules with security/privacy guardrails
+- **[Example Catalog](codex/EXAMPLE_CATALOG.md)** - Category index pointing to all snippets
 - **[Contributing](CONTRIBUTING.md)** - How to contribute
 
 ---
