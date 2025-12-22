@@ -7,6 +7,8 @@ This directory contains YAML definitions for the CompText DSL codex.
 - `modules.yaml` - Module definitions (A-M codes)
 - `commands.yaml` - Command definitions with syntax and examples
 - `profiles.yaml` - Profile configurations
+- `MODULE_CATALOG.md` - Human-readable summary of modules and guardrails
+- `EXAMPLE_CATALOG.md` - Index of the 55+ example categories
 
 ## Validation
 

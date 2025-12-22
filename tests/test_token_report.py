@@ -32,3 +32,12 @@ def test_render_text_report_includes_module_names():
     assert "Total commands" in output
     assert "Core Commands" in output
     assert "Analysis" in output
+
+
+def test_modules_include_security_and_privacy_metadata():
+    modules = load_modules(_codex_dir())
+    assert len(modules) >= 13
+    assert modules["A"]["security"]["pii_safe"] is True
+    assert modules["A"]["privacy"]["dp_budget"].startswith("epsilon")
+    assert "privacy" in modules["M"]
+    assert modules["M"]["privacy"]["federated_ready"] is True

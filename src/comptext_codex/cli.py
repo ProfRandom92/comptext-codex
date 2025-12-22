@@ -8,6 +8,7 @@ from typing import Optional
 import click
 
 from .token_report import build_token_report, load_commands, load_modules, render_text_report, report_as_json
+from .token_reduction import main as run_token_benchmark
 
 
 @click.group()
@@ -50,6 +51,18 @@ def token_report(
         click.echo(report_as_json(report))
     else:
         click.echo(render_text_report(report))
+
+
+@main.command("token-benchmark")
+@click.option(
+    "--output",
+    default="TOKEN_REDUCTION_RESULTS.md",
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="Where to write the token reduction benchmark report.",
+)
+def token_benchmark(output: Path) -> None:
+    """Run the token reduction benchmark suite and write the markdown report."""
+    run_token_benchmark(output_path=output)
 
 
 if __name__ == "__main__":

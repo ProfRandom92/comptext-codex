@@ -95,6 +95,7 @@ def generate_markdown_report(cases: Iterable[TokenReductionCase]) -> str:
 
 def write_report(report_path: Path, content: str) -> None:
     """Write the report content to the given path."""
+    report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(content, encoding="utf-8")
 
 
