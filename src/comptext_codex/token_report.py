@@ -5,12 +5,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from statistics import mean
-from typing import Iterable, Mapping
+from typing import Any, Iterable, Mapping
 
 import yaml
 
 
-def _load_yaml(path: Path) -> Mapping:
+def _load_yaml(path: Path) -> dict[str, Any]:
     try:
         with open(path, "r", encoding="utf-8") as handle:
             return yaml.safe_load(handle) or {}
@@ -18,9 +18,9 @@ def _load_yaml(path: Path) -> Mapping:
         raise ValueError(f"Failed to parse YAML file: {path}") from exc
 
 
-def load_commands(codex_dir: Path) -> list[dict]:
+def load_commands(codex_dir: Path) -> list[dict[str, Any]]:
     """Load command definitions from a codex directory."""
-    commands: List[dict] = []
+    commands: list[dict[str, Any]] = []
     aggregated = codex_dir / "commands.yaml"
     if aggregated.exists():
         commands.extend(_load_yaml(aggregated).get("commands", []))
@@ -33,9 +33,9 @@ def load_commands(codex_dir: Path) -> list[dict]:
     return commands
 
 
-def load_modules(codex_dir: Path) -> dict[str, dict]:
+def load_modules(codex_dir: Path) -> dict[str, dict[str, Any]]:
     """Load module definitions keyed by module code."""
-    modules: Dict[str, dict] = {}
+    modules: dict[str, dict[str, Any]] = {}
     aggregated = codex_dir / "modules.yaml"
     if aggregated.exists():
         for item in _load_yaml(aggregated).get("modules", []):
@@ -56,16 +56,18 @@ def load_modules(codex_dir: Path) -> dict[str, dict]:
     return modules
 
 
-def build_token_report(commands: Iterable[dict], modules: Mapping[str, dict]) -> dict:
+def build_token_report(
+    commands: Iterable[dict[str, Any]], modules: Mapping[str, dict[str, Any]]
+) -> dict[str, Any]:
     """Create an in-memory token report."""
     commands_list = list(commands)
-    token_hints = [
-        cmd.get("token_cost_hint")
-        for cmd in commands_list
-        if cmd.get("token_cost_hint") is not None
-    ]
+    token_hints: list[int] = []
+    for cmd in commands_list:
+        hint = cmd.get("token_cost_hint")
+        if hint is not None:
+            token_hints.append(int(hint))
 
-    module_summary: dict[str, dict] = {}
+    module_summary: dict[str, dict[str, Any]] = {}
     for cmd in commands_list:
         code = cmd.get("module")
         if not code:
@@ -95,7 +97,7 @@ def build_token_report(commands: Iterable[dict], modules: Mapping[str, dict]) ->
     }
 
 
-def render_text_report(report: Mapping[str, object]) -> str:
+def render_text_report(report: Mapping[str, Any]) -> str:
     """Render a human-friendly text report."""
     lines = [
         f"Total commands: {report['total_commands']}",
@@ -104,8 +106,8 @@ def render_text_report(report: Mapping[str, object]) -> str:
         "",
         "Per-module summary:",
     ]
-    modules = report.get("modules", {})
-    for code in sorted(modules):
+    modules: dict[str, Any] = report.get("modules", {})
+    for code in sorted(modules.keys()):
         module = modules[code]
         lines.append(
             f"- {code} ({module.get('name', '').strip() or 'Unknown'}): "
@@ -116,6 +118,6 @@ def render_text_report(report: Mapping[str, object]) -> str:
     return "\n".join(lines)
 
 
-def report_as_json(report: Mapping[str, object]) -> str:
+def report_as_json(report: Mapping[str, Any]) -> str:
     """Return report as formatted JSON string."""
     return json.dumps(report, indent=2, sort_keys=True)
