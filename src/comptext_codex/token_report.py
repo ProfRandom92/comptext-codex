@@ -18,6 +18,25 @@ def _load_yaml(path: Path) -> dict[str, Any]:
         raise ValueError(f"Failed to parse YAML file: {path}") from exc
 
 
+def _parse_token_hint(value: Any) -> int | None:
+    """Return a normalized token hint as int, or None when invalid."""
+    if value is None or isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        return int(value) if value.is_integer() else None
+    if isinstance(value, str):
+        stripped = value.strip()
+        if not stripped:
+            return None
+        try:
+            return int(stripped)
+        except ValueError:
+            return None
+    return None
+
+
 def load_commands(codex_dir: Path) -> list[dict[str, Any]]:
     """Load command definitions from a codex directory."""
     commands: list[dict[str, Any]] = []
@@ -63,9 +82,9 @@ def build_token_report(
     commands_list = list(commands)
     token_hints: list[int] = []
     for cmd in commands_list:
-        hint = cmd.get("token_cost_hint")
+        hint = _parse_token_hint(cmd.get("token_cost_hint"))
         if hint is not None:
-            token_hints.append(int(hint))
+            token_hints.append(hint)
 
     module_summary: dict[str, dict[str, Any]] = {}
     for cmd in commands_list:
@@ -82,8 +101,9 @@ def build_token_report(
             },
         )
         summary["command_count"] += 1
-        if cmd.get("token_cost_hint") is not None:
-            summary["token_cost_hints"].append(cmd["token_cost_hint"])
+        hint = _parse_token_hint(cmd.get("token_cost_hint"))
+        if hint is not None:
+            summary["token_cost_hints"].append(hint)
 
     for summary in module_summary.values():
         hints = summary["token_cost_hints"]
