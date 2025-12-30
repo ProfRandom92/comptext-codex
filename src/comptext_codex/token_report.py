@@ -13,7 +13,12 @@ import yaml
 def _load_yaml(path: Path) -> dict[str, Any]:
     try:
         with open(path, "r", encoding="utf-8") as handle:
-            return yaml.safe_load(handle) or {}
+            data = yaml.safe_load(handle)
+            if not isinstance(data, dict):
+                raise ValueError(
+                    f"Expected YAML mapping in {path}, got {type(data).__name__}"
+                )
+            return data
     except yaml.YAMLError as exc:
         raise ValueError(f"Failed to parse YAML file: {path}") from exc
 
