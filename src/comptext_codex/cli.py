@@ -48,6 +48,11 @@ def token_report(
     commands = load_commands(codex_dir)
     if module_filter:
         commands = [cmd for cmd in commands if cmd.get("module") == module_filter]
+        if not commands:
+            click.echo(
+                f"No commands found for module filter '{module_filter}'.", err=True
+            )
+            raise SystemExit(1)
 
     modules = load_modules(codex_dir)
     report = build_token_report(commands, modules)
