@@ -3,12 +3,17 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 import click
 
-from .token_report import build_token_report, load_commands, load_modules, render_text_report, report_as_json
 from .token_reduction import main as run_token_benchmark
+from .token_report import (
+    build_token_report,
+    load_commands,
+    load_modules,
+    render_text_report,
+    report_as_json,
+)
 
 
 @click.group()
@@ -37,7 +42,7 @@ def main() -> None:
     help="Output format for the report.",
 )
 def token_report(
-    codex_dir: Path, module_filter: Optional[str], output_format: str
+    codex_dir: Path, module_filter: str | None, output_format: str
 ) -> None:
     """Generate a token usage report for the codex."""
     commands = load_commands(codex_dir)
