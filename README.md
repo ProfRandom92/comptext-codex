@@ -82,7 +82,7 @@ pip install -e .
 ### Basic Usage
 
 ```python
-from comptext import CompTextParser
+from comptext_codex import CompTextParser
 
 # Initialize parser
 parser = CompTextParser()
@@ -98,6 +98,14 @@ result = parser.execute(command, source_code="...")
 # Example 3: ML Pipeline
 command = "@AUTOML[task=classification, metric=f1] + @MODEL_EVAL[cv=5]"
 result = parser.execute(command, dataset="data.csv")
+```
+
+### CLI Usage
+
+Run commands directly from the terminal and optionally view the bundled catalog:
+
+```bash
+comptext "@CODE_ANALYZE[perf_bottleneck] + @CODE_OPT[explain=detail]" --context code_path=app.py --list-catalog
 ```
 
 ---

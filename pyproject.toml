@@ -4,16 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "comptext-codex"
-version = "1.0.0"
+version = "3.5.0"
 description = "Token-efficient DSL for LLM interactions - Python library"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "ProfRandom92", email = "your.email@example.com"}
+    {name = "CompText Team", email = "your.email@example.com"}
 ]
 maintainers = [
-    {name = "ProfRandom92", email = "your.email@example.com"}
+    {name = "CompText Team", email = "your.email@example.com"}
 ]
 keywords = [
     "llm",
@@ -43,6 +43,7 @@ classifiers = [
 dependencies = [
     "pydantic>=2.0.0",
     "typing-extensions>=4.5.0",
+    "click>=8.0.0",
 ]
 
 [project.optional-dependencies]
@@ -69,6 +70,9 @@ Changelog = "https://github.com/ProfRandom92/comptext-codex/blob/main/CHANGELOG.
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.package-data]
+comptext_codex = ["data/*.csv", ".VERSION"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
