@@ -3,42 +3,731 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CompText Codex — Landing</title>
+  <meta name="description" content="CompText Codex - Token-efficient DSL for LLM interaction. Reduce prompts by 70% with structured, composable commands." />
+  <meta name="keywords" content="LLM, DSL, AI, MCP, prompts, efficiency" />
+  <title>CompText Codex — Token-Efficient DSL for LLM Interaction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Inter, Roboto, Arial, sans-serif; color:#1f2937; margin: 48px; }
-    a { color:#2563eb; text-decoration:none; }
-    .card { border:1px solid #e5e7eb; padding:20px; border-radius:8px; max-width:900px; }
-    header h1 { margin:0 0 8px 0; }
-    footer { margin-top:28px; color:#6b7280; font-size:0.9rem; }
-    ul { margin: 12px 0 24px 20px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #13131a;
+      --bg-tertiary: #1a1a24;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
+      --border-color: #1e293b;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      animation: bgShift 20s ease infinite;
+    }
+    
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(5%, 5%); }
+      50% { transform: translate(-5%, 5%); }
+      75% { transform: translate(5%, -5%); }
+    }
+    
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    .hero .subtitle {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: white;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+    }
+    
+    .btn-secondary {
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+    }
+    
+    /* Stats */
+    .stats {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-primary);
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .stat-label {
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+    
+    /* Features */
+    .section {
+      max-width: 1200px;
+      margin: 6rem auto;
+      padding: 0 2rem;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 4rem;
+      font-size: 1.125rem;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-primary);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.2);
+    }
+    
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-gradient);
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    /* Code Example */
+    .code-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .code-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    
+    pre {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    
+    code {
+      color: var(--text-primary);
+    }
+    
+    .code-comment { color: #64748b; }
+    .code-keyword { color: #c792ea; }
+    .code-string { color: #c3e88d; }
+    .code-function { color: #82aaff; }
+    .code-number { color: #f78c6c; }
+    
+    /* Getting Started */
+    .steps-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .step-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    
+    .step-content p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    
+    .step-code {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      margin-top: 8rem;
+      padding: 4rem 2rem 2rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    
+    .footer-section h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-section ul {
+      list-style: none;
+    }
+    
+    .footer-section li {
+      margin-bottom: 0.75rem;
+    }
+    
+    .footer-section a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .footer-section a:hover {
+      color: var(--accent-primary);
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-tertiary);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero .subtitle {
+        font-size: 1.125rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+    
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 2rem;
+    }
+    
+    .pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
   </style>
 </head>
 <body>
+  <div class="bg-animation"></div>
+  
   <header>
-    <h1>CompText Codex</h1>
-    <p>Token-efficient DSL for LLM interaction — production-ready.</p>
+    <nav>
+      <div class="logo">CompText Codex</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="#getting-started">Get Started</a></li>
+        <li><a href="https://github.com/ProfRandom92/comptext-codex">GitHub</a></li>
+      </ul>
+    </nav>
   </header>
+  
+  <main>
+    <section class="hero">
+      <div class="badge pulse">
+        <span>🚀</span> Production-Ready DSL for LLM Interaction
+      </div>
+      <h1>Token-Efficient<br/>LLM Communication</h1>
+      <p class="subtitle">
+        Reduce your prompt sizes by 70% with CompText Codex - a powerful domain-specific language designed for efficient AI interaction.
+      </p>
+      <div class="cta-buttons">
+        <a href="https://github.com/ProfRandom92/comptext-codex" class="btn btn-primary">
+          <span>⭐</span> Star on GitHub
+        </a>
+        <a href="#getting-started" class="btn btn-secondary">
+          <span>📖</span> Get Started
+        </a>
+        <a href="/health" class="btn btn-secondary">
+          <span>💚</span> Health Check
+        </a>
+      </div>
+    </section>
+    
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-number">70%</div>
+        <div class="stat-label">Prompt Reduction</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Commands</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">MCP Compatible</div>
+      </div>
+    </section>
+    
+    <section class="section" id="features">
+      <h2 class="section-title">Why CompText Codex?</h2>
+      <p class="section-subtitle">Built for developers who want efficient, structured AI communication</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Lightning Fast</h3>
+          <p>Structured commands reduce token count dramatically, saving costs and improving response times.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🧩</div>
+          <h3>Composable</h3>
+          <p>Build complex workflows by combining simple, reusable commands. Perfect for automation.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔧</div>
+          <h3>MCP Integration</h3>
+          <p>Native Model Context Protocol support for seamless integration with AI systems.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Production Ready</h3>
+          <p>Battle-tested DSL with comprehensive error handling and validation built-in.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Type Safe</h3>
+          <p>Strong typing ensures your commands are correct before execution.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>Cross-Platform</h3>
+          <p>Works everywhere Python runs. CLI, web, serverless - you name it.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" id="examples">
+      <h2 class="section-title">See It In Action</h2>
+      <p class="section-subtitle">Clean, readable syntax that humans and LLMs understand</p>
+      
+      <div class="code-section">
+        <div class="code-header">
+          <h3>🔥 Example: Data Analysis Pipeline</h3>
+        </div>
+        <pre><code><span class="code-comment"># Traditional Prompt (verbose, 200+ tokens)</span>
+<span class="code-string">"Please analyze the sales data from Q4 2024, calculate the total revenue,
+find the top 5 products by units sold, and create a summary report..."</span>
 
-  <section class="card" role="main" aria-labelledby="main-title">
-    <h2 id="main-title">Quick links</h2>
-    <ul>
-      <li><a href="https://github.com/ProfRandom92/comptext-codex">GitHub Repository</a></li>
-      <li><a href="/health">Health check</a></li>
-      <li><a href="https://comptext-txsu.vercel.app">Live site (this URL)</a></li>
-    </ul>
+<span class="code-comment"># CompText Codex (concise, ~60 tokens)</span>
+<span class="code-keyword">@analyze</span> sales_q4_2024
+  <span class="code-keyword">calc</span> total_revenue
+  <span class="code-keyword">top</span> <span class="code-number">5</span> products <span class="code-keyword">by</span> units_sold
+  <span class="code-keyword">report</span> summary
+<span class="code-keyword">@end</span>
 
-    <h3>Status</h3>
-    <p>Static landing + health endpoint deployed from repository.</p>
-
-    <h3>Next steps</h3>
-    <ul>
-      <li>Add docs (mkdocs) to <code>/docs</code> or expand <code>/public</code>.</li>
-      <li>Enable CI to run tests on PRs (included in this PR).</li>
-    </ul>
-  </section>
-
+<span class="code-comment"># Result: Same output, 70% less tokens! 🎉</span></code></pre>
+      </div>
+      
+      <div class="code-section">
+        <div class="code-header">
+          <h3>💡 Example: Multi-Step Workflow</h3>
+        </div>
+        <pre><code><span class="code-comment"># Chain multiple operations efficiently</span>
+<span class="code-keyword">@pipeline</span> customer_insights
+  <span class="code-keyword">load</span> customers <span class="code-keyword">from</span> <span class="code-string">"db"</span>
+  <span class="code-keyword">filter</span> active = <span class="code-keyword">true</span>
+  <span class="code-keyword">group</span> <span class="code-keyword">by</span> region
+  <span class="code-keyword">aggregate</span> avg(revenue)
+  <span class="code-keyword">visualize</span> bar_chart
+<span class="code-keyword">@end</span></code></pre>
+      </div>
+    </section>
+    
+    <section class="section" id="getting-started">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-subtitle">Up and running in minutes</p>
+      
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Install via pip</h3>
+            <p>Get CompText Codex from PyPI with a single command</p>
+            <div class="step-code">$ pip install comptext-codex</div>
+          </div>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Import and Initialize</h3>
+            <p>Start using CompText in your Python code immediately</p>
+            <div class="step-code">from comptext import Codex<br/>codex = Codex()</div>
+          </div>
+        </div>
+        
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Write Your First Command</h3>
+            <p>Create efficient, structured prompts in seconds</p>
+            <div class="step-code">result = codex.execute("@analyze data.csv")</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="code-section" style="text-align: center;">
+        <h3 style="margin-bottom: 1.5rem;">Ready to optimize your LLM workflows?</h3>
+        <div class="cta-buttons">
+          <a href="https://github.com/ProfRandom92/comptext-codex" class="btn btn-primary">
+            <span>🚀</span> Get Started Now
+          </a>
+          <a href="https://github.com/ProfRandom92/comptext-codex/issues" class="btn btn-secondary">
+            <span>💬</span> Join Discussion
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
   <footer>
-    <p>Made with ❤️ by <a href="https://github.com/ProfRandom92">ProfRandom92</a></p>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>CompText Codex</h4>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          Token-efficient DSL for production-ready LLM interaction. Built with ❤️ for developers.
+        </p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex">GitHub Repository</a></li>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex/blob/main/README.md">Documentation</a></li>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex/issues">Issue Tracker</a></li>
+          <li><a href="/health">System Status</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex/discussions">Discussions</a></li>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex/blob/main/CONTRIBUTING.md">Contributing</a></li>
+          <li><a href="https://github.com/ProfRandom92">Author</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex/blob/main/LICENSE">MIT License</a></li>
+          <li><a href="https://github.com/ProfRandom92/comptext-codex/blob/main/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2026 CompText Codex by <a href="https://github.com/ProfRandom92" style="color: var(--accent-primary);">ProfRandom92</a> • Built with passion for efficient AI</p>
+    </div>
   </footer>
+  
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+    
+    // Animate elements on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.feature-card, .stat-card, .step-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
