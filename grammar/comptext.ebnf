@@ -1,0 +1,68 @@
+(* CompText DSL Grammar (EBNF) *)
+
+comptext_document = ws? statement ws? ;
+
+statement = conditional
+          | for_loop
+          | command_chain ;
+
+command_chain = command_expr, { ws?, "+", ws?, command_expr } ;
+
+command_expr = command ;
+
+conditional = command_expr, ws, "IF", ws, condition, ws, "THEN", ws,
+              command_expr, ws, "ELSE", ws, command_expr ;
+
+for_loop = "FOR", ws, identifier, ws, "IN", ws, identifier, ws?, ":", ws?,
+           command_expr ;
+
+command = "@", command_name, ( bracket_args | inline_args | empty ) ;
+
+(* Ambiguity: inline_args are documented in codex commands (e.g. "@sum <text>")
+   but no parser exists in this repo; choose "rest of line" as inline_args. *)
+inline_args = ws, inline_text ;
+inline_text = inline_char, { inline_char } ;
+inline_char = ? any character except line break ? ;
+
+empty = "" ;
+
+bracket_args = ws?, "[", ws?, arg_list?, ws?, "]" ;
+arg_list = arg, { ws?, ",", ws?, arg }, trailing_comma? ;
+trailing_comma = ws?, "," ;
+
+arg = key_value | value ;
+key_value = key, ws?, "=", ws?, value ;
+
+list = "[", ws?, list_items?, ws?, "]" ;
+list_items = list_item, { ws?, ",", ws?, list_item }, trailing_comma? ;
+list_item = key_value | value ;
+
+value = list | number | boolean | bare_value ;
+
+number = integer | float ;
+integer = digit, { digit } ;
+float = digit, { digit }, ".", digit, { digit } ;
+
+boolean = "true" | "false" ;
+
+key = identifier ;
+command_name = identifier ;
+
+identifier = letter, { letter | digit | "_" } ;
+
+(* Ambiguity: values include tokens like "v3.0.0", "lint+test+deploy", "cpu=500m".
+   Choose bare_value as any run of non-delimiter characters. *)
+bare_value = value_char, { value_char } ;
+value_char = ? any character except whitespace, ",", "]", "=" ? ;
+
+ws = { " " | "\t" | newline } ;
+newline = "\n" | "\r\n" ;
+
+letter = "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
+       | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
+       | "U" | "V" | "W" | "X" | "Y" | "Z"
+       | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j"
+       | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t"
+       | "u" | "v" | "w" | "x" | "y" | "z" ;
+
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
