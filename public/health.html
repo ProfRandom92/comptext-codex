@@ -3,17 +3,220 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>CompText Codex — Health</title>
-  <style> body{font-family:Arial,Helvetica,sans-serif;padding:40px;color:#222} </style>
+  <title>CompText Codex — System Health</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #10b981;
+      --primary-dark: #059669;
+      --dark: #0f172a;
+      --dark-light: #1e293b;
+      --gray: #64748b;
+      --light: #f1f5f9;
+      --white: #ffffff;
+      --success: #10b981;
+      --gradient-green: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--dark);
+      color: var(--light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .health-container {
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.5rem;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gradient-green);
+      padding: 0.75rem 1.5rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+    .status-icon {
+      width: 12px;
+      height: 12px;
+      background: var(--white);
+      border-radius: 50%;
+      animation: blink 1.5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      background: var(--gradient-green);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle {
+      color: var(--gray);
+      margin-bottom: 2.5rem;
+      font-size: 1.1rem;
+    }
+    .metrics {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem;
+      transition: all 0.3s;
+    }
+    .metric:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .metric-label {
+      color: var(--gray);
+      font-weight: 500;
+    }
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      color: var(--success);
+      font-size: 0.95rem;
+    }
+    .deployment-info {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .deployment-info h3 {
+      color: var(--success);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .deployment-info p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .back-link:hover {
+      color: var(--primary-dark);
+      transform: translateX(-3px);
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 640px) {
+      .health-container { padding: 2rem 1.5rem; }
+      h1 { font-size: 2rem; }
+      .status-badge { font-size: 1rem; }
+    }
+  </style>
 </head>
 <body>
-  <h1>OK</h1>
-  <p>CompText Codex static site is deployed.</p>
-  <pre id="meta"></pre>
+  <div class="health-container">
+    <div class="status-badge">
+      <div class="status-icon"></div>
+      SYSTEM OPERATIONAL
+    </div>
+    
+    <h1>✓ OK</h1>
+    <p class="subtitle">CompText Codex static site is deployed and healthy.</p>
+    
+    <div class="deployment-info">
+      <h3>🚀 Deployment Status</h3>
+      <p>
+        Static site successfully deployed via <code>@vercel/static</code>.
+        Zero build dependencies, instant deployment.
+      </p>
+    </div>
+    
+    <div class="metrics">
+      <div class="metric">
+        <span class="metric-label">Deployment Type</span>
+        <span class="metric-value">Static (Vercel)</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Last Checked</span>
+        <span class="metric-value" id="timestamp">Loading...</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Response Time</span>
+        <span class="metric-value" id="response-time">< 50ms</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Status Code</span>
+        <span class="metric-value">200 OK</span>
+      </div>
+    </div>
+    
+    <a href="/" class="back-link">
+      ← Back to Home
+    </a>
+  </div>
 
   <script>
-    // Simple client meta: show timestamp
-    document.getElementById('meta').textContent = 'Checked at: ' + new Date().toISOString();
+    // Update timestamp
+    const now = new Date();
+    const options = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      second: '2-digit',
+      timeZoneName: 'short'
+    };
+    document.getElementById('timestamp').textContent = now.toLocaleString('en-US', options);
+    
+    // Measure response time (approximate)
+    const start = performance.timing.domLoading;
+    const end = performance.timing.domComplete;
+    const responseTime = end - start;
+    if (responseTime > 0) {
+      document.getElementById('response-time').textContent = `${responseTime}ms`;
+    }
   </script>
 </body>
 </html>
