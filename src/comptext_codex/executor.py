@@ -146,6 +146,9 @@ class CompTextExecutor:
             else:
                 return self._execute_fallback(cmd, context)
 
+        except NotImplementedError:
+            # Command not implemented, use fallback
+            return self._execute_fallback(cmd, context)
         except Exception as e:
             logger.error(f"Error executing {cmd.module}:{cmd.command}: {e}")
             return ExecutionResult(

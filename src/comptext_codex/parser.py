@@ -27,7 +27,7 @@ class CompTextParser:
 
     # Regex patterns for different command formats
     SIMPLE_PATTERN = re.compile(r'@([A-M]):(\w+)\s*(.*?)(?=\s*(?:@|$))', re.DOTALL)
-    PARAMETRIC_PATTERN = re.compile(r'@(\w+)\[([^\]]*)\]', re.DOTALL)
+    PARAMETRIC_PATTERN = re.compile(r'@(\w+)\[', re.DOTALL)  # Match opening, extract content manually
     CHAIN_SEPARATOR = re.compile(r'\s*\+\s*')
 
     def __init__(self, codex_dir: Optional[str] = None):
@@ -88,7 +88,12 @@ class CompTextParser:
         # Try parametric pattern first (e.g., @CODE_ANALYZE[...])
         param_match = self.PARAMETRIC_PATTERN.match(command_str)
         if param_match:
-            return self._parse_parametric(param_match, command_str)
+            # Extract content between balanced brackets
+            command_name = param_match.group(1)
+            start_idx = param_match.end()  # Position after '['
+            params_content = self._extract_bracketed_content(command_str, start_idx)
+            if params_content is not None:
+                return self._parse_parametric_with_content(command_name, params_content, command_str)
 
         # Try simple pattern (e.g., @A:compress text)
         simple_match = self.SIMPLE_PATTERN.match(command_str)
@@ -97,19 +102,36 @@ class CompTextParser:
 
         return None
 
-    def _parse_parametric(self, match: re.Match, raw: str) -> CompTextCommand:
-        """Parse parametric command format: @COMMAND[param1, key=value]."""
-        command_name = match.group(1)
-        params_str = match.group(2)
+    def _extract_bracketed_content(self, text: str, start_idx: int) -> Optional[str]:
+        """Extract content between balanced brackets starting from start_idx."""
+        bracket_depth = 1
+        content = []
 
+        for i in range(start_idx, len(text)):
+            char = text[i]
+            if char == '[':
+                bracket_depth += 1
+                content.append(char)
+            elif char == ']':
+                bracket_depth -= 1
+                if bracket_depth == 0:
+                    return ''.join(content)
+                content.append(char)
+            else:
+                content.append(char)
+
+        return None  # Unbalanced brackets
+
+    def _parse_parametric_with_content(self, command_name: str, params_str: str, raw: str) -> CompTextCommand:
+        """Parse parametric command with pre-extracted content."""
         args = []
         kwargs = {}
 
-        # Parse comma-separated parameters
+        # Parse comma-separated parameters (respecting nested brackets)
         if params_str:
-            params = [p.strip() for p in params_str.split(',')]
+            params = self._split_params(params_str)
             for param in params:
-                if '=' in param:
+                if '=' in param and not param.startswith('['):
                     key, value = param.split('=', 1)
                     kwargs[key.strip()] = self._parse_value(value.strip())
                 else:
@@ -125,6 +147,59 @@ class CompTextParser:
             kwargs=kwargs,
             raw=raw
         )
+
+    def _parse_parametric(self, match: re.Match, raw: str) -> CompTextCommand:
+        """Parse parametric command format: @COMMAND[param1, key=value]."""
+        command_name = match.group(1)
+        params_str = match.group(2)
+
+        args = []
+        kwargs = {}
+
+        # Parse comma-separated parameters (respecting nested brackets)
+        if params_str:
+            params = self._split_params(params_str)
+            for param in params:
+                if '=' in param and not param.startswith('['):
+                    key, value = param.split('=', 1)
+                    kwargs[key.strip()] = self._parse_value(value.strip())
+                else:
+                    args.append(param)
+
+        # Infer module from command name or use generic
+        module = self._infer_module(command_name)
+
+        return CompTextCommand(
+            module=module,
+            command=command_name,
+            args=args,
+            kwargs=kwargs,
+            raw=raw
+        )
+
+    def _split_params(self, params_str: str) -> List[str]:
+        """Split parameters by comma, respecting nested brackets."""
+        params = []
+        current = []
+        bracket_depth = 0
+
+        for char in params_str:
+            if char == '[':
+                bracket_depth += 1
+                current.append(char)
+            elif char == ']':
+                bracket_depth -= 1
+                current.append(char)
+            elif char == ',' and bracket_depth == 0:
+                params.append(''.join(current).strip())
+                current = []
+            else:
+                current.append(char)
+
+        if current:
+            params.append(''.join(current).strip())
+
+        return params
 
     def _parse_simple(self, match: re.Match, raw: str) -> CompTextCommand:
         """Parse simple command format: @A:command text."""
