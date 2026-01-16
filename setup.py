@@ -47,4 +47,9 @@ setup(
             "mcp>=0.1.0",
         ],
     },
+    entry_points={
+        "console_scripts": [
+            "comptext=comptext_codex.cli:cli",
+        ],
+    },
 )
