@@ -72,5 +72,20 @@ def token_benchmark(output: Path) -> None:
     run_token_benchmark(output_path=output)
 
 
+@main.command("repl")
+@click.option(
+    "--codex-dir",
+    default="codex",
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    help="Path to the codex directory.",
+)
+def repl(codex_dir: Path) -> None:
+    """Start an interactive REPL session for CompText commands."""
+    from .repl import CompTextREPL
+
+    repl_session = CompTextREPL(codex_dir=str(codex_dir))
+    repl_session.run()
+
+
 if __name__ == "__main__":
     main()
