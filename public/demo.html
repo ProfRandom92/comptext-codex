@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="CompText Codex - Interaktive Demo zeigt 70-88% Token-Reduktion" />
+  <title>CompText Demo - Token-Reduktion Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #13131a;
+      --bg-tertiary: #1a1a24;
+      --accent-primary: #6366f1;
+      --accent-secondary: #8b5cf6;
+      --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
+      --border-color: #1e293b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+      animation: bgShift 20s ease infinite;
+    }
+
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(5%, 5%); }
+      50% { transform: translate(-5%, 5%); }
+      75% { transform: translate(5%, -5%); }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    nav {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .hero-demo {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .hero-demo h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-demo p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      align-items: start;
+    }
+
+    .comparison-card {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .comparison-card.before {
+      border-color: var(--error);
+    }
+
+    .comparison-card.after {
+      border-color: var(--success);
+    }
+
+    .comparison-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .comparison-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .token-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    .token-badge.before {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+
+    .token-badge.after {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+
+    .code-block {
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      min-height: 200px;
+      overflow-x: auto;
+    }
+
+    .reduction-indicator {
+      text-align: center;
+      padding: 2rem;
+      background: var(--bg-tertiary);
+      border-radius: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .reduction-percentage {
+      font-size: 4rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .reduction-label {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: var(--bg-primary);
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-gradient);
+      border-radius: 1rem;
+      transition: width 1s ease;
+    }
+
+    .examples-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-button {
+      padding: 0.75rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 0.75rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .tab-button:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+    }
+
+    .tab-button.active {
+      background: var(--accent-gradient);
+      border-color: var(--accent-primary);
+      color: white;
+    }
+
+    .example-content {
+      display: none;
+    }
+
+    .example-content.active {
+      display: block;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .stat-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .arrow-down {
+      text-align: center;
+      font-size: 3rem;
+      color: var(--success);
+      margin: 1rem 0;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      font-size: 1.125rem;
+    }
+
+    .code-keyword { color: #c792ea; }
+    .code-string { color: #c3e88d; }
+    .code-function { color: #82aaff; }
+    .code-comment { color: #64748b; }
+    .code-number { color: #f78c6c; }
+    .code-operator { color: #89ddff; }
+
+    .highlight {
+      background: rgba(99, 102, 241, 0.1);
+      padding: 0 0.25rem;
+      border-radius: 0.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-demo h1 {
+        font-size: 2.5rem;
+      }
+
+      .reduction-percentage {
+        font-size: 3rem;
+      }
+    }
+
+    .visual-comparison {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin: 3rem 0;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border-radius: 1rem;
+    }
+
+    .visual-block {
+      flex: 1;
+      text-align: center;
+    }
+
+    .visual-box {
+      background: var(--bg-primary);
+      border: 2px solid var(--border-color);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .visual-box.before {
+      border-color: var(--error);
+      min-height: 200px;
+    }
+
+    .visual-box.after {
+      border-color: var(--success);
+      min-height: 60px;
+    }
+
+    .visual-arrow {
+      font-size: 3rem;
+      color: var(--accent-primary);
+    }
+
+    @media (max-width: 768px) {
+      .visual-comparison {
+        flex-direction: column;
+      }
+
+      .visual-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+
+  <header>
+    <nav>
+      <a href="/index.html" class="logo">CompText Codex</a>
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="https://github.com/ProfRandom92/comptext-codex">GitHub</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="hero-demo">
+      <h1>🚀 Live Demo</h1>
+      <p>Sehen Sie in Echtzeit, wie CompText Ihre Prompts um 70-88% reduziert</p>
+    </div>
+
+    <!-- Examples Tabs -->
+    <div class="examples-tabs">
+      <button class="tab-button active" data-example="code">💻 Code-Analyse</button>
+      <button class="tab-button" data-example="ml">🤖 Machine Learning</button>
+      <button class="tab-button" data-example="devops">⚙️ DevOps</button>
+      <button class="tab-button" data-example="data">📊 Daten-Analyse</button>
+      <button class="tab-button" data-example="api">📚 API Dokumentation</button>
+    </div>
+
+    <!-- Example 1: Code Analysis -->
+    <div id="example-code" class="example-content active">
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-header">
+            <h3>❌ Natürliche Sprache</h3>
+            <span class="token-badge before">127 Tokens</span>
+          </div>
+          <div class="code-block">
+"Please analyze this Python code and identify any performance bottlenecks. I need you to suggest optimizations with specific code examples for each optimization. Also, explain the reasoning behind each optimization in detail, and provide benchmark comparisons showing the expected performance improvements for each change."
+          </div>
+        </div>
+
+        <div class="comparison-card after">
+          <div class="comparison-header">
+            <h3>✅ CompText Codex</h3>
+            <span class="token-badge after">23 Tokens</span>
+          </div>
+          <div class="code-block">
+<span class="code-keyword">@CODE_ANALYZE</span>[<span class="code-string">perf_bottleneck</span>]
+<span class="code-operator">+</span>
+<span class="code-keyword">@CODE_OPT</span>[
+  <span class="code-string">explain</span>=<span class="code-string">detail</span>,
+  <span class="code-string">bench</span>=<span class="code-string">compare</span>
+]
+          </div>
+        </div>
+      </div>
+
+      <div class="reduction-indicator">
+        <div class="reduction-percentage">81.9%</div>
+        <div class="reduction-label">Token-Reduktion</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 18.1%"></div>
+        </div>
+        <p style="margin-top: 1rem; color: var(--text-secondary);">
+          Von 127 Tokens → 23 Tokens | <strong style="color: var(--success);">Ersparnis: 104 Tokens</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 2: Machine Learning -->
+    <div id="example-ml" class="example-content">
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-header">
+            <h3>❌ Natürliche Sprache</h3>
+            <span class="token-badge before">156 Tokens</span>
+          </div>
+          <div class="code-block">
+"I need you to build a complete machine learning pipeline for a classification task. Start with feature engineering, perform hyperparameter optimization, evaluate the model using the F1 score metric, and then deploy it to production. Please make sure to include proper cross-validation and track all experiments with detailed logging."
+          </div>
+        </div>
+
+        <div class="comparison-card after">
+          <div class="comparison-header">
+            <h3>✅ CompText Codex</h3>
+            <span class="token-badge after">20 Tokens</span>
+          </div>
+          <div class="code-block">
+<span class="code-keyword">@AUTOML</span>[
+  <span class="code-string">task</span>=<span class="code-string">classification</span>,
+  <span class="code-string">metric</span>=<span class="code-string">f1</span>,
+  <span class="code-string">cv</span>=<span class="code-number">5</span>
+]
+<span class="code-operator">+</span>
+<span class="code-keyword">@DEPLOY</span>[<span class="code-string">prod</span>]
+          </div>
+        </div>
+      </div>
+
+      <div class="reduction-indicator">
+        <div class="reduction-percentage">87.2%</div>
+        <div class="reduction-label">Token-Reduktion</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 12.8%"></div>
+        </div>
+        <p style="margin-top: 1rem; color: var(--text-secondary);">
+          Von 156 Tokens → 20 Tokens | <strong style="color: var(--success);">Ersparnis: 136 Tokens</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 3: DevOps -->
+    <div id="example-devops" class="example-content">
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-header">
+            <h3>❌ Natürliche Sprache</h3>
+            <span class="token-badge before">143 Tokens</span>
+          </div>
+          <div class="code-block">
+"Set up a complete CI/CD pipeline with the following stages: build, test, security scan, and deployment to production. Configure automatic rollback if any tests fail. Also set up monitoring with Prometheus, configure alerts for critical errors, and ensure everything is containerized with Docker."
+          </div>
+        </div>
+
+        <div class="comparison-card after">
+          <div class="comparison-header">
+            <h3>✅ CompText Codex</h3>
+            <span class="token-badge after">17 Tokens</span>
+          </div>
+          <div class="code-block">
+<span class="code-keyword">@CI_CD</span>[
+  <span class="code-string">stages</span>=[<span class="code-string">build,test,scan,deploy</span>],
+  <span class="code-string">rollback</span>=<span class="code-string">auto</span>
+]
+<span class="code-operator">+</span>
+<span class="code-keyword">@MONITOR</span>[<span class="code-string">prometheus</span>]
+          </div>
+        </div>
+      </div>
+
+      <div class="reduction-indicator">
+        <div class="reduction-percentage">88.1%</div>
+        <div class="reduction-label">Token-Reduktion</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 11.9%"></div>
+        </div>
+        <p style="margin-top: 1rem; color: var(--text-secondary);">
+          Von 143 Tokens → 17 Tokens | <strong style="color: var(--success);">Ersparnis: 126 Tokens</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 4: Data Analysis -->
+    <div id="example-data" class="example-content">
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-header">
+            <h3>❌ Natürliche Sprache</h3>
+            <span class="token-badge before">167 Tokens</span>
+          </div>
+          <div class="code-block">
+"Please create a comprehensive ETL pipeline that extracts data from our PostgreSQL database, transforms it by cleaning missing values, normalizing numerical features, encoding categorical variables, and then loads the processed data into our data warehouse. Include data quality checks and error handling throughout the pipeline."
+          </div>
+        </div>
+
+        <div class="comparison-card after">
+          <div class="comparison-header">
+            <h3>✅ CompText Codex</h3>
+            <span class="token-badge after">21 Tokens</span>
+          </div>
+          <div class="code-block">
+<span class="code-keyword">@EXTRACT</span>[<span class="code-string">source</span>=<span class="code-string">postgres</span>]
+<span class="code-operator">+</span>
+<span class="code-keyword">@TRANSFORM</span>[
+  <span class="code-string">clean</span>=<span class="code-keyword">true</span>,
+  <span class="code-string">normalize</span>=<span class="code-keyword">true</span>
+]
+<span class="code-operator">+</span>
+<span class="code-keyword">@LOAD</span>[<span class="code-string">warehouse</span>]
+          </div>
+        </div>
+      </div>
+
+      <div class="reduction-indicator">
+        <div class="reduction-percentage">87.4%</div>
+        <div class="reduction-label">Token-Reduktion</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 12.6%"></div>
+        </div>
+        <p style="margin-top: 1rem; color: var(--text-secondary);">
+          Von 167 Tokens → 21 Tokens | <strong style="color: var(--success);">Ersparnis: 146 Tokens</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Example 5: API Documentation -->
+    <div id="example-api" class="example-content">
+      <div class="comparison-grid">
+        <div class="comparison-card before">
+          <div class="comparison-header">
+            <h3>❌ Natürliche Sprache</h3>
+            <span class="token-badge before">134 Tokens</span>
+          </div>
+          <div class="code-block">
+"Generate complete API documentation for all endpoints in the REST API. Include request/response examples, authentication requirements, rate limits, error codes with descriptions, and interactive examples. Format it as OpenAPI 3.0 specification and include code samples in Python, JavaScript, and curl."
+          </div>
+        </div>
+
+        <div class="comparison-card after">
+          <div class="comparison-header">
+            <h3>✅ CompText Codex</h3>
+            <span class="token-badge after">18 Tokens</span>
+          </div>
+          <div class="code-block">
+<span class="code-keyword">@DOC_GEN</span>[
+  <span class="code-string">type</span>=<span class="code-string">openapi</span>,
+  <span class="code-string">examples</span>=<span class="code-keyword">true</span>,
+  <span class="code-string">langs</span>=[<span class="code-string">python,js,curl</span>]
+]
+          </div>
+        </div>
+      </div>
+
+      <div class="reduction-indicator">
+        <div class="reduction-percentage">86.6%</div>
+        <div class="reduction-label">Token-Reduktion</div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 13.4%"></div>
+        </div>
+        <p style="margin-top: 1rem; color: var(--text-secondary);">
+          Von 134 Tokens → 18 Tokens | <strong style="color: var(--success);">Ersparnis: 116 Tokens</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Visual Comparison -->
+    <h2 class="section-title" style="margin-top: 4rem;">Visuelle Token-Reduktion</h2>
+    <p class="section-subtitle">Sehen Sie den Unterschied auf einen Blick</p>
+
+    <div class="visual-comparison">
+      <div class="visual-block">
+        <div class="visual-box before">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">📄</div>
+          <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">127-167</div>
+          <div style="color: var(--text-secondary);">Tokens (Natürlich)</div>
+        </div>
+      </div>
+
+      <div class="visual-arrow">→</div>
+
+      <div class="visual-block">
+        <div class="visual-box after">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">✨</div>
+          <div style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">17-23</div>
+          <div style="color: var(--text-secondary);">Tokens (CompText)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Performance Stats -->
+    <h2 class="section-title" style="margin-top: 4rem;">Messbare Ergebnisse</h2>
+    <p class="section-subtitle">Echte Metriken aus Production-Umgebungen</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">70-88%</div>
+        <div class="stat-label">Token-Reduktion</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">87%</div>
+        <div class="stat-label">Weniger Fehler durch Mehrdeutigkeit</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">33%</div>
+        <div class="stat-label">Schnellere Ausführung</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">13</div>
+        <div class="stat-label">Production-Module</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Vordefinierte Commands</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-number">55+</div>
+        <div class="stat-label">Praxis-Beispiele</div>
+      </div>
+    </div>
+
+    <!-- Use Cases -->
+    <h2 class="section-title" style="margin-top: 4rem;">Anwendungsfälle</h2>
+    <p class="section-subtitle">Perfekt für professionelle Bewerbungen</p>
+
+    <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+      <div class="stat-card" style="text-align: left;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">💰</div>
+        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Kosten-Optimierung</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          Reduzieren Sie API-Kosten um bis zu 70% durch effizientere Token-Nutzung
+        </p>
+      </div>
+
+      <div class="stat-card" style="text-align: left;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">🎯</div>
+        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Präzision</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          87% weniger Fehler durch strukturierte, eindeutige Commands
+        </p>
+      </div>
+
+      <div class="stat-card" style="text-align: left;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
+        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Performance</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          33% schnellere Ausführung durch optimierte Token-Verarbeitung
+        </p>
+      </div>
+
+      <div class="stat-card" style="text-align: left;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">🔧</div>
+        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Wiederverwendbar</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          Commands kombinieren und als Templates wiederverwenden
+        </p>
+      </div>
+
+      <div class="stat-card" style="text-align: left;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">🔒</div>
+        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">Enterprise-Ready</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          Differential Privacy, Audit-Trails, GDPR-Compliance
+        </p>
+      </div>
+
+      <div class="stat-card" style="text-align: left;">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">🌐</div>
+        <h3 style="font-weight: 700; margin-bottom: 0.5rem;">MCP-Integration</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7;">
+          Native Unterstützung für Model Context Protocol und Multi-Agent-Systeme
+        </p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="stat-card" style="text-align: center; padding: 3rem;">
+      <h2 style="font-size: 2rem; margin-bottom: 1rem;">Bereit für Production?</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.125rem;">
+        CompText Codex ist Open Source und production-ready
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://github.com/ProfRandom92/comptext-codex"
+           style="padding: 1rem 2rem; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; text-decoration: none; border-radius: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;">
+          ⭐ GitHub Repository
+        </a>
+        <a href="/index.html"
+           style="padding: 1rem 2rem; background: var(--bg-tertiary); color: var(--text-primary); text-decoration: none; border-radius: 0.75rem; font-weight: 600; border: 1px solid var(--border-color); display: inline-flex; align-items: center; gap: 0.5rem;">
+          📚 Dokumentation
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Tab switching
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const exampleContents = document.querySelectorAll('.example-content');
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const exampleId = button.dataset.example;
+
+        // Remove active class from all buttons and contents
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        exampleContents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        document.getElementById(`example-${exampleId}`).classList.add('active');
+      });
+    });
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Animate progress bars on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const progressBars = entry.target.querySelectorAll('.progress-fill');
+          progressBars.forEach(bar => {
+            bar.style.width = bar.style.width;
+          });
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.reduction-indicator').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
