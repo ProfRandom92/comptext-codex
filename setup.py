@@ -43,7 +43,7 @@ setup(
             "pre-commit>=3.0.0",
         ],
         "mcp": [
-            "mcp>=0.1.0",
+            "mcp>=0.9.0",
         ],
     },
     entry_points={
