@@ -32,21 +32,35 @@ def migrate_yaml(store: CodexStore, codex_dir: Path) -> dict:
     """Load modules.yaml, commands.yaml, profiles.yaml into the store."""
     counts = {"modules": 0, "commands": 0, "profiles": 0}
 
+    # First pass: collect all data
+    all_modules = []
+    all_commands = []
+    all_profiles = []
+
     for yaml_file in sorted(codex_dir.glob("**/*.yaml")):
         with open(yaml_file, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
 
-        for m in data.get("modules", []):
-            store.upsert_module(m)
-            counts["modules"] += 1
+        all_modules.extend(data.get("modules", []))
+        all_commands.extend(data.get("commands", []))
+        all_profiles.extend(data.get("profiles", []))
 
-        for c in data.get("commands", []):
+    # Insert modules first (commands have foreign key to modules)
+    for m in all_modules:
+        store.upsert_module(m)
+        counts["modules"] += 1
+
+    # Then commands
+    for c in all_commands:
+        # Only insert if module exists
+        if store.get_module(c.get("module", "")):
             store.upsert_command(c)
             counts["commands"] += 1
 
-        for p in data.get("profiles", []):
-            store.upsert_profile(p)
-            counts["profiles"] += 1
+    # Then profiles
+    for p in all_profiles:
+        store.upsert_profile(p)
+        counts["profiles"] += 1
 
     return counts
 

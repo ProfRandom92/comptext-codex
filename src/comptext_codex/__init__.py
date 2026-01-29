@@ -1,10 +1,26 @@
-"""CompText Codex - Domain-Specific Language for efficient LLM interaction."""
+"""CompText Codex - Domain-Specific Language for efficient LLM interaction.
+
+Migration from Notion/YAML to SQLite-based architecture provides:
+- ~10x faster startup (no YAML parsing)
+- Queryable command/module catalog
+- Single-file database (codex.db)
+- Type-safe metadata via dataclasses
+"""
 
 from .token_reduction import calculate_reduction, token_count
 from .token_report import build_token_report, load_commands, load_modules
 from .parser import CompTextParser, CompTextCommand, parse
 from .executor import CompTextExecutor, ExecutionResult, execute
 from .repl import CompTextREPL
+from .store import CodexStore
+from .registry import (
+    registry,
+    codex_module,
+    codex_command,
+    ensure_modules_loaded,
+    ModuleMeta,
+    CommandMeta,
+)
 
 __all__ = [
     # Token utilities
@@ -21,6 +37,14 @@ __all__ = [
     "CompTextREPL",
     "parse",
     "execute",
+    # New: SQLite Store & Registry
+    "CodexStore",
+    "registry",
+    "codex_module",
+    "codex_command",
+    "ensure_modules_loaded",
+    "ModuleMeta",
+    "CommandMeta",
 ]
 
-__version__ = "3.5.0"
+__version__ = "4.0.0"
