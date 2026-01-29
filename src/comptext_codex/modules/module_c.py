@@ -1,315 +1,198 @@
 """Module C: Formatting - Document formatting and structure."""
 
-from typing import Any, Dict, List
 import json
 import re
+from typing import Any, Dict, List
+
+from comptext_codex.registry import codex_module, codex_command
 from .base import BaseModule
 
 
+@codex_module(
+    code="C",
+    name="Formatting",
+    purpose="Document formatting and structure",
+    token_priority="medium",
+    security={"pii_safe": True, "threat_model": "template_injection_controls"},
+)
 class ModuleC(BaseModule):
     """Formatting module for document structure and styling."""
 
-    def get_commands(self) -> List[Dict[str, Any]]:
-        return [
-            {'module': 'C', 'command': 'format', 'syntax': '@C:format[type=<format>] <text>'},
-            {'module': 'C', 'command': 'markdown', 'syntax': '@C:markdown[style=<style>] <text>'},
-            {'module': 'C', 'command': 'json', 'syntax': '@C:json[indent=<n>] <text>'},
-            {'module': 'C', 'command': 'html', 'syntax': '@C:html[semantic=<bool>] <text>'},
-            {'module': 'C', 'command': 'table', 'syntax': '@C:table[format=<format>] <data>'},
-            {'module': 'C', 'command': 'code', 'syntax': '@C:code[lang=<lang>] <code>'},
-            {'module': 'C', 'command': 'list', 'syntax': '@C:list[ordered=<bool>] <items>'},
-            {'module': 'C', 'command': 'prettify', 'syntax': '@C:prettify[type=<type>] <content>'}
-        ]
-
+    @codex_command(syntax="@C:format[type=<format>] <text>", description="Format text according to specified style", aliases=["style"], token_cost_hint=40)
     def execute_format(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Format text according to specified style."""
-        format_type = kwargs.get('type', 'markdown')
-        text = ' '.join(args) if args else context.get('_last_result', '')
+        fmt = kwargs.get("type", "markdown")
+        text = " ".join(args) if args else (context or {}).get("_last_result", "")
+        formatters = {"markdown": self._format_markdown, "json": self._format_json, "html": self._format_html, "xml": self._format_xml, "yaml": self._format_yaml, "csv": self._format_csv}
+        return formatters.get(fmt, lambda x: x)(text)
 
-        formatters = {
-            'markdown': self._format_markdown,
-            'json': self._format_json,
-            'html': self._format_html,
-            'xml': self._format_xml,
-            'yaml': self._format_yaml,
-            'csv': self._format_csv
-        }
-
-        formatter = formatters.get(format_type, lambda x: x)
-        return formatter(text)
-
+    @codex_command(syntax="@C:markdown[style=<style>] <text>", description="Advanced markdown formatting with styles", token_cost_hint=40)
     def execute_markdown(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Advanced markdown formatting with styles."""
-        style = kwargs.get('style', 'standard')
-        text = ' '.join(args) if args else ''
-
-        if style == 'github':
+        style = kwargs.get("style", "standard")
+        text = " ".join(args) if args else ""
+        if style == "github":
             return self._format_github_markdown(text)
-        elif style == 'minimal':
+        if style == "minimal":
             return self._format_minimal_markdown(text)
-        else:
-            return self._format_markdown(text)
+        return self._format_markdown(text)
 
+    @codex_command(syntax="@C:json[indent=<n>] <text>", description="Format and prettify JSON", token_cost_hint=30)
     def execute_json(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Format and prettify JSON."""
-        indent = kwargs.get('indent', 2)
-        sort_keys = kwargs.get('sort_keys', False)
-        text = ' '.join(args) if args else ''
-
+        indent = kwargs.get("indent", 2)
+        sort_keys = kwargs.get("sort_keys", False)
+        text = " ".join(args) if args else ""
         return self._format_json(text, indent=indent, sort_keys=sort_keys)
 
+    @codex_command(syntax="@C:html[semantic=<bool>] <text>", description="Generate semantic HTML", token_cost_hint=40)
     def execute_html(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Generate semantic HTML."""
-        semantic = kwargs.get('semantic', True)
-        minify = kwargs.get('minify', False)
-        text = ' '.join(args) if args else ''
-
+        semantic = kwargs.get("semantic", True)
+        minify = kwargs.get("minify", False)
+        text = " ".join(args) if args else ""
         html = self._format_html(text, semantic=semantic)
-
         if minify:
-            html = re.sub(r'\s+', ' ', html).strip()
-
+            html = re.sub(r"\s+", " ", html).strip()
         return html
 
+    @codex_command(syntax="@C:table[format=<format>] <data>", description="Format data as table", token_cost_hint=50)
     def execute_table(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Format data as table."""
-        format_type = kwargs.get('format', 'markdown')
-        headers = kwargs.get('headers', [])
-
-        # Try to parse data
-        text = ' '.join(args) if args else ''
-
-        if format_type == 'markdown':
+        fmt = kwargs.get("format", "markdown")
+        headers = kwargs.get("headers", [])
+        text = " ".join(args) if args else ""
+        if fmt == "markdown":
             return self._format_markdown_table(text, headers)
-        elif format_type == 'html':
+        if fmt == "html":
             return self._format_html_table(text, headers)
-        elif format_type == 'ascii':
+        if fmt == "ascii":
             return self._format_ascii_table(text, headers)
-
         return text
 
+    @codex_command(syntax="@C:code[lang=<lang>] <code>", description="Format code with syntax highlighting markers", token_cost_hint=20)
     def execute_code(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Format code with syntax highlighting markers."""
-        lang = kwargs.get('lang', 'python')
-        inline = kwargs.get('inline', False)
-        text = ' '.join(args) if args else ''
+        lang = kwargs.get("lang", "python")
+        inline = kwargs.get("inline", False)
+        text = " ".join(args) if args else ""
+        return f"`{text}`" if inline else f"```{lang}\n{text}\n```"
 
-        if inline:
-            return f"`{text}`"
-        else:
-            return f"```{lang}\n{text}\n```"
-
+    @codex_command(syntax="@C:list[ordered=<bool>] <items>", description="Format items as list", token_cost_hint=20)
     def execute_list(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Format items as list."""
-        ordered = kwargs.get('ordered', False)
+        ordered = kwargs.get("ordered", False)
         items = list(args) if args else []
-
         if ordered:
-            return '\n'.join(f"{i+1}. {item}" for i, item in enumerate(items))
-        else:
-            return '\n'.join(f"- {item}" for item in items)
+            return "\n".join(f"{i+1}. {item}" for i, item in enumerate(items))
+        return "\n".join(f"- {item}" for item in items)
 
+    @codex_command(syntax="@C:prettify[type=<type>] <content>", description="Auto-detect and prettify content", token_cost_hint=40)
     def execute_prettify(self, *args, context: Dict[str, Any] = None, **kwargs) -> str:
-        """Auto-detect and prettify content."""
-        content = ' '.join(args) if args else ''
-        content_type = kwargs.get('type', 'auto')
+        content = " ".join(args) if args else ""
+        ctype = kwargs.get("type", "auto")
+        if ctype == "auto":
+            ctype = self._detect_content_type(content)
+        return self.execute_format(content, context=context, type=ctype)
 
-        if content_type == 'auto':
-            content_type = self._detect_content_type(content)
-
-        return self.execute_format(content, context=context, type=content_type)
+    # -- helpers ---------------------------------------------------------------
 
     def _format_markdown(self, text: str) -> str:
-        """Format as markdown."""
-        lines = text.split('\n')
-        formatted = []
-
+        lines = text.split("\n")
+        out = []
         for line in lines:
             line = line.strip()
             if not line:
-                formatted.append('')
-            elif line.startswith('#'):
-                formatted.append(line)
+                out.append("")
+            elif line.startswith("#"):
+                out.append(line)
+            elif len(line) < 60 and not any(c in line for c in [".", ",", "!"]):
+                out.append(f"## {line}")
             else:
-                # Add heading if it looks like a title
-                if len(line) < 60 and not any(c in line for c in ['.', ',', '!']):
-                    formatted.append(f"## {line}")
-                else:
-                    formatted.append(line)
-
-        return '\n'.join(formatted)
+                out.append(line)
+        return "\n".join(out)
 
     def _format_github_markdown(self, text: str) -> str:
-        """Format as GitHub-flavored markdown."""
-        return f"""# {text.split('\n')[0]}
-
-{'\n'.join(text.split('\n')[1:])}
-
----
-*Generated with CompText*
-"""
+        parts = text.split("\n")
+        return f"# {parts[0]}\n\n{chr(10).join(parts[1:])}\n\n---\n*Generated with CompText*\n"
 
     def _format_minimal_markdown(self, text: str) -> str:
-        """Minimal markdown formatting."""
-        return text.replace('\n\n', '\n')
+        return text.replace("\n\n", "\n")
 
     def _format_json(self, text: str, indent: int = 2, sort_keys: bool = False) -> str:
-        """Format as JSON."""
         try:
-            # Try to parse existing JSON
-            if text.strip().startswith(('{', '[')):
-                data = json.loads(text)
-            else:
-                # Wrap in object
-                data = {'content': text}
-
+            data = json.loads(text) if text.strip().startswith(("{", "[")) else {"content": text}
             return json.dumps(data, indent=indent, sort_keys=sort_keys, ensure_ascii=False)
-        except:
-            return json.dumps({'content': text}, indent=indent)
+        except Exception:
+            return json.dumps({"content": text}, indent=indent)
 
     def _format_html(self, text: str, semantic: bool = True) -> str:
-        """Format as HTML."""
         if semantic:
-            paragraphs = text.split('\n\n')
-            html_parts = []
-
-            for p in paragraphs:
-                p = p.strip()
-                if not p:
-                    continue
-
-                # Check if it's a heading
-                if len(p) < 60 and '\n' not in p:
-                    html_parts.append(f"<h2>{p}</h2>")
-                else:
-                    html_parts.append(f"<p>{p}</p>")
-
-            return f"<article>\n  {'  '.join(html_parts)}\n</article>"
-        else:
-            return f"<div><p>{text}</p></div>"
+            parts = [p.strip() for p in text.split("\n\n") if p.strip()]
+            html = [f"<h2>{p}</h2>" if len(p) < 60 and "\n" not in p else f"<p>{p}</p>" for p in parts]
+            return f"<article>\n  {'  '.join(html)}\n</article>"
+        return f"<div><p>{text}</p></div>"
 
     def _format_xml(self, text: str) -> str:
-        """Format as XML."""
-        return f"""<?xml version="1.0" encoding="UTF-8"?>
-<document>
-  <content>{text}</content>
-</document>"""
+        return f'<?xml version="1.0" encoding="UTF-8"?>\n<document>\n  <content>{text}</content>\n</document>'
 
     def _format_yaml(self, text: str) -> str:
-        """Format as YAML."""
-        lines = text.split('\n')
-        yaml_lines = []
-
-        for line in lines:
-            if ':' in line:
-                yaml_lines.append(line)
-            else:
-                yaml_lines.append(f"content: {line}")
-
-        return '\n'.join(yaml_lines)
+        return "\n".join(line if ":" in line else f"content: {line}" for line in text.split("\n"))
 
     def _format_csv(self, text: str) -> str:
-        """Format as CSV."""
-        lines = text.split('\n')
-        return '\n'.join(f'"{line}"' for line in lines if line.strip())
+        return "\n".join(f'"{line}"' for line in text.split("\n") if line.strip())
 
     def _format_markdown_table(self, text: str, headers: List[str]) -> str:
-        """Format as markdown table."""
-        lines = [line.strip() for line in text.split('\n') if line.strip()]
-
+        lines = [l.strip() for l in text.split("\n") if l.strip()]
         if not headers and lines:
-            headers = ['Column 1', 'Column 2', 'Column 3']
-
-        header_row = '| ' + ' | '.join(headers) + ' |'
-        separator = '| ' + ' | '.join(['---'] * len(headers)) + ' |'
-
-        data_rows = []
+            headers = ["Column 1", "Column 2", "Column 3"]
+        h = "| " + " | ".join(headers) + " |"
+        s = "| " + " | ".join(["---"] * len(headers)) + " |"
+        rows = []
         for line in lines:
-            cells = line.split(',')[:len(headers)]
-            cells += [''] * (len(headers) - len(cells))
-            data_rows.append('| ' + ' | '.join(cells) + ' |')
-
-        return '\n'.join([header_row, separator] + data_rows)
+            cells = line.split(",")[:len(headers)]
+            cells += [""] * (len(headers) - len(cells))
+            rows.append("| " + " | ".join(cells) + " |")
+        return "\n".join([h, s] + rows)
 
     def _format_html_table(self, text: str, headers: List[str]) -> str:
-        """Format as HTML table."""
-        lines = [line.strip() for line in text.split('\n') if line.strip()]
-
-        html = ['<table>']
-
+        lines = [l.strip() for l in text.split("\n") if l.strip()]
+        parts = ["<table>"]
         if headers:
-            html.append('  <thead>')
-            html.append('    <tr>')
-            for h in headers:
-                html.append(f'      <th>{h}</th>')
-            html.append('    </tr>')
-            html.append('  </thead>')
-
-        html.append('  <tbody>')
+            parts += ["  <thead>", "    <tr>"] + [f"      <th>{h}</th>" for h in headers] + ["    </tr>", "  </thead>"]
+        parts.append("  <tbody>")
         for line in lines:
-            html.append('    <tr>')
-            cells = line.split(',')
-            for cell in cells:
-                html.append(f'      <td>{cell.strip()}</td>')
-            html.append('    </tr>')
-        html.append('  </tbody>')
-        html.append('</table>')
-
-        return '\n'.join(html)
+            parts.append("    <tr>")
+            for cell in line.split(","):
+                parts.append(f"      <td>{cell.strip()}</td>")
+            parts.append("    </tr>")
+        parts += ["  </tbody>", "</table>"]
+        return "\n".join(parts)
 
     def _format_ascii_table(self, text: str, headers: List[str]) -> str:
-        """Format as ASCII table."""
-        lines = [line.strip() for line in text.split('\n') if line.strip()]
-
-        # Calculate column widths
-        col_widths = [len(h) for h in headers] if headers else [10, 10, 10]
-
+        lines = [l.strip() for l in text.split("\n") if l.strip()]
+        cw = [len(h) for h in headers] if headers else [10, 10, 10]
         for line in lines:
-            cells = line.split(',')
-            for i, cell in enumerate(cells):
-                if i < len(col_widths):
-                    col_widths[i] = max(col_widths[i], len(cell.strip()))
-
-        # Build table
-        result = []
-
-        # Top border
-        result.append('┌' + '┬'.join('─' * (w + 2) for w in col_widths) + '┐')
-
-        # Headers
+            for i, cell in enumerate(line.split(",")):
+                if i < len(cw):
+                    cw[i] = max(cw[i], len(cell.strip()))
+        out = ["\u250c" + "\u252c".join("\u2500" * (w + 2) for w in cw) + "\u2510"]
         if headers:
-            header_row = '│' + '│'.join(f' {h:<{w}} ' for h, w in zip(headers, col_widths)) + '│'
-            result.append(header_row)
-            result.append('├' + '┼'.join('─' * (w + 2) for w in col_widths) + '┤')
-
-        # Data rows
+            out.append("\u2502" + "\u2502".join(f" {h:<{w}} " for h, w in zip(headers, cw)) + "\u2502")
+            out.append("\u251c" + "\u253c".join("\u2500" * (w + 2) for w in cw) + "\u2524")
         for line in lines:
-            cells = line.split(',')
-            cells += [''] * (len(col_widths) - len(cells))
-            row = '│' + '│'.join(f' {c.strip():<{w}} ' for c, w in zip(cells, col_widths)) + '│'
-            result.append(row)
-
-        # Bottom border
-        result.append('└' + '┴'.join('─' * (w + 2) for w in col_widths) + '┘')
-
-        return '\n'.join(result)
+            cells = line.split(",")
+            cells += [""] * (len(cw) - len(cells))
+            out.append("\u2502" + "\u2502".join(f" {c.strip():<{w}} " for c, w in zip(cells, cw)) + "\u2502")
+        out.append("\u2514" + "\u2534".join("\u2500" * (w + 2) for w in cw) + "\u2518")
+        return "\n".join(out)
 
     def _detect_content_type(self, content: str) -> str:
-        """Auto-detect content type."""
-        content = content.strip()
-
-        if content.startswith(('{', '[')):
-            return 'json'
-        elif content.startswith('<'):
-            return 'html'
-        elif '<?xml' in content:
-            return 'xml'
-        elif content.count('\n') > 2 and all(':' in line for line in content.split('\n')[:3]):
-            return 'yaml'
-        elif ',' in content and content.count(',') > 3:
-            return 'csv'
-        else:
-            return 'markdown'
+        c = content.strip()
+        if c.startswith(("{", "[")):
+            return "json"
+        if c.startswith("<"):
+            return "html"
+        if "<?xml" in c:
+            return "xml"
+        if c.count("\n") > 2 and all(":" in l for l in c.split("\n")[:3]):
+            return "yaml"
+        if "," in c and c.count(",") > 3:
+            return "csv"
+        return "markdown"
 
 
 def get_module() -> ModuleC:

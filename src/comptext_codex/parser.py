@@ -30,31 +30,60 @@ class CompTextParser:
     PARAMETRIC_PATTERN = re.compile(r'@(\w+)\[([^\]]*)\]', re.DOTALL)
     CHAIN_SEPARATOR = re.compile(r'\s*\+\s*')
 
-    def __init__(self, codex_dir: Optional[str] = None):
-        """Initialize parser with optional codex directory."""
+    def __init__(self, codex_dir: Optional[str] = None, use_store: bool = False):
+        """Initialize parser.
+
+        Args:
+            codex_dir: Optional path to YAML codex directory (legacy)
+            use_store: If True, load definitions from SQLite CodexStore
+        """
         self.codex_dir = codex_dir
         self._command_registry: Dict[str, Dict[str, Any]] = {}
+        self._use_store = use_store
         self._load_command_definitions()
 
     def _load_command_definitions(self):
-        """Load command definitions from codex YAML files."""
-        if not self.codex_dir:
-            return
-
+        """Load command definitions from registry or store."""
+        # First try to load from the auto-registration registry (fastest)
         try:
-            import yaml
-            from pathlib import Path
-
-            commands_file = Path(self.codex_dir) / "commands.yaml"
-            if commands_file.exists():
-                with open(commands_file, 'r') as f:
-                    data = yaml.safe_load(f)
-                    for cmd in data.get('commands', []):
-                        key = f"{cmd['module']}:{cmd['command']}"
-                        self._command_registry[key] = cmd
-        except Exception as e:
-            # Silent fallback if codex files not available
+            from .registry import ensure_modules_loaded, registry
+            ensure_modules_loaded()
+            for cmd_meta in registry.all_command_meta():
+                key = f"{cmd_meta.module}:{cmd_meta.command}"
+                self._command_registry[key] = cmd_meta.to_dict()
+            if self._command_registry:
+                return  # Registry loaded successfully
+        except ImportError:
             pass
+
+        # Fallback: try SQLite CodexStore
+        if self._use_store:
+            try:
+                from .store import CodexStore
+                store = CodexStore()
+                for cmd in store.list_commands():
+                    key = f"{cmd['module']}:{cmd['command']}"
+                    self._command_registry[key] = cmd
+                store.close()
+                if self._command_registry:
+                    return
+            except Exception:
+                pass
+
+        # Legacy fallback: YAML files
+        if self.codex_dir:
+            try:
+                import yaml
+                from pathlib import Path
+                commands_file = Path(self.codex_dir) / "commands.yaml"
+                if commands_file.exists():
+                    with open(commands_file, "r") as f:
+                        data = yaml.safe_load(f)
+                        for cmd in data.get("commands", []):
+                            key = f"{cmd['module']}:{cmd['command']}"
+                            self._command_registry[key] = cmd
+            except Exception:
+                pass
 
     def parse(self, command_string: str) -> List[CompTextCommand]:
         """Parse a CompText command string into structured commands.
@@ -85,10 +114,14 @@ class CompTextParser:
 
     def _parse_single_command(self, command_str: str) -> Optional[CompTextCommand]:
         """Parse a single CompText command."""
-        # Try parametric pattern first (e.g., @CODE_ANALYZE[...])
-        param_match = self.PARAMETRIC_PATTERN.match(command_str)
-        if param_match:
-            return self._parse_parametric(param_match, command_str)
+        # Try parametric pattern with balanced bracket matching
+        if command_str.startswith('@') and '[' in command_str:
+            bracket_start = command_str.index('[')
+            bracket_end = self._find_matching_bracket(command_str, bracket_start)
+            if bracket_end != -1:
+                command_name = command_str[1:bracket_start]
+                params_str = command_str[bracket_start + 1:bracket_end]
+                return self._parse_parametric_manual(command_name, params_str, command_str)
 
         # Try simple pattern (e.g., @A:compress text)
         simple_match = self.SIMPLE_PATTERN.match(command_str)
@@ -96,6 +129,37 @@ class CompTextParser:
             return self._parse_simple(simple_match, command_str)
 
         return None
+
+    def _find_matching_bracket(self, s: str, start: int) -> int:
+        """Find the matching closing bracket for the bracket at position start."""
+        depth = 0
+        for i in range(start, len(s)):
+            if s[i] == '[':
+                depth += 1
+            elif s[i] == ']':
+                depth -= 1
+                if depth == 0:
+                    return i
+        return -1
+
+    def _parse_parametric_manual(self, command_name: str, params_str: str, raw: str) -> CompTextCommand:
+        """Parse parametric command with pre-extracted params."""
+        args = []
+        kwargs = {}
+
+        if params_str:
+            params = self._split_params(params_str)
+            for param in params:
+                eq_idx = self._find_eq_outside_brackets(param)
+                if eq_idx != -1:
+                    key = param[:eq_idx].strip()
+                    value = param[eq_idx + 1:].strip()
+                    kwargs[key] = self._parse_value(value)
+                else:
+                    args.append(param.strip())
+
+        module = self._infer_module(command_name)
+        return CompTextCommand(module=module, command=command_name, args=args, kwargs=kwargs, raw=raw)
 
     def _parse_parametric(self, match: re.Match, raw: str) -> CompTextCommand:
         """Parse parametric command format: @COMMAND[param1, key=value]."""
@@ -105,13 +169,19 @@ class CompTextParser:
         args = []
         kwargs = {}
 
-        # Parse comma-separated parameters
+        # Parse comma-separated parameters (respecting brackets)
         if params_str:
-            params = [p.strip() for p in params_str.split(',')]
+            params = self._split_params(params_str)
             for param in params:
-                if '=' in param:
-                    key, value = param.split('=', 1)
-                    kwargs[key.strip()] = self._parse_value(value.strip())
+                if '=' in param and not param.startswith('['):
+                    # Find the first '=' not inside brackets
+                    eq_idx = self._find_eq_outside_brackets(param)
+                    if eq_idx != -1:
+                        key = param[:eq_idx].strip()
+                        value = param[eq_idx + 1:].strip()
+                        kwargs[key] = self._parse_value(value)
+                    else:
+                        args.append(param)
                 else:
                     args.append(param)
 
@@ -165,6 +235,37 @@ class CompTextParser:
             return value[1:-1]
 
         return value
+
+    def _split_params(self, params_str: str) -> List[str]:
+        """Split parameters by comma, respecting brackets."""
+        params = []
+        current = []
+        depth = 0
+        for char in params_str:
+            if char == '[':
+                depth += 1
+            elif char == ']':
+                depth -= 1
+            elif char == ',' and depth == 0:
+                params.append(''.join(current).strip())
+                current = []
+                continue
+            current.append(char)
+        if current:
+            params.append(''.join(current).strip())
+        return [p for p in params if p]
+
+    def _find_eq_outside_brackets(self, s: str) -> int:
+        """Find the first '=' not inside brackets. Return -1 if none."""
+        depth = 0
+        for i, char in enumerate(s):
+            if char == '[':
+                depth += 1
+            elif char == ']':
+                depth -= 1
+            elif char == '=' and depth == 0:
+                return i
+        return -1
 
     def _infer_module(self, command_name: str) -> str:
         """Infer module code from command name."""

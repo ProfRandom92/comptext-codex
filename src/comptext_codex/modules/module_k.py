@@ -1,24 +1,23 @@
 """Module K: Frontend/UI - Component scaffolding, accessibility, responsive design."""
 
 from typing import Any, Dict, List
+
+from comptext_codex.registry import codex_module, codex_command
 from .base import BaseModule
 
 
+@codex_module(
+    code="K",
+    name="Frontend/UI",
+    purpose="Component scaffolding, accessibility, and responsive design",
+    token_priority="medium",
+    security={"pii_safe": True, "threat_model": "xss_prevention"},
+    privacy={"dp_budget": "epsilon<=1.0_per_call"},
+)
 class ModuleK(BaseModule):
     """Frontend/UI module for component generation."""
 
-    def get_commands(self) -> List[Dict[str, Any]]:
-        return [
-            {'module': 'K', 'command': 'component', 'syntax': '@COMPONENT[framework, type, ...]'},
-            {'module': 'K', 'command': 'dashboard', 'syntax': '@DASHBOARD[layout, theme, ...]'},
-            {'module': 'K', 'command': 'form', 'syntax': '@FORM[fields, validation, ...]'},
-            {'module': 'K', 'command': 'layout', 'syntax': '@LAYOUT[type, responsive, ...]'},
-            {'module': 'K', 'command': 'theme', 'syntax': '@THEME[colors, typography, ...]'},
-            {'module': 'K', 'command': 'animation', 'syntax': '@ANIMATION[type, duration, ...]'},
-            {'module': 'K', 'command': 'responsive', 'syntax': '@RESPONSIVE[breakpoints, ...]'},
-            {'module': 'K', 'command': 'accessibility', 'syntax': '@ACCESSIBILITY[level, features, ...]'}
-        ]
-
+    @codex_command(syntax="@COMPONENT[framework, type, ...]", description="Generate UI component with configuration", token_cost_hint=65)
     def execute_component(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
         """Generate UI component with comprehensive configuration."""
         framework = kwargs.get('framework', 'react')
@@ -56,8 +55,8 @@ class ModuleK(BaseModule):
             'dependencies': self._get_dependencies(framework, styling, state)
         }
 
+    @codex_command(syntax="@DASHBOARD[layout, theme, ...]", description="Generate comprehensive dashboard layout", token_cost_hint=70)
     def execute_dashboard(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate comprehensive dashboard layout."""
         layout = kwargs.get('layout', 'grid')
         theme = kwargs.get('theme', 'light')
         responsive = kwargs.get('responsive', True)
@@ -93,8 +92,8 @@ class ModuleK(BaseModule):
             'mobile_optimized': responsive
         }
 
+    @codex_command(syntax="@FORM[fields, validation, ...]", description="Generate form with validation and accessibility", token_cost_hint=60)
     def execute_form(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate form with validation and accessibility."""
         fields = kwargs.get('fields', [])
         validation = kwargs.get('validation', 'yup')
 
@@ -129,8 +128,8 @@ class ModuleK(BaseModule):
             }
         }
 
+    @codex_command(syntax="@LAYOUT[type, responsive, ...]", description="Generate responsive layout structure", token_cost_hint=50)
     def execute_layout(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate responsive layout structure."""
         layout_type = kwargs.get('type', 'flex')
         responsive = kwargs.get('responsive', True)
 
@@ -153,8 +152,8 @@ class ModuleK(BaseModule):
 
         return layout_config
 
+    @codex_command(syntax="@THEME[colors, typography, ...]", description="Generate comprehensive theme configuration", token_cost_hint=55)
     def execute_theme(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate comprehensive theme configuration."""
         base_color = kwargs.get('primary_color', '#3b82f6')
 
         return {
@@ -190,8 +189,8 @@ class ModuleK(BaseModule):
             'css_variables': True
         }
 
+    @codex_command(syntax="@ANIMATION[type, duration, ...]", description="Generate animation configuration", token_cost_hint=40)
     def execute_animation(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate animation configuration."""
         anim_type = kwargs.get('type', 'fade')
         duration = kwargs.get('duration', 300)
 
@@ -214,8 +213,8 @@ class ModuleK(BaseModule):
             'fill_mode': 'both'
         }
 
+    @codex_command(syntax="@RESPONSIVE[breakpoints, ...]", description="Generate responsive design configuration", token_cost_hint=45)
     def execute_responsive(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate responsive design configuration."""
         breakpoints = kwargs.get('breakpoints', {
             'xs': '320px',
             'sm': '640px',
@@ -246,8 +245,8 @@ class ModuleK(BaseModule):
             }
         }
 
+    @codex_command(syntax="@ACCESSIBILITY[level, features, ...]", description="Generate accessibility configuration", token_cost_hint=50)
     def execute_accessibility(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Generate accessibility configuration."""
         level = kwargs.get('level', 'wcag_aa')
 
         return {

@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="comptext-codex",
-    version="3.5.0",
+    version="4.0.0",
     author="CompText Team",
     description="A Domain-Specific Language for efficient LLM interaction",
     long_description=long_description,

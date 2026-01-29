@@ -2,7 +2,6 @@
 
 from typing import Any, Dict, List, Optional, Callable
 from dataclasses import dataclass
-import importlib
 import logging
 
 from .parser import CompTextCommand, CompTextParser
@@ -30,34 +29,43 @@ class CompTextExecutor:
         """Initialize executor.
 
         Args:
-            codex_dir: Path to codex directory for loading definitions
+            codex_dir: Path to codex directory for loading definitions (legacy)
         """
         self.codex_dir = codex_dir
         self.parser = CompTextParser(codex_dir=codex_dir)
-        self._module_registry: Dict[str, Any] = {}
+        self._module_instances: Dict[str, Any] = {}
         self._command_handlers: Dict[str, Callable] = {}
+        self._registry = None
         self._load_modules()
 
     def _load_modules(self):
-        """Dynamically load module implementations."""
-        module_codes = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
+        """Load modules via the auto-registration registry."""
+        try:
+            from .registry import ensure_modules_loaded, registry
+            ensure_modules_loaded()
+            self._registry = registry
+            # Pre-populate instances for all registered modules
+            for code in registry.list_module_codes():
+                self._module_instances[code] = registry.get_instance(code)
+            logger.debug("Loaded %d modules from registry", len(self._module_instances))
+        except ImportError as e:
+            logger.warning("Failed to load registry, falling back to legacy: %s", e)
+            self._load_modules_legacy()
 
-        for code in module_codes:
+    def _load_modules_legacy(self):
+        """Fallback: Dynamically load module implementations via importlib."""
+        import importlib
+        for code in "ABCDEFGHIJKLM":
             try:
-                # Try to import module dynamically
                 module_name = f"comptext_codex.modules.module_{code.lower()}"
                 module = importlib.import_module(module_name)
-
-                # Store module instance
-                if hasattr(module, 'get_module'):
-                    self._module_registry[code] = module.get_module()
+                if hasattr(module, "get_module"):
+                    self._module_instances[code] = module.get_module()
                 else:
-                    self._module_registry[code] = module
-
+                    self._module_instances[code] = module
             except ImportError as e:
-                logger.debug(f"Module {code} not yet implemented: {e}")
-                # Create placeholder
-                self._module_registry[code] = None
+                logger.debug("Module %s not implemented: %s", code, e)
+                self._module_instances[code] = None
 
     def execute(self, command_string: str, context: Optional[Dict[str, Any]] = None) -> List[ExecutionResult]:
         """Execute CompText command(s).
@@ -111,8 +119,8 @@ class CompTextExecutor:
             Execution result
         """
         try:
-            # Get module implementation
-            module = self._module_registry.get(cmd.module)
+            # Get module instance (from registry or legacy)
+            module = self._module_instances.get(cmd.module)
 
             if module is None:
                 return self._execute_fallback(cmd, context)
@@ -134,15 +142,18 @@ class CompTextExecutor:
                 )
             elif hasattr(module, 'execute'):
                 # Generic execute method
-                result = module.execute(cmd, context)
-                return ExecutionResult(
-                    success=True,
-                    result=result,
-                    metadata={
-                        'module': cmd.module,
-                        'command': cmd.command
-                    }
-                )
+                try:
+                    result = module.execute(cmd, context)
+                    return ExecutionResult(
+                        success=True,
+                        result=result,
+                        metadata={
+                            'module': cmd.module,
+                            'command': cmd.command
+                        }
+                    )
+                except NotImplementedError:
+                    return self._execute_fallback(cmd, context)
             else:
                 return self._execute_fallback(cmd, context)
 
@@ -197,27 +208,26 @@ class CompTextExecutor:
         Returns:
             List of command metadata dictionaries
         """
-        commands = []
+        # Prefer registry metadata (includes descriptions, aliases, etc.)
+        if self._registry is not None:
+            return [cmd.to_dict() for cmd in self._registry.all_command_meta()]
 
-        for module_code, module in self._module_registry.items():
+        # Fallback: introspect module instances
+        commands = []
+        for module_code, module in self._module_instances.items():
             if module is None:
                 continue
-
-            # Try to get command list from module
-            if hasattr(module, 'get_commands'):
-                module_commands = module.get_commands()
-                commands.extend(module_commands)
+            if hasattr(module, "get_commands"):
+                commands.extend(module.get_commands())
             else:
-                # Introspect module for execute_* methods
                 for attr_name in dir(module):
-                    if attr_name.startswith('execute_'):
-                        command_name = attr_name[8:]  # Remove 'execute_' prefix
+                    if attr_name.startswith("execute_"):
+                        command_name = attr_name[8:]
                         commands.append({
-                            'module': module_code,
-                            'command': command_name,
-                            'syntax': f"@{module_code}:{command_name}"
+                            "module": module_code,
+                            "command": command_name,
+                            "syntax": f"@{module_code}:{command_name}",
                         })
-
         return commands
 
 

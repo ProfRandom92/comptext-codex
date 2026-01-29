@@ -1,27 +1,25 @@
 """Module L: ETL - Data extraction, transformation, loading with validations."""
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from datetime import datetime
+
+from comptext_codex.registry import codex_module, codex_command
 from .base import BaseModule
 
 
+@codex_module(
+    code="L",
+    name="ETL/Data Pipelines",
+    purpose="Data extraction, transformation, loading with validations",
+    token_priority="high",
+    security={"pii_safe": False, "threat_model": "data_masking"},
+    privacy={"dp_budget": "epsilon<=0.5_per_pipeline", "audit_logging": True},
+)
 class ModuleL(BaseModule):
     """ETL module for data pipelines."""
 
-    def get_commands(self) -> List[Dict[str, Any]]:
-        return [
-            {'module': 'L', 'command': 'extract', 'syntax': '@EXTRACT[source, query, ...]'},
-            {'module': 'L', 'command': 'transform', 'syntax': '@TRANSFORM[operations, ...]'},
-            {'module': 'L', 'command': 'load', 'syntax': '@LOAD[destination, mode, ...]'},
-            {'module': 'L', 'command': 'validate', 'syntax': '@VALIDATE[rules, ...]'},
-            {'module': 'L', 'command': 'dedupe', 'syntax': '@DEDUPE[strategy, keys, ...]'},
-            {'module': 'L', 'command': 'enrich', 'syntax': '@ENRICH[sources, fields, ...]'},
-            {'module': 'L', 'command': 'aggregate', 'syntax': '@AGGREGATE[operations, group_by, ...]'},
-            {'module': 'L', 'command': 'pipeline', 'syntax': '@PIPELINE[steps, schedule, ...]'}
-        ]
-
+    @codex_command(syntax="@EXTRACT[source, query, ...]", description="Extract data from various sources", token_cost_hint=70)
     def execute_extract(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Extract data from various sources with comprehensive options."""
         source = kwargs.get('source', 'database')
         query = kwargs.get('query', None)
         filters = kwargs.get('filters', {})
@@ -58,8 +56,8 @@ class ModuleL(BaseModule):
             }
         }
 
+    @codex_command(syntax="@TRANSFORM[operations, ...]", description="Transform data with multiple operations", token_cost_hint=65)
     def execute_transform(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Transform data with multiple operations."""
         operations = kwargs.get('operations', [])
         if isinstance(operations, str):
             operations = [operations]
@@ -108,8 +106,8 @@ class ModuleL(BaseModule):
             'warnings': self._generate_warnings(filtered_records)
         }
 
+    @codex_command(syntax="@LOAD[destination, mode, ...]", description="Load data to destination", token_cost_hint=60)
     def execute_load(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Load data to destination with comprehensive options."""
         destination = kwargs.get('destination', 'warehouse')
         mode = kwargs.get('mode', 'append')
         batch_size = kwargs.get('batch_size', 1000)
@@ -148,8 +146,8 @@ class ModuleL(BaseModule):
             }
         }
 
+    @codex_command(syntax="@VALIDATE[rules, ...]", description="Validate data against rules", token_cost_hint=50)
     def execute_validate(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Validate data against rules."""
         rules = kwargs.get('rules', [])
         strict = kwargs.get('strict', False)
 
@@ -171,8 +169,8 @@ class ModuleL(BaseModule):
             'status': 'success' if failed == 0 or not strict else 'warning'
         }
 
+    @codex_command(syntax="@DEDUPE[strategy, keys, ...]", description="Remove duplicate records", token_cost_hint=45)
     def execute_dedupe(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Remove duplicate records."""
         strategy = kwargs.get('strategy', 'exact')
         keys = kwargs.get('keys', [])
 
@@ -198,8 +196,8 @@ class ModuleL(BaseModule):
             'status': 'success'
         }
 
+    @codex_command(syntax="@ENRICH[sources, fields, ...]", description="Enrich data from external sources", token_cost_hint=55)
     def execute_enrich(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Enrich data from external sources."""
         sources = kwargs.get('sources', [])
         fields = kwargs.get('fields', [])
 
@@ -227,8 +225,8 @@ class ModuleL(BaseModule):
             'status': 'success'
         }
 
+    @codex_command(syntax="@AGGREGATE[operations, group_by, ...]", description="Aggregate data with grouping", token_cost_hint=50)
     def execute_aggregate(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Aggregate data with grouping and operations."""
         operations = kwargs.get('operations', ['sum', 'count'])
         group_by = kwargs.get('group_by', [])
 
@@ -254,8 +252,8 @@ class ModuleL(BaseModule):
             'status': 'success'
         }
 
+    @codex_command(syntax="@PIPELINE[steps, schedule, ...]", description="Define and execute a complete ETL pipeline", token_cost_hint=75)
     def execute_pipeline(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Define and execute a complete ETL pipeline."""
         steps = kwargs.get('steps', ['extract', 'transform', 'load'])
         schedule = kwargs.get('schedule', None)
         retry_policy = kwargs.get('retry', {'max_attempts': 3, 'backoff': 'exponential'})
