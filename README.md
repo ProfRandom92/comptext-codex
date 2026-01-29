@@ -63,6 +63,21 @@ CompText is a DSL designed to replace verbose natural language prompts with comp
 
 ---
 
+## 🎮 Try it Now - Interactive Playground
+
+**[Launch Playground →](public/playground.html)**
+
+Experience CompText in your browser with our interactive playground:
+- ✨ Live DSL editor with syntax highlighting
+- 📊 Real-time token savings metrics
+- 📚 13 module categories with examples
+- 🎯 Command validation and formatting
+- 💾 Share & export functionality
+
+Perfect for learning the syntax, testing commands, and seeing token reduction in action!
+
+---
+
 ## ⚡ Quick Start
 
 ### Installation
