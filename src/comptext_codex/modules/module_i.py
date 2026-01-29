@@ -1,51 +1,40 @@
 """Module I: Security - Vulnerability scans, compliance checks, threat modeling."""
 
-from typing import Any, Dict, List
+from typing import Any, Dict
+
+from comptext_codex.registry import codex_module, codex_command
 from .base import BaseModule
 
 
+@codex_module(
+    code="I",
+    name="Security",
+    purpose="Vulnerability scans, compliance checks, and threat modeling",
+    token_priority="high",
+    security={"pii_safe": True, "threat_model": "hardened"},
+    privacy={"dp_budget": "epsilon<=0.5_per_call", "audit_logging": True},
+)
 class ModuleI(BaseModule):
     """Security module for vulnerability and compliance checks."""
 
-    def get_commands(self) -> List[Dict[str, Any]]:
-        return [
-            {'module': 'I', 'command': 'sec_scan', 'syntax': '@SEC_SCAN[type, severity, ...]'},
-            {'module': 'I', 'command': 'gdpr', 'syntax': '@GDPR[audit, ...]'}
-        ]
-
+    @codex_command(syntax="@SEC_SCAN[type, severity, ...]", description="Scan for security vulnerabilities", token_cost_hint=60)
     def execute_sec_scan(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Scan for security vulnerabilities."""
-        scan_type = kwargs.get('type', 'code')
-        severity = kwargs.get('severity', 'high')
-
+        scan_type = kwargs.get("type", "code")
         return {
-            'scan_type': scan_type,
-            'vulnerabilities_found': 3,
-            'severity_levels': {'critical': 1, 'high': 2, 'medium': 0},
-            'recommendations': [
-                'Fix SQL injection vulnerability',
-                'Update insecure dependencies',
-                'Enable HTTPS'
-            ]
+            "scan_type": scan_type,
+            "vulnerabilities_found": 3,
+            "severity_levels": {"critical": 1, "high": 2, "medium": 0},
+            "recommendations": ["Fix SQL injection", "Update dependencies", "Enable HTTPS"],
         }
 
+    @codex_command(syntax="@GDPR[audit, ...]", description="Perform GDPR compliance audit", token_cost_hint=55)
     def execute_gdpr(self, *args, context: Dict[str, Any] = None, **kwargs) -> Dict[str, Any]:
-        """Perform GDPR compliance audit."""
-        audit = kwargs.get('audit', 'full')
-
+        audit = kwargs.get("audit", "full")
         return {
-            'audit_type': audit,
-            'compliant': False,
-            'issues': [
-                'Missing consent forms',
-                'PII not encrypted',
-                'No deletion mechanism'
-            ],
-            'recommendations': [
-                'Implement consent management',
-                'Encrypt PII fields with AES-256',
-                'Add data deletion endpoints'
-            ]
+            "audit_type": audit,
+            "compliant": False,
+            "issues": ["Missing consent forms", "PII not encrypted", "No deletion mechanism"],
+            "recommendations": ["Implement consent management", "Encrypt PII with AES-256", "Add deletion endpoints"],
         }
 
 
