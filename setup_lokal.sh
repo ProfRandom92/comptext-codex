@@ -61,15 +61,15 @@ if command -v python3 &> /dev/null; then
     PYTHON_MAJOR=$(echo $PYTHON_VERSION | cut -d. -f1)
     PYTHON_MINOR=$(echo $PYTHON_VERSION | cut -d. -f2)
 
-    if [ "$PYTHON_MAJOR" -ge 3 ] && [ "$PYTHON_MINOR" -ge 9 ]; then
-        print_success "Python $PYTHON_VERSION gefunden (>= 3.9 erforderlich)"
+    if [ "$PYTHON_MAJOR" -ge 3 ] && [ "$PYTHON_MINOR" -ge 10 ]; then
+        print_success "Python $PYTHON_VERSION gefunden (>= 3.10 erforderlich)"
         PYTHON_CMD="python3"
     else
-        print_error "Python $PYTHON_VERSION ist zu alt. Version >= 3.9 erforderlich."
+        print_error "Python $PYTHON_VERSION ist zu alt. Version >= 3.10 erforderlich."
         exit 1
     fi
 else
-    print_error "Python 3 nicht gefunden. Bitte installieren Sie Python >= 3.9"
+    print_error "Python 3 nicht gefunden. Bitte installieren Sie Python >= 3.10"
     exit 1
 fi
 
