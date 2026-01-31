@@ -9,7 +9,7 @@
 
 ### 1.1 Systemvoraussetzungen prüfen
 ```bash
-□ Python 3.9+ installiert?
+□ Python 3.10+ installiert?
   python3 --version
 
 □ pip installiert?

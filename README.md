@@ -1,7 +1,7 @@
 # CompText-Codex
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Version](https://img.shields.io/badge/version-4.0.0-green.svg)](https://github.com/ProfRandom92/comptext-codex/releases)
 [![Commands](https://img.shields.io/badge/commands-415+-purple.svg)](#-commands-catalog)
@@ -245,7 +245,7 @@ Based on 16 test cases ([full results](TOKEN_REDUCTION_RESULTS.md)):
 
 ## Tech Stack
 
-- **Language:** Python 3.9+
+- **Language:** Python 3.10+
 - **Database:** SQLite (embedded, zero-config)
 - **Protocol:** MCP (Model Context Protocol)
 - **Web Interface:** HTML5, JavaScript (vanilla)

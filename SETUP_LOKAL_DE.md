@@ -48,7 +48,7 @@
 ## 💻 Systemvoraussetzungen
 
 ### Pflicht:
-- **Python:** Version 3.9 oder höher
+- **Python:** Version 3.10 oder höher
 - **pip:** Python Package Manager
 - **Git:** Versionskontrolle
 
@@ -408,7 +408,7 @@ pip install -e .  # Package im development mode installieren
 # Fehler: Python 3.8 oder älter
 
 # Lösung:
-python --version  # Muss >= 3.9 sein
+python --version  # Muss >= 3.10 sein
 # Ggf. Python upgraden oder pyenv nutzen
 ```
 

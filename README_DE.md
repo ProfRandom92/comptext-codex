@@ -309,7 +309,7 @@ python -m comptext_mcp.server --test
 ## 🛠️ Systemanforderungen
 
 ### Pflicht:
-- **Python:** >= 3.9
+- **Python:** >= 3.10
 - **pip:** aktuell
 - **Git:** für Repository-Zugriff
 

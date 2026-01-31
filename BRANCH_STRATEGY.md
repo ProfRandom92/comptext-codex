@@ -11,7 +11,7 @@
 
 1. **claude/standardize-branches-x1khN** (Latest: 3434b97)
    - Purpose: Version 4.0.0 standardization
-   - Changes: Version unification, Python 3.9+ requirement, CI consolidation, SQLite migration
+   - Changes: Version unification, Python 3.10+ requirement, CI consolidation, SQLite migration
    - **Recommendation**: ✅ Merge to main immediately
    - PR URL: https://github.com/ProfRandom92/comptext-codex/pull/new/claude/standardize-branches-x1khN
 
