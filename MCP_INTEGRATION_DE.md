@@ -35,7 +35,7 @@
 ## ✅ Voraussetzungen
 
 ### Software:
-- ✅ **Python 3.9+** (bereits aus Haupt-Setup)
+- ✅ **Python 3.10+** (bereits aus Haupt-Setup)
 - ✅ **CompText-Codex** installiert (siehe `SETUP_LOKAL_DE.md`)
 - ✅ **pip** Package Manager
 - ✅ **Claude Code CLI** oder **Claude Desktop App**
