@@ -1,0 +1,16 @@
+id: cmd:SAMPLING
+name: SAMPLING
+syntax: SAMPLING:<value>
+module_id: module:A
+description: Parameter key SAMPLING
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SAMPLING
+token_cost_hint: 1
+text_compact: '[PARAM] SAMPLING
+
+  Syntax: SAMPLING:<value>'
+keywords:
+- param

@@ -1,0 +1,16 @@
+id: cmd:FRM_SKL
+name: FRM_SKL
+syntax: FRM:SKL
+module_id: module:B
+description: Scikit-learn
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:SKL
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:SKL (B)
+
+  Meaning: Scikit-learn'
+keywords:
+- FRM

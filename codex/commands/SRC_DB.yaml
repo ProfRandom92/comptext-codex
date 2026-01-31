@@ -1,0 +1,16 @@
+id: cmd:SRC_DB
+name: SRC_DB
+syntax: SRC:DB
+module_id: module:L
+description: SRC value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SRC:DB
+token_cost_hint: 1
+text_compact: '[TOKEN] SRC:DB (L)
+
+  Meaning: '
+keywords:
+- SRC

@@ -1,0 +1,17 @@
+id: cmd:BRKP_MOB
+name: BRKP_MOB
+syntax: BRKP:MOB
+module_id: module:K
+description: BRKP value
+examples:
+- CMD:RESP;BRKP:MOB,TAB,DESK
+stability: stable
+mcp_exposed: true
+aliases:
+- BRKP:MOB
+token_cost_hint: 2
+text_compact: '[TOKEN] BRKP:MOB (K)
+
+  Meaning: '
+keywords:
+- BRKP

@@ -1,0 +1,18 @@
+id: cmd:MAXITER
+name: MAXITER
+syntax: CMD:MAXITER
+module_id: module:A
+description: <zahl>
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MAXITER
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MAXITER (A, stable)
+
+  Intent: <zahl>
+
+  Syntax: CMD:MAXITER'
+keywords:
+- cmd

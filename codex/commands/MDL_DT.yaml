@@ -1,0 +1,16 @@
+id: cmd:MDL_DT
+name: MDL_DT
+syntax: MDL:DT
+module_id: module:E
+description: MDL value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MDL:DT
+token_cost_hint: 1
+text_compact: '[TOKEN] MDL:DT (E)
+
+  Meaning: '
+keywords:
+- MDL

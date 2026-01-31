@@ -1,0 +1,26 @@
+id: cmd:ACTION
+name: ACTION
+syntax: CMD:ACTION
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:ACTION;BATCH:[item1,item2,item3]
+- CMD:ACTION;BATCH:[...];PAR:Y
+- CMD:ACTION;BATCH:[...];LIMIT:10;OFFSET:0
+- '// V1.x pattern: CMD:ACTION'
+- IF:COND→CMD:ACTION
+- IF:COND→CMD:ACTION|ELSE:→CMD:FALLBACK
+- LOOP:N→CMD:ACTION
+- LOOP:N;IDX:i→CMD:ACTION;STEP:$i
+stability: stable
+mcp_exposed: true
+aliases:
+- ACTION
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ACTION (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ACTION'
+keywords:
+- cmd

@@ -1,0 +1,22 @@
+id: cmd:FRM_FLASK
+name: FRM_FLASK
+syntax: FRM:FLASK
+module_id: module:B
+description: Flask
+examples:
+- CMD:CODE;LNG:PY;FRM:FLASK;TASK:API;
+- CMD:CODE;LNG:PY;FRM:FLASK;TASK:API;CMD:SCHEMA;DBTYP:PSQL
+- 'flask'': ''FRM:FLASK'','
+- CMD:CODE;LNG:PY;FRM:FLASK;TASK:API
+- CMD:CODE;LNG:PY;FRM:FLASK;TASK:API;SCHEMA;DBTYP:PSQL
+- CMD:CODE;LNG:PY;FRM:FLASK;TASK:API;SCHEMA;DBTYP:PSQL;AUTH:JWT;TEST:unit;DOC:openapi
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:FLASK
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:FLASK (B)
+
+  Meaning: Flask'
+keywords:
+- FRM

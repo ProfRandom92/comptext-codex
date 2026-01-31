@@ -1,0 +1,21 @@
+id: cmd:PROC
+name: PROC
+syntax: CMD:PROC
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:PROC;BATCH:$ALL_FILES;LIMIT:50;OFFSET:100
+- LOOP:10;IDX:n→CMD:PROC;BATCH:$n;SIZE:100
+- IF:MODE:EQ:BATCH→LOOP:$COUNT→CMD:PROC|ELSE:→CMD:PROC;SINGLE:Y
+stability: stable
+mcp_exposed: true
+aliases:
+- PROC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:PROC (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:PROC'
+keywords:
+- cmd

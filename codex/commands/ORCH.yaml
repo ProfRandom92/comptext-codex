@@ -1,0 +1,21 @@
+id: cmd:ORCH
+name: ORCH
+syntax: CMD:ORCH
+module_id: module:N
+description: Orchestration
+examples:
+- CMD:ORCH;FLOW:<flow-typ>;NODES:[<nodes>];EDGES:[<edges>]
+- CMD:ORCH;FLOW:DAG;NODES:[FETCH,PARSE,ENRICH,STORE];EDGES:[FETCH→PARSE,PARSE→ENRICH,ENRICH→STORE]
+- CMD:ORCH;FLOW:COND;NODES:[CHECK,PATH_A,PATH_B,MERGE];COND:CHECK→PATH_A|PATH_B
+stability: experimental
+mcp_exposed: true
+aliases:
+- ORCH
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ORCH (N, experimental)
+
+  Intent: Orchestration
+
+  Syntax: CMD:ORCH'
+keywords:
+- cmd

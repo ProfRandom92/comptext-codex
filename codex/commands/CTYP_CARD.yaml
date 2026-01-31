@@ -1,0 +1,20 @@
+id: cmd:CTYP_CARD
+name: CTYP_CARD
+syntax: CTYP:CARD
+module_id: module:K
+description: CTYP value
+examples:
+- CMD:CMPN;FRM:REACT;CTYP:CARD
+- CMD:CMPN;FRM:REACT;CSS:TAIL;CTYP:CARD;BRKP:ALL;CMD:TEST;TTYP:UNIT
+- CMD:CMPN;FRM:REACT;CSS:TAIL;CTYP:CARD;BRKP:ALL
+- CMD:CMPN;FRM:REACT;CSS:TAIL;CTYP:CARD;BRKP:ALL;CMD:A11Y;CMD:TEST;TTYP:E2E;FRM:JEST
+stability: stable
+mcp_exposed: true
+aliases:
+- CTYP:CARD
+token_cost_hint: 2
+text_compact: '[TOKEN] CTYP:CARD (K)
+
+  Meaning: '
+keywords:
+- CTYP

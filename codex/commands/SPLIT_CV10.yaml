@@ -1,0 +1,17 @@
+id: cmd:SPLIT_CV10
+name: SPLIT_CV10
+syntax: SPLIT:CV10
+module_id: module:E
+description: SPLIT value
+examples:
+- CMD:PREP;NORM:STD;CMD:FEAT;TASK:ENC_CAT;CMD:TRAIN;MDL:RF,XGB,NN;SPLIT:CV10;METR:ACC,F1,AUC;CMD:EVAL;CMD:PLOT;GRPH:BAR,LINE,HEAT;COL:VIB;CMD:DOC;SECT:OVW,ARCH;DET:H;INCL:DIAG,CEX;AUD:DEV
+stability: stable
+mcp_exposed: true
+aliases:
+- SPLIT:CV10
+token_cost_hint: 2
+text_compact: '[TOKEN] SPLIT:CV10 (E)
+
+  Meaning: '
+keywords:
+- SPLIT

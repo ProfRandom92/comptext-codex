@@ -1,0 +1,16 @@
+id: cmd:SECT_TRBL
+name: SECT_TRBL
+syntax: SECT:TRBL
+module_id: module:F
+description: SECT value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SECT:TRBL
+token_cost_hint: 2
+text_compact: '[TOKEN] SECT:TRBL (F)
+
+  Meaning: '
+keywords:
+- SECT

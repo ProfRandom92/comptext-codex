@@ -1,0 +1,16 @@
+id: cmd:ENCR_TYP_RSA
+name: ENCR_TYP_RSA
+syntax: ENCR_TYP:RSA
+module_id: module:I
+description: ENCR_TYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ENCR_TYP:RSA
+token_cost_hint: 3
+text_compact: '[TOKEN] ENCR_TYP:RSA (I)
+
+  Meaning: '
+keywords:
+- ENCR_TYP

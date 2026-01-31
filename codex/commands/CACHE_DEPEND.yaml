@@ -1,0 +1,17 @@
+id: cmd:CACHE_DEPEND
+name: CACHE_DEPEND
+syntax: CACHE:DEPEND
+module_id: module:P
+description: Token (auto-extracted)
+examples:
+- CACHE:DEPEND;PARENT:rbac_config;CHILDREN:[user_perms,module_access]
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:DEPEND
+token_cost_hint: 3
+text_compact: '[TOKEN] CACHE:DEPEND (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CACHE

@@ -1,0 +1,20 @@
+id: cmd:SECT_API
+name: SECT_API
+syntax: SECT:API
+module_id: module:F
+description: SECT value
+examples:
+- CMD:APID;SECT:API,USE;INCL:CEX,TOC;AUD:DEV
+- CMD:DOC;LNG:PY;FRM:FAPI;SECT:API
+- CMD:DOC;SECT:API
+- CMD:APID;SECT:API,USE;AUD:DEV
+stability: stable
+mcp_exposed: true
+aliases:
+- SECT:API
+token_cost_hint: 2
+text_compact: '[TOKEN] SECT:API (F)
+
+  Meaning: '
+keywords:
+- SECT

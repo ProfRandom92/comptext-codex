@@ -1,0 +1,16 @@
+id: cmd:FRM_BOOT
+name: FRM_BOOT
+syntax: FRM:BOOT
+module_id: module:B
+description: Bootstrap
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:BOOT
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:BOOT (B)
+
+  Meaning: Bootstrap'
+keywords:
+- FRM

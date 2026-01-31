@@ -1,0 +1,20 @@
+id: cmd:ANAL
+name: ANAL
+syntax: CMD:ANAL
+module_id: module:B
+description: Analysieren
+examples:
+- 'EXPECT_EXPAND: CMD:ANAL;TYP:STAT|CMD:DOC;FMT:MD;SRC:$PREV'
+- CMD:CODE;LNG:PY;FRM:PND;TASK:DB_CONN;CMD:PREP;NORM:STD;CMD:ANAL;TASK:DESC_STATS;CMD:PLOT;GRPH:LINE,BAR,PIE;AXIS:X=Zeit;Y=Umsatz;COL:VIB;CMD:REP;SECT:OVW;DET:H;INCL:DIAG,TBL;AUD:MGT;STY:PRO
+stability: stable
+mcp_exposed: true
+aliases:
+- ANAL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ANAL (B, stable)
+
+  Intent: Analysieren
+
+  Syntax: CMD:ANAL'
+keywords:
+- cmd

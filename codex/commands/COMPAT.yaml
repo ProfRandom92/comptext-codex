@@ -1,0 +1,17 @@
+id: cmd:COMPAT
+name: COMPAT
+syntax: COMPAT:<value>
+module_id: module:A
+description: Parameter key COMPAT
+examples:
+- 'INPUT: CMD:CODE;TEMP=0.7;COMPAT:3.5.1'
+stability: stable
+mcp_exposed: true
+aliases:
+- COMPAT
+token_cost_hint: 1
+text_compact: '[PARAM] COMPAT
+
+  Syntax: COMPAT:<value>'
+keywords:
+- param

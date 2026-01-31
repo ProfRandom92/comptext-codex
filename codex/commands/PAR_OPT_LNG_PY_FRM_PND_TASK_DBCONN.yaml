@@ -1,0 +1,16 @@
+id: cmd:PAR_OPT_LNG_PY_FRM_PND_TASK_DBCONN
+name: PAR_OPT_LNG_PY_FRM_PND_TASK_DBCONN
+syntax: PAR:OPT;LNG:PY;FRM:PND;TASK:DBCONN
+module_id: module:A
+description: PAR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- PAR:OPT;LNG:PY;FRM:PND;TASK:DBCONN
+token_cost_hint: 8
+text_compact: '[TOKEN] PAR:OPT;LNG:PY;FRM:PND;TASK:DBCONN (A)
+
+  Meaning: '
+keywords:
+- PAR

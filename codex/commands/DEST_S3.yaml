@@ -1,0 +1,16 @@
+id: cmd:DEST_S3
+name: DEST_S3
+syntax: DEST:S3
+module_id: module:L
+description: DEST value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- DEST:S3
+token_cost_hint: 1
+text_compact: '[TOKEN] DEST:S3 (L)
+
+  Meaning: '
+keywords:
+- DEST

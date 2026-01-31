@@ -1,0 +1,20 @@
+id: cmd:CALL
+name: CALL
+syntax: CMD:CALL
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- LOOP:3→TRY:→CMD:CALL|CATCH:→CMD:WAIT;MS:1000
+- LOOP:5;IDX:n→TRY:→CMD:CALL|CATCH:→CMD:WAIT;MS:$(100*2^$n)
+stability: stable
+mcp_exposed: true
+aliases:
+- CALL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CALL (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:CALL'
+keywords:
+- cmd

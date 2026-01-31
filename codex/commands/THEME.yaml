@@ -1,0 +1,18 @@
+id: cmd:THEME
+name: THEME
+syntax: THEME:<value>
+module_id: module:A
+description: Parameter key THEME
+examples:
+- CMD:UI;TYP:LANDING;THEME:CRAFT;LNG:HTML,CSS,JS;CMPN:HERO,GALLERY,ABOUT,CTA,CONTACT;STYLE:WARM,ORGANIC;RESP:Y;ANIM:SCROLL
+- 'INPUT: CMD:UI;TYP:LANDING;THEME:CRAFT;CMPN:HERO,GALLERY,ABOUT,CTA,CONTACT'
+stability: stable
+mcp_exposed: true
+aliases:
+- THEME
+token_cost_hint: 1
+text_compact: '[PARAM] THEME
+
+  Syntax: THEME:<value>'
+keywords:
+- param

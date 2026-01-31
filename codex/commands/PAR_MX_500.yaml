@@ -1,0 +1,16 @@
+id: cmd:PAR_MX_500
+name: PAR_MX_500
+syntax: PAR:MX=500
+module_id: module:A
+description: Max Tokens
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- PAR:MX=500
+token_cost_hint: 2
+text_compact: '[TOKEN] PAR:MX=500 (A)
+
+  Meaning: Max Tokens'
+keywords:
+- PAR

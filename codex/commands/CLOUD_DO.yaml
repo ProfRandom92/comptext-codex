@@ -1,0 +1,16 @@
+id: cmd:CLOUD_DO
+name: CLOUD_DO
+syntax: CLOUD:DO
+module_id: module:J
+description: CLOUD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CLOUD:DO
+token_cost_hint: 2
+text_compact: '[TOKEN] CLOUD:DO (J)
+
+  Meaning: '
+keywords:
+- CLOUD

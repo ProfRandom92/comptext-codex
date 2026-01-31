@@ -1,0 +1,19 @@
+id: cmd:RENDER
+name: RENDER
+syntax: CMD:RENDER
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'INPUT: CMD:RENDER;QUALITY:H;DEGRADE:Y'
+stability: stable
+mcp_exposed: true
+aliases:
+- RENDER
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:RENDER (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:RENDER'
+keywords:
+- cmd

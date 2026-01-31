@@ -180,3 +180,73 @@ modules:
       dp_budget: epsilon<=0.2_per_exchange
       federated_ready: true
       retention: audit_log_only
+
+  - code: N
+    name: Agent Orchestration
+    purpose: Multi-agent coordination, task delegation, and workflow management
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: agent_sandboxing
+      audit_trail: request_id+agent_id
+    privacy:
+      dp_budget: epsilon<=0.3_per_task
+      federated_ready: true
+      retention: workflow_logs
+
+  - code: O
+    name: Observability
+    purpose: Metrics collection, distributed tracing, and log aggregation
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: telemetry_sanitization
+      audit_trail: request_id+span_id
+    privacy:
+      dp_budget: epsilon<=0.1_per_call
+      federated_ready: true
+      retention: anonymized_metrics
+
+  - code: P
+    name: Performance
+    purpose: Caching strategies, optimization hints, and resource management
+    token_priority: high
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: cache_poisoning_prevention
+      audit_trail: request_id+cache_key
+    privacy:
+      dp_budget: epsilon<=0.2_per_call
+      federated_ready: true
+      retention: performance_metrics
+
+  - code: Q
+    name: Quality Assurance
+    purpose: Code quality gates, linting rules, and standards enforcement
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: static_analysis_hardened
+      audit_trail: request_id+rule_id
+    privacy:
+      dp_budget: epsilon<=0.1_per_scan
+      federated_ready: false
+      retention: violations_only
+
+  - code: R
+    name: Release Management
+    purpose: Version control, changelog generation, and deployment orchestration
+    token_priority: medium
+    mcp_exposed: true
+    security:
+      pii_safe: true
+      threat_model: release_signing_required
+      audit_trail: request_id+version
+    privacy:
+      dp_budget: epsilon<=0.1_per_release
+      federated_ready: false
+      retention: release_metadata

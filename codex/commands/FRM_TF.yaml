@@ -1,0 +1,16 @@
+id: cmd:FRM_TF
+name: FRM_TF
+syntax: FRM:TF
+module_id: module:B
+description: TensorFlow
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:TF
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:TF (B)
+
+  Meaning: TensorFlow'
+keywords:
+- FRM

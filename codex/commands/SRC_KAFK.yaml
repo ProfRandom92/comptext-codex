@@ -1,0 +1,19 @@
+id: cmd:SRC_KAFK
+name: SRC_KAFK
+syntax: SRC:KAFK
+module_id: module:L
+description: SRC value
+examples:
+- CMD:STRM;SRC:KAFK;DEST:DB;SCHED:RT
+- CMD:ETL;SRC:API,DB;DEST:DWH;TRANS:CLN,AGG,ENRCH;SCHED:D;CMD:STRM;SRC:KAFK;DEST:DB;SCHED:RT;CMD:TEST;TTYP:INTG;CMD:MON;MON_TYP:LOG,ALRT;CMD:DOC;AUD:TECH
+- CMD:ETL;SRC:API,DB;DEST:DWH;TRANS:CLN,AGG,ENRCH;SCHED:D;CMD:STRM;SRC:KAFK;SCHED:RT
+stability: stable
+mcp_exposed: true
+aliases:
+- SRC:KAFK
+token_cost_hint: 2
+text_compact: '[TOKEN] SRC:KAFK (L)
+
+  Meaning: '
+keywords:
+- SRC

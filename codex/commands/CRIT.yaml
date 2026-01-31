@@ -1,0 +1,21 @@
+id: cmd:CRIT
+name: CRIT
+syntax: CMD:CRIT
+module_id: module:A
+description: Kritisch prüfen
+examples:
+- CMD:CRIT;BATCH:[module_a,module_b];PAR:Y;FOCUS:SEC
+- self.register('REVIEW', 'CMD:CRIT;FOCUS:CODE,SEC,PERF')
+- CMD:CRIT;ROLE:EXP;CRIT:THS;PAR:T=0.2
+stability: stable
+mcp_exposed: true
+aliases:
+- CRIT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CRIT (A, stable)
+
+  Intent: Kritisch prüfen
+
+  Syntax: CMD:CRIT'
+keywords:
+- cmd

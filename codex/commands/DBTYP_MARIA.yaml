@@ -1,0 +1,16 @@
+id: cmd:DBTYP_MARIA
+name: DBTYP_MARIA
+syntax: DBTYP:MARIA
+module_id: module:H
+description: MariaDB
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- DBTYP:MARIA
+token_cost_hint: 2
+text_compact: '[TOKEN] DBTYP:MARIA (H)
+
+  Meaning: MariaDB'
+keywords:
+- DBTYP

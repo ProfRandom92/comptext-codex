@@ -1,0 +1,18 @@
+id: cmd:PERM
+name: PERM
+syntax: PERM:<value>
+module_id: module:I
+description: Parameter key PERM
+examples:
+- 'insertText: ''SEC:ROLE;ID:${1:name};PERM:${2:read}'','
+- 'code: ''SEC:ROLE;ID:dev;PERM:read|SEC:SIGN;SRC:./plugin.wasm|OBS:TRACE;ID:req_1;SPAN:main|CACHE:ENABLE;TTL:24h'','
+stability: stable
+mcp_exposed: true
+aliases:
+- PERM
+token_cost_hint: 1
+text_compact: '[PARAM] PERM
+
+  Syntax: PERM:<value>'
+keywords:
+- param

@@ -1,0 +1,26 @@
+id: cmd:TEST
+name: TEST
+syntax: CMD:TEST
+module_id: module:G
+description: Tests erstellen
+examples:
+- CMD:CODE;LNG:PY|CMD:TEST;COV:80|CMD:DOCK;ACT:PUSH
+- CMD:TEST;TYP:BENCH;MOD:[A-M];METRIC:TOKEN
+- CMD:TEST;TYP:SUITE;ID:V3.5.2_FULL;VERBOSE:Y
+- CMD:CODE;LNG:PY;FRM:FAST|CMD:TEST;FRM:PYTEST
+- ALIAS:FULLTEST=CMD:LINT→CMD:TEST→CMD:COV
+- CMD:TEST;BATCH:[[auth.py](http://auth.py),[user.py](http://user.py),[api.py](http://api.py)];LNG:PY
+- CMD:TEST;BATCH:[...];OUT:COLLECT
+- CMD:TEST;BATCH:[...];OUT:ERRORS
+stability: stable
+mcp_exposed: true
+aliases:
+- TEST
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TEST (G, stable)
+
+  Intent: Tests erstellen
+
+  Syntax: CMD:TEST'
+keywords:
+- cmd

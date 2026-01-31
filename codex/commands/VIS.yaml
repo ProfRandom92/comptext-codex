@@ -1,0 +1,19 @@
+id: cmd:VIS
+name: VIS
+syntax: CMD:VIS
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'CMD:VIS;TYPE:BAR // CompText: 3 Tokens'
+stability: stable
+mcp_exposed: true
+aliases:
+- VIS
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:VIS (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:VIS'
+keywords:
+- cmd

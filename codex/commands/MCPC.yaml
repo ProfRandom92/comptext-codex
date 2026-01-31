@@ -1,0 +1,19 @@
+id: cmd:MCPC
+name: MCPC
+syntax: CMD:MCPC
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:MCPC;SDK:PY;TRANS:STDIO;TASK:CONNECT;SRV:./[server.py](http://server.py)
+stability: stable
+mcp_exposed: true
+aliases:
+- MCPC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MCPC (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:MCPC'
+keywords:
+- cmd

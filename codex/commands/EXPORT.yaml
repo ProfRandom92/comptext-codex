@@ -1,0 +1,19 @@
+id: cmd:EXPORT
+name: EXPORT
+syntax: CMD:EXPORT
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:VIZ;TYP:LINE;DATA:sales_monthly;TITLE:Umsatzverlauf|CMD:VIZ;TYP:BAR;DATA:sales_category|CMD:VIZ;TYP:PIE;DATA:market_share|CMD:VIZ;TYP:HEAT;DATA:regional|CMD:EXPORT;FMT:HTML,PNG;INTERACT:Y
+stability: stable
+mcp_exposed: true
+aliases:
+- EXPORT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:EXPORT (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:EXPORT'
+keywords:
+- cmd

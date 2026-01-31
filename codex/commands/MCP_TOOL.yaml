@@ -1,0 +1,16 @@
+id: cmd:MCP_TOOL
+name: MCP_TOOL
+syntax: MCP:TOOL
+module_id: module:M
+description: Token (auto-extracted)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MCP:TOOL
+token_cost_hint: 2
+text_compact: '[TOKEN] MCP:TOOL (M, stable)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- MCP

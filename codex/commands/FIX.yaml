@@ -1,0 +1,25 @@
+id: cmd:FIX
+name: FIX
+syntax: CMD:FIX
+module_id: module:B
+description: Debuggen
+examples:
+- 'EXPECT_EXPAND: CMD:FIX;AUTO:Y|CMD:BUILD;ENV:PROD'
+- CMD:FIX;LNG:JS;TASK:ASYNC
+- ct execute "CMD:FIX" --context src/[main.py](http://main.py)
+- IF:ERR:NE:NULL→CMD:FIX;PRIO:H|ELSE:→CMD:OPT
+- →IF:LINT:OK→CMD:TEST|ELSE:→CMD:FIX
+- TRY:CMD:CODE;LNG:PY|CATCH:ERR→CMD:FIX;AUTO:Y
+- CMD:VAL;STRICT:Y→CMD:FIX;TYP:SYNTAX
+stability: stable
+mcp_exposed: true
+aliases:
+- FIX
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:FIX (B, stable)
+
+  Intent: Debuggen
+
+  Syntax: CMD:FIX'
+keywords:
+- cmd

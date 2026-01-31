@@ -1,0 +1,26 @@
+id: cmd:ZSF
+name: ZSF
+syntax: CMD:ZSF
+module_id: module:A
+description: Zusammenfassen
+examples:
+- CMD:ZSF,ÜB,ERKL,CODE,PLOT,CRIT
+- CMD:ZSF;STY:PRO;FMT:LST;LEN:5P
+- CMD:ZSF;LEN:5P;STY:PRO;FMT:LST
+- cmd_v1 = parser.parse("CMD:ZSF;LEN:5P;STY:PRO;FMT:LST")
+- '#   warnings=[''[DEPRECATED] CMD:ZSF → Use text:summarize-v1'']'
+- const cmdV1 = parser.parse('CMD:ZSF;LEN:5P;STY:PRO');
+- '// Logs: [DEPRECATED] CMD:ZSF → Use text:summarize-v1'
+- cmd = parser.parse("CMD:ZSF;LEN:5P;STY:PRO")
+stability: stable
+mcp_exposed: true
+aliases:
+- ZSF
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ZSF (A, stable)
+
+  Intent: Zusammenfassen
+
+  Syntax: CMD:ZSF'
+keywords:
+- cmd

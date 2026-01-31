@@ -1,0 +1,19 @@
+id: cmd:FETCH
+name: FETCH
+syntax: CMD:FETCH
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- TRY:→CMD:FETCH;API:MAIN|CATCH:→CMD:FETCH;API:BACKUP
+stability: stable
+mcp_exposed: true
+aliases:
+- FETCH
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:FETCH (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:FETCH'
+keywords:
+- cmd

@@ -1,0 +1,23 @@
+id: cmd:TTL
+name: TTL
+syntax: TTL:<value>
+module_id: module:P
+description: Parameter key TTL
+examples:
+- 'INPUT: CMD:CACHE;STRAT:LRU;TTL:3600'
+- CACHE:STORE;KEY:cmd_123;TAGS:[security,rbac,tenant:acme];TTL:24h
+- CMD:CACHE;STRAT:${1|LRU,LFU,FIFO,TTL|};BACK:${2|MEM,REDIS,FILE,DB|}${3:;TTL:${4:3600}}${5:;MAX:${6:1000}}
+- CACHE:ENABLE;STRATEGY:content_hash;TTL:24h;STORAGE:redis
+- CMD:CACHE;STRAT:<strategie>;BACK:<backend>;TTL:<zeit>
+- CMD:CACHE;STRAT:TTL;BACK:REDIS;TTL:3600;INV:TAG;LNG:PY
+- 'code: ''SEC:ROLE;ID:dev;PERM:read|SEC:SIGN;SRC:./plugin.wasm|OBS:TRACE;ID:req_1;SPAN:main|CACHE:ENABLE;TTL:24h'','
+stability: stable
+mcp_exposed: true
+aliases:
+- TTL
+token_cost_hint: 1
+text_compact: '[PARAM] TTL
+
+  Syntax: TTL:<value>'
+keywords:
+- param

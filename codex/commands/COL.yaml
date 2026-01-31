@@ -1,0 +1,18 @@
+id: cmd:COL
+name: COL
+syntax: CMD:COL
+module_id: module:C
+description: Farbschema ändern
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- COL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:COL (C, stable)
+
+  Intent: Farbschema ändern
+
+  Syntax: CMD:COL'
+keywords:
+- cmd

@@ -1,0 +1,16 @@
+id: cmd:NORM_MINMAX
+name: NORM_MINMAX
+syntax: NORM:MINMAX
+module_id: module:E
+description: NORM value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- NORM:MINMAX
+token_cost_hint: 2
+text_compact: '[TOKEN] NORM:MINMAX (E)
+
+  Meaning: '
+keywords:
+- NORM

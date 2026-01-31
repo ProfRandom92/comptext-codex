@@ -1,0 +1,16 @@
+id: cmd:CLOUD_AZR
+name: CLOUD_AZR
+syntax: CLOUD:AZR
+module_id: module:J
+description: CLOUD value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CLOUD:AZR
+token_cost_hint: 2
+text_compact: '[TOKEN] CLOUD:AZR (J)
+
+  Meaning: '
+keywords:
+- CLOUD

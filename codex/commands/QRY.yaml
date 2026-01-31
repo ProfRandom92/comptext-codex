@@ -1,0 +1,22 @@
+id: cmd:QRY
+name: QRY
+syntax: CMD:QRY
+module_id: module:H
+description: Query optimieren
+examples:
+- CMD:VULN;SCAN:DEP|CMD:SAUD;TYP:FULL→CMD:QRY;OPT:EXPL|CMD:COMPL;STD:GDPR→CMD:REP;FMT:PDF;TPL:AUDIT
+- CMD:QRY;DBTYP:PSQL;PERF:QRY_OPT
+- 'INPUT: CMD:VULN;SCAN:DEP|CMD:SAUD;TYP:FULL→CMD:QRY;OPT:EXPL→CMD:REP;FMT:PDF;TPL:AUDIT'
+- CMD:SCHM;DBTYP:PSQL;REL:1:N,N:M;NORM_LVL:3NF;CMD:IDX;PERF:IDX_OPT;CMD:QRY;PERF:QRY_OPT;CMD:MIG;TASK:ADD_COL,ADD_IDX;CMD:TEST;TTYP:INTG;CMD:DOC;SECT:ARCH;INCL:DIAG,TBL;AUD:TECH
+stability: stable
+mcp_exposed: true
+aliases:
+- QRY
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:QRY (H, stable)
+
+  Intent: Query optimieren
+
+  Syntax: CMD:QRY'
+keywords:
+- cmd

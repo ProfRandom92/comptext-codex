@@ -1,0 +1,18 @@
+id: cmd:FLOW
+name: FLOW
+syntax: CMD:FLOW
+module_id: module:A
+description: DAG, SEQ, PAR, COND
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FLOW
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:FLOW (A, stable)
+
+  Intent: DAG, SEQ, PAR, COND
+
+  Syntax: CMD:FLOW'
+keywords:
+- cmd

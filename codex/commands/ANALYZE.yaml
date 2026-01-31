@@ -1,0 +1,19 @@
+id: cmd:ANALYZE
+name: ANALYZE
+syntax: CMD:ANALYZE
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:ANALYZE;STATS:desc,corr",
+stability: stable
+mcp_exposed: true
+aliases:
+- ANALYZE
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ANALYZE (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ANALYZE'
+keywords:
+- cmd

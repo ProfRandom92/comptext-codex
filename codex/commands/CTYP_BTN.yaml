@@ -1,0 +1,16 @@
+id: cmd:CTYP_BTN
+name: CTYP_BTN
+syntax: CTYP:BTN
+module_id: module:K
+description: CTYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- CTYP:BTN
+token_cost_hint: 2
+text_compact: '[TOKEN] CTYP:BTN (K)
+
+  Meaning: '
+keywords:
+- CTYP

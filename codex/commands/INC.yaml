@@ -1,0 +1,18 @@
+id: cmd:INC
+name: INC
+syntax: CMD:INC
+module_id: module:A
+description: Command (auto-extracted)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- INC
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:INC (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:INC'
+keywords:
+- cmd

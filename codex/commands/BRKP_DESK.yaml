@@ -1,0 +1,16 @@
+id: cmd:BRKP_DESK
+name: BRKP_DESK
+syntax: BRKP:DESK
+module_id: module:K
+description: BRKP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- BRKP:DESK
+token_cost_hint: 2
+text_compact: '[TOKEN] BRKP:DESK (K)
+
+  Meaning: '
+keywords:
+- BRKP

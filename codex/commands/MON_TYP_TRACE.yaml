@@ -1,0 +1,16 @@
+id: cmd:MON_TYP_TRACE
+name: MON_TYP_TRACE
+syntax: MON_TYP:TRACE
+module_id: module:J
+description: MON_TYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MON_TYP:TRACE
+token_cost_hint: 3
+text_compact: '[TOKEN] MON_TYP:TRACE (J)
+
+  Meaning: '
+keywords:
+- MON_TYP

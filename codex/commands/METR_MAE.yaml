@@ -1,0 +1,16 @@
+id: cmd:METR_MAE
+name: METR_MAE
+syntax: METR:MAE
+module_id: module:E
+description: METR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- METR:MAE
+token_cost_hint: 2
+text_compact: '[TOKEN] METR:MAE (E)
+
+  Meaning: '
+keywords:
+- METR

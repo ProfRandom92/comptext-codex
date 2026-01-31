@@ -1,0 +1,16 @@
+id: cmd:FMT_DEF
+name: FMT_DEF
+syntax: FMT:DEF
+module_id: module:A
+description: Definitionen
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FMT:DEF
+token_cost_hint: 1
+text_compact: '[TOKEN] FMT:DEF (A)
+
+  Meaning: Definitionen'
+keywords:
+- FMT

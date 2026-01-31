@@ -1,0 +1,19 @@
+id: cmd:BTCH
+name: BTCH
+syntax: CMD:BTCH
+module_id: module:L
+description: Batch
+examples:
+- CMD:BTCH;SRC:S3;DEST:LAKE;SCHED:H
+stability: stable
+mcp_exposed: true
+aliases:
+- BTCH
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:BTCH (L, stable)
+
+  Intent: Batch
+
+  Syntax: CMD:BTCH'
+keywords:
+- cmd

@@ -1,0 +1,21 @@
+id: cmd:MIG
+name: MIG
+syntax: CMD:MIG
+module_id: module:H
+description: Migration
+examples:
+- 'INPUT: CMD:MIG;FROM:3.5.1;TO:3.5.2;SRC:[commands]'
+- CMD:MIG;DBTYP:MYS;TASK:ADD_COL
+- CMD:SCHM;DBTYP:PSQL;REL:1:N,N:M;NORM_LVL:3NF;CMD:IDX;PERF:IDX_OPT;CMD:QRY;PERF:QRY_OPT;CMD:MIG;TASK:ADD_COL,ADD_IDX;CMD:TEST;TTYP:INTG;CMD:DOC;SECT:ARCH;INCL:DIAG,TBL;AUD:TECH
+stability: stable
+mcp_exposed: true
+aliases:
+- MIG
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MIG (H, stable)
+
+  Intent: Migration
+
+  Syntax: CMD:MIG'
+keywords:
+- cmd

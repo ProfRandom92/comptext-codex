@@ -1,0 +1,18 @@
+id: cmd:TOPK
+name: TOPK
+syntax: CMD:TOPK
+module_id: module:A
+description: <zahl>
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TOPK
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TOPK (A, stable)
+
+  Intent: <zahl>
+
+  Syntax: CMD:TOPK'
+keywords:
+- cmd

@@ -1,0 +1,19 @@
+id: cmd:TRANSLATE
+name: TRANSLATE
+syntax: CMD:TRANSLATE
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- result = module.execute("CMD:TRANSLATE;FROM:de;TO:en;TEXT:Hallo")
+stability: stable
+mcp_exposed: true
+aliases:
+- TRANSLATE
+token_cost_hint: 2
+text_compact: '[COMMAND] CMD:TRANSLATE (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:TRANSLATE'
+keywords:
+- cmd

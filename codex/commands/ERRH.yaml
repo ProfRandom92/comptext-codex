@@ -1,0 +1,21 @@
+id: cmd:ERRH
+name: ERRH
+syntax: CMD:ERRH
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:ERRH;TYP:RETRY;MAX:3;BACKOFF:EXP;DELAY:1
+- CMD:ERRH;TYP:CIRC;OPEN:5;RESET:60;HALF_OPEN:1
+- CMD:ERRH;TYP:DEGRADE;LEVELS:[H,M,L];PARTIAL:Y
+stability: stable
+mcp_exposed: true
+aliases:
+- ERRH
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ERRH (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ERRH'
+keywords:
+- cmd

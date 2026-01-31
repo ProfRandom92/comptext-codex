@@ -1,0 +1,20 @@
+id: cmd:FMT_LST
+name: FMT_LST
+syntax: FMT:LST
+module_id: module:A
+description: Liste
+examples:
+- CMD:ZSF;STY:PRO;FMT:LST;LEN:5P
+- CMD:ZSF;LEN:5P;STY:PRO;FMT:LST
+- cmd_v1 = parser.parse("CMD:ZSF;LEN:5P;STY:PRO;FMT:LST")
+- CMD:SAUD;SEC_LVL:H;STD:OWASP;CMD:REP;FMT:LST;DET:H;CMD:COMPL;STD:GDPR
+stability: stable
+mcp_exposed: true
+aliases:
+- FMT:LST
+token_cost_hint: 1
+text_compact: '[TOKEN] FMT:LST (A)
+
+  Meaning: Liste'
+keywords:
+- FMT

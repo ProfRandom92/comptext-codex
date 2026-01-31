@@ -1,0 +1,18 @@
+id: cmd:OK
+name: OK
+syntax: CMD:OK
+module_id: module:A
+description: Command (auto-extracted)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- OK
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:OK (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:OK'
+keywords:
+- cmd

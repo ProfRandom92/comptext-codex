@@ -1,0 +1,16 @@
+id: cmd:ASRT_LT
+name: ASRT_LT
+syntax: ASRT:LT
+module_id: module:G
+description: ASRT value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ASRT:LT
+token_cost_hint: 1
+text_compact: '[TOKEN] ASRT:LT (G)
+
+  Meaning: '
+keywords:
+- ASRT

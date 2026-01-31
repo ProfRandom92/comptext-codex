@@ -1,0 +1,19 @@
+id: cmd:THROW
+name: THROW
+syntax: CMD:THROW
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'INPUT: CMD:THROW;CODE:E100;MSG:"Custom validation failed'
+stability: stable
+mcp_exposed: true
+aliases:
+- THROW
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:THROW (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:THROW'
+keywords:
+- cmd

@@ -1,0 +1,17 @@
+id: cmd:DBTYP_MYS
+name: DBTYP_MYS
+syntax: DBTYP:MYS
+module_id: module:H
+description: MySQL
+examples:
+- CMD:MIG;DBTYP:MYS;TASK:ADD_COL
+stability: stable
+mcp_exposed: true
+aliases:
+- DBTYP:MYS
+token_cost_hint: 2
+text_compact: '[TOKEN] DBTYP:MYS (H)
+
+  Meaning: MySQL'
+keywords:
+- DBTYP

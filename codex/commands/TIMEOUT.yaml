@@ -1,0 +1,18 @@
+id: cmd:TIMEOUT
+name: TIMEOUT
+syntax: CMD:TIMEOUT
+module_id: module:A
+description: <sekunden>
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- TIMEOUT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TIMEOUT (A, stable)
+
+  Intent: <sekunden>
+
+  Syntax: CMD:TIMEOUT'
+keywords:
+- cmd
