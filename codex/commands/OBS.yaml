@@ -1,0 +1,18 @@
+id: cmd:OBS
+name: OBS
+syntax: CMD:OBS
+module_id: module:O
+description: Command (from Web Playground lexer)
+examples: []
+stability: experimental
+mcp_exposed: false
+aliases:
+- OBS
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:OBS (O, experimental)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:OBS'
+keywords:
+- cmd

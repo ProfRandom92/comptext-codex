@@ -1,0 +1,24 @@
+id: cmd:ENV_PROD
+name: ENV_PROD
+syntax: ENV:PROD
+module_id: module:A
+description: Token (from Enterprise docs)
+examples:
+- self.register('DEPLOY', 'CMD:PIPE;K8S:Y;ENV:PROD')
+- 'EXPECT_EXPAND: CMD:FIX;AUTO:Y|CMD:BUILD;ENV:PROD'
+- '|> CMD:DEPLOY;ENV:PROD;TARGET:k8s'
+- CMD:TRAIN;MDL:XGB;HPT:Y→CMD:ETL;SRC:S3;DST:PG|CMD:PIPE;TOOL:GHA;STG:PROD|CMD:TEST;TYP:INTEG;ENV:PROD
+- ct execute "CMD:DEPLOY;ENV:PROD" --dry-run
+- 'deploy: "CMD:PIPE;K8S:Y;ENV:PROD'
+- KUERZEL:MYDEPLOY;EXPAND:CMD:PIPE;K8S:Y;ENV:PROD;NOTIFY:SLACK
+- '@DEPLOY   // → CMD:PIPE;K8S:Y;ENV:PROD'
+stability: stable
+mcp_exposed: true
+aliases:
+- ENV:PROD
+token_cost_hint: 2
+text_compact: '[TOKEN] ENV:PROD (A, stable)
+
+  Meaning: Token (from Enterprise docs)'
+keywords:
+- ENV

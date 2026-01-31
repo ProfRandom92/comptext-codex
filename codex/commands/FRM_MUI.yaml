@@ -1,0 +1,16 @@
+id: cmd:FRM_MUI
+name: FRM_MUI
+syntax: FRM:MUI
+module_id: module:B
+description: Material-UI
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:MUI
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:MUI (B)
+
+  Meaning: Material-UI'
+keywords:
+- FRM

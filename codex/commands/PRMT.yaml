@@ -1,0 +1,20 @@
+id: cmd:PRMT
+name: PRMT
+syntax: CMD:PRMT
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:PRMT;NAME:build_pipeline;DESC:Pipeline aus Beschreibung erstellen;ARGS:description:str,modules:list;SDK:PY
+- CMD:PRMT;NAME:analyze_logs;DESC:Log-Analyse;ARGS:level:str,timeframe:str;SDK:PY
+stability: stable
+mcp_exposed: true
+aliases:
+- PRMT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:PRMT (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:PRMT'
+keywords:
+- cmd

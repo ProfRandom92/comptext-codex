@@ -1,0 +1,16 @@
+id: cmd:ASRT_EXCP
+name: ASRT_EXCP
+syntax: ASRT:EXCP
+module_id: module:G
+description: ASRT value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ASRT:EXCP
+token_cost_hint: 2
+text_compact: '[TOKEN] ASRT:EXCP (G)
+
+  Meaning: '
+keywords:
+- ASRT

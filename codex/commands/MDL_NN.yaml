@@ -1,0 +1,17 @@
+id: cmd:MDL_NN
+name: MDL_NN
+syntax: MDL:NN
+module_id: module:E
+description: MDL value
+examples:
+- CMD:EVAL;MDL:NN;METR:RMSE,R2
+stability: stable
+mcp_exposed: true
+aliases:
+- MDL:NN
+token_cost_hint: 1
+text_compact: '[TOKEN] MDL:NN (E)
+
+  Meaning: '
+keywords:
+- MDL

@@ -1,0 +1,17 @@
+id: cmd:NESTED
+name: NESTED
+syntax: Nested
+module_id: module:A
+description: Beliebig verketten
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- Nested
+token_cost_hint: 1
+text_compact: '[MACRO] Nested
+
+  Expands: Beliebig verketten'
+keywords:
+- macro
+- compound

@@ -1,0 +1,19 @@
+id: cmd:INVALID
+name: INVALID
+syntax: CMD:INVALID
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'pipeline": "CMD:INVALID;LNG:PY'
+stability: stable
+mcp_exposed: true
+aliases:
+- INVALID
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:INVALID (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:INVALID'
+keywords:
+- cmd

@@ -1,0 +1,16 @@
+id: cmd:MON_TYP_METR
+name: MON_TYP_METR
+syntax: MON_TYP:METR
+module_id: module:J
+description: MON_TYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MON_TYP:METR
+token_cost_hint: 3
+text_compact: '[TOKEN] MON_TYP:METR (J)
+
+  Meaning: '
+keywords:
+- MON_TYP

@@ -1,0 +1,20 @@
+id: cmd:SCOPE
+name: SCOPE
+syntax: SCOPE:<value>
+module_id: module:I
+description: Parameter key SCOPE
+examples:
+- SEC:ROLE;USER:[john@example.com](mailto:john@example.com);ROLES:[ADMIN,DEVELOPER];SCOPE:project_x
+- SEC:ROLE;USER:$CURRENT_USER;ROLES:[ADMIN];SCOPE:production
+- CMD:TEST;SCOPE:ALL;VER:3.6.0
+- SEC:RBAC;TENANT:acme_corp;ROLE:developer;SCOPE:[read,execute]
+stability: stable
+mcp_exposed: true
+aliases:
+- SCOPE
+token_cost_hint: 1
+text_compact: '[PARAM] SCOPE
+
+  Syntax: SCOPE:<value>'
+keywords:
+- param

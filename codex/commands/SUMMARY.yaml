@@ -1,0 +1,20 @@
+id: cmd:SUMMARY
+name: SUMMARY
+syntax: CMD:SUMMARY
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- result = module.execute("CMD:SUMMARY;LEN:short")
+- command = "CMD:SUMMARY;LEN:short
+stability: stable
+mcp_exposed: true
+aliases:
+- SUMMARY
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SUMMARY (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:SUMMARY'
+keywords:
+- cmd

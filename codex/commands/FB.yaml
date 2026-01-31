@@ -1,0 +1,26 @@
+id: cmd:FB
+name: FB
+syntax: CMD:FB
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- STEP:CMD:CODE;LNG:TS;FRM:NEST;FB:CMD:CODE;LNG:PY;FRM:FAST,
+- STEP:CMD:TRAIN;MDL:RF;FB:MDL:LR;TIMEOUT:300,
+- 'INPUT: TRY:CMD:CODE;LNG:PY|CATCH:*→CMD:FB;DEFAULT:Y'
+- 'INPUT: CMD:CODE;LNG:RUST;FB:LNG:PY'
+- 'INPUT: CMD:VIZ;TYP:3D;FB:TYP:2D;FB:TYP:TABLE'
+- 'INPUT: CMD:TRAIN;MDL:DEEP;FB:MDL:RF;FB:MDL:LR'
+- 'INPUT: CMD:API;URL:...;FB:IF:TIMEOUT→CMD:CACHE;FB:IF:RATELIMIT→CMD:QUEUE'
+- 'INPUT: CMD:A;FB:B;FB:C  // All fail'
+stability: stable
+mcp_exposed: true
+aliases:
+- FB
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:FB (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:FB'
+keywords:
+- cmd

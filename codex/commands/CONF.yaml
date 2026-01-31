@@ -1,0 +1,19 @@
+id: cmd:CONF
+name: CONF
+syntax: CMD:CONF
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:CONF;VER:3.7.0;MODE:STRICT
+stability: stable
+mcp_exposed: true
+aliases:
+- CONF
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:CONF (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:CONF'
+keywords:
+- cmd

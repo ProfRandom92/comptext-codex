@@ -1,0 +1,19 @@
+id: cmd:WASM
+name: WASM
+syntax: CMD:WASM
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'INPUT: CMD:WASM;SRC:RUST;TGT:WEB'
+stability: stable
+mcp_exposed: true
+aliases:
+- WASM
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:WASM (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:WASM'
+keywords:
+- cmd

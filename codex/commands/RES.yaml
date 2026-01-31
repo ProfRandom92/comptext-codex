@@ -1,0 +1,21 @@
+id: cmd:RES
+name: RES
+syntax: CMD:RES
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:RES;URI:pipeline://saved/{name};DESC:Gespeicherte Pipeline;MIME:application/json
+- CMD:RES;URI:[file:///data;NAME:Documents;MIME:text/plain;SDK:TS](file:///data;NAME:Documents;MIME:text/plain;SDK:TS)
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES,PRMTS;NAME:claude-assistant;TARGET:CLAUDE_DESKTOP;CMD:TOOL;NAME:search,file_read,db_query;CMD:RES;URI:[file:///docs;CMD:DOC;AUD:DEV](file:///docs;CMD:DOC;AUD:DEV)
+stability: stable
+mcp_exposed: true
+aliases:
+- RES
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:RES (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:RES'
+keywords:
+- cmd

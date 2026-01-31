@@ -1,0 +1,24 @@
+id: cmd:TASK
+name: TASK
+syntax: TASK:<value>
+module_id: module:A
+description: Parameter key TASK
+examples:
+- 'CMD: MOD, OPT; LNG: PY; TASK: READABILITY; CMD: PLOT; GRPH: LINE; AXIS: X=Index;Y=Summe; CMD: ERKL; STY: AKA; FMT: LST; LEN: 2P'
+- GEN:CODE;LNG:PY;TASK:"Eval Function
+- 'CMD: LINT; LNG: PY; TASK: PEP8_CHK'
+- 'CMD: REFAC; LNG: JS; TASK: DUPLICATION'
+- 'CMD: PIPE; CICD: GHA; TASK: BUILD, TEST, DEPLOY; CLOUD: AWS'
+- 'CMD: DOCK; TASK: DOCKERFILE; LNG: JS; FRM: NODE; CMD: OPT'
+- 'CMD: K8S; TASK: K8S_DEPLOY; INCL: SERVICE, INGRESS, HPA; CMD: DOC'
+- 'CMD: MON; MON_TYP: LOG, METR, ALERT; TASK: PROMETHEUS, GRAFANA'
+stability: stable
+mcp_exposed: true
+aliases:
+- TASK
+token_cost_hint: 1
+text_compact: '[PARAM] TASK
+
+  Syntax: TASK:<value>'
+keywords:
+- param

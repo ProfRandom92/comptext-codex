@@ -1,0 +1,23 @@
+id: cmd:MEM
+name: MEM
+syntax: CMD:MEM
+module_id: module:N
+description: Memory
+examples:
+- CMD:MEM;TYP:<mem-typ>;STORE:<backend>;EMB:<embedding>
+- CMD:MEM;TYP:VEC;STORE:PINECONE;EMB:ADA;CHUNK:512;TOP_K:5
+- CMD:MEM;TYP:HYBRID;STORE:CHROMA,NEO4J;EMB:BGE
+- CMD:AGENT;TYP:REACT | CMD:MEM;TYP:VEC;STORE:CHROMA
+- CMD:MEM;TYP:VEC;TOP_K:10 | CMD:AGENT;TYP:CHAIN;STEPS:[RETRIEVE,REASON,RESPOND]
+stability: experimental
+mcp_exposed: true
+aliases:
+- MEM
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MEM (N, experimental)
+
+  Intent: Memory
+
+  Syntax: CMD:MEM'
+keywords:
+- cmd

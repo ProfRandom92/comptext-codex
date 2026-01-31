@@ -1,0 +1,18 @@
+id: cmd:FRM_VUE
+name: FRM_VUE
+syntax: FRM:VUE
+module_id: module:B
+description: Vue.js
+examples:
+- CMD:CMPN;FRM:VUE;CSS:BOOT;CTYP:FORM
+- CMD:CMPN;FRM:VUE;CSS:BOOT;CTYP:FORM;TASK:VAL
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:VUE
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:VUE (B)
+
+  Meaning: Vue.js'
+keywords:
+- FRM

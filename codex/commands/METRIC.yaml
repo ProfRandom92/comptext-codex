@@ -1,0 +1,24 @@
+id: cmd:METRIC
+name: METRIC
+syntax: METRIC:<value>
+module_id: module:A
+description: Parameter key METRIC
+examples:
+- CMD:TEST;TYP:BENCH;MOD:[A-M];METRIC:TOKEN
+- 'INPUT: CMD:PROF;LNG:PY;METRIC:TIME,MEM'
+- STEP:CMD:EVAL;METRIC:ACC,F1,
+- CMD:PREP;SRC:CSV;EDA:Y;CLEAN:MV,OUT,ENC|CMD:FEAT;SCALE:Y;SELECT:Y|CMD:TRAIN;MDL:RF,XGB,LR;CV:5;HPT:Y|CMD:EVAL;METRIC:ACC,PREC,REC,F1,AUC;PLOT:CONF,FIMP|CMD:SAVE;FMT:PKL|CMD:REP;FMT:MD
+- 'code: ''CMD:PREP;SRC:CSV;EDA:Y|CMD:TRAIN;MDL:XGB;CV:5|CMD:EVAL;METRIC:F1,AUC'','
+- CMD:OPT;TYP:PERF,A11Y,SEO;LVL:PROD;METRIC:LH|CMD:LINT;STRICT:Y
+- code:optimize-v1;LNG:JS;TARGET:speed;METRIC:latency
+- code:analyze-v1;LNG:PY;TYPE:quality;METRIC:complexity,maintainability
+stability: stable
+mcp_exposed: true
+aliases:
+- METRIC
+token_cost_hint: 1
+text_compact: '[PARAM] METRIC
+
+  Syntax: METRIC:<value>'
+keywords:
+- param

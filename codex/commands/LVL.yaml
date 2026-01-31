@@ -1,0 +1,24 @@
+id: cmd:LVL
+name: LVL
+syntax: LVL:<value>
+module_id: module:A
+description: Parameter key LVL
+examples:
+- 'CMD: SEC_AUD; STD: OWASP; SEC_LVL: HIGH'
+- 'CMD: SEC_AUD; SEC_LVL: CRIT'
+- 'CMD: SEC_AUD; STD: OWASP; SEC_LVL: HIGH; CMD: COMP; STD: GDPR; CMD: REP; FMT: LST'
+- 'CMD: CODE; TASK: DATA_DELETION; LNG: PY; STD: GDPR; SEC_LVL: HIGH'
+- 'CMD: SCHEMA; DBTYP: PSQL; REL: 1:N, N:M; NORM_LVL: 3NF'
+- 'INPUT: CMD:LOG;LVL:ERR;FMT:JSON'
+- 'INPUT: CMD:LOG;LVL:WARN'
+- 'CMD: SCHEMA; DBTYP: PSQL; NORM_LVL: 3NF'
+stability: stable
+mcp_exposed: true
+aliases:
+- LVL
+token_cost_hint: 1
+text_compact: '[PARAM] LVL
+
+  Syntax: LVL:<value>'
+keywords:
+- param

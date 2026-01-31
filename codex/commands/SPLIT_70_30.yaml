@@ -1,0 +1,16 @@
+id: cmd:SPLIT_70_30
+name: SPLIT_70_30
+syntax: SPLIT:70:30
+module_id: module:E
+description: SPLIT value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SPLIT:70:30
+token_cost_hint: 2
+text_compact: '[TOKEN] SPLIT:70:30 (E)
+
+  Meaning: '
+keywords:
+- SPLIT

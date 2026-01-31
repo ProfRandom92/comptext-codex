@@ -1,0 +1,16 @@
+id: cmd:FRM_MOCH
+name: FRM_MOCH
+syntax: FRM:MOCH
+module_id: module:B
+description: Mocha
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:MOCH
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:MOCH (B)
+
+  Meaning: Mocha'
+keywords:
+- FRM

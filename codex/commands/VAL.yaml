@@ -1,0 +1,26 @@
+id: cmd:VAL
+name: VAL
+syntax: CMD:VAL
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:CODE;LNG:PY;FRM:FAST;TASK:API;AUTH:JWT;CRUD:USER,PRODUCT;DB:PSQL;ORM:SQLA;VAL:PYD;ERR:HTTP;RATE:Y;CORS:Y;DOC:OAS
+- CMD:PREP;SRC:CSV;CLEAN:Y|CMD:TRAIN;MDL:RF;EVAL:Y→CMD:PLOT;TYP:CONF;FMT:PNG→CMD:REP;FMT:MD
+- SEC:POLICY;EVAL:dry_run;CONTEXT:{user:dev1,module:B,time:14:30}
+- 'INPUT: CMD:PREP;SRC:CSV;CLEAN:Y|CMD:TRAIN;MDL:RF;EVAL:Y→CMD:PLOT;TYP:CONF→CMD:REP;FMT:MD'
+- CMD:TRAIN;MDL:xgb;CV:5;EVAL:f1",
+- CMD:VAL;STRICT:Y→CMD:FIX;TYP:SYNTAX
+- CMD:VAL;PARAM:TYP;VALID:[BAR,LINE,PIE,SCATTER]
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST;AUTH:JWT;DB:PSQL;CRUD:USER,PRODUCT;VAL:Y;ERR:Y;DOC:OAS'','
+stability: stable
+mcp_exposed: true
+aliases:
+- VAL
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:VAL (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:VAL'
+keywords:
+- cmd

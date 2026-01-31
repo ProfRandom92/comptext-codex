@@ -1,0 +1,18 @@
+id: cmd:OBS_BAGGAGE
+name: OBS_BAGGAGE
+syntax: OBS:BAGGAGE
+module_id: module:O
+description: Token (auto-extracted)
+examples:
+- OBS:BAGGAGE;SET:[tenant_id,user_role,depth];PROPAGATE:downstream
+- OBS:BAGGAGE;GET:tenant_id;FALLBACK:unknown
+stability: experimental
+mcp_exposed: false
+aliases:
+- OBS:BAGGAGE
+token_cost_hint: 2
+text_compact: '[TOKEN] OBS:BAGGAGE (O, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- OBS

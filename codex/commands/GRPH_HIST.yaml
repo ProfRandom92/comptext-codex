@@ -1,0 +1,16 @@
+id: cmd:GRPH_HIST
+name: GRPH_HIST
+syntax: GRPH:HIST
+module_id: module:C
+description: Histogramm
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- GRPH:HIST
+token_cost_hint: 2
+text_compact: '[TOKEN] GRPH:HIST (C)
+
+  Meaning: Histogramm'
+keywords:
+- GRPH

@@ -1,0 +1,16 @@
+id: cmd:CACHE_REDIS
+name: CACHE_REDIS
+syntax: CACHE:REDIS
+module_id: module:P
+description: Token (auto-extracted)
+examples: []
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:REDIS
+token_cost_hint: 2
+text_compact: '[TOKEN] CACHE:REDIS (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CACHE

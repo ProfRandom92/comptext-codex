@@ -1,0 +1,26 @@
+id: cmd:LINT
+name: LINT
+syntax: CMD:LINT
+module_id: module:G
+description: Code-Qualität
+examples:
+- ALIAS:FULLTEST=CMD:LINT→CMD:TEST→CMD:COV
+- CMD:LINT;BATCH:[[a.py](http://a.py),[b.py](http://b.py),[c.py](http://c.py)];PAR:Y
+- CMD:LINT;TASK:PEP8
+- CMD:TEST;TTYP:UNIT;LNG:PY;FRM:PYTE;COV_TRG:90%;CMD:TEST;TTYP:INTG;ASRT:EQ,EXCP;CMD:TEST;TTYP:E2E;TASK:USR_FLOW;CMD:TEST;TTYP:PERF;METR:TIME,MEM;CMD:LINT;TASK:PEP8;CMD:COV;CMD:PLOT;GRPH:BAR;CMD:REP;AUD:DEV
+- find src -name "*.py" | xargs -I {} ct execute "CMD:LINT;FILE:{}
+- CMD:LINT;BATCH:$ALL_FILES;LIMIT:50
+- CMD:LINT;BATCH:$ALL_FILES;LIMIT:50;OFFSET:0
+- CMD:OPT;TYP:PERF,A11Y,SEO;LVL:PROD;METRIC:LH|CMD:LINT;STRICT:Y
+stability: stable
+mcp_exposed: true
+aliases:
+- LINT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:LINT (G, stable)
+
+  Intent: Code-Qualität
+
+  Syntax: CMD:LINT'
+keywords:
+- cmd

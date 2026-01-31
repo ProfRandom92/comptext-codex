@@ -1,0 +1,17 @@
+id: cmd:OBS_METRIC
+name: OBS_METRIC
+syntax: OBS:METRIC
+module_id: module:O
+description: Token (auto-extracted)
+examples:
+- OBS:METRIC;TYPE:counter;NAME:expansions_total;LABELS:[module,tenant]
+stability: experimental
+mcp_exposed: false
+aliases:
+- OBS:METRIC
+token_cost_hint: 2
+text_compact: '[TOKEN] OBS:METRIC (O, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- OBS

@@ -1,0 +1,23 @@
+id: cmd:ERR
+name: ERR
+syntax: CMD:ERR
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:CODE;LNG:PY;FRM:FAST;TASK:API;AUTH:JWT;CRUD:USER,PRODUCT;DB:PSQL;ORM:SQLA;VAL:PYD;ERR:HTTP;RATE:Y;CORS:Y;DOC:OAS
+- CMD:APID;FMT:OAS3;DESC:Y;SCHEMA:Y;EXAMPLES:Y;ERR:Y;AUTH:Y|CMD:DOC;FMT:MD;SEC:QUICK,AUTH,EXAMPLES,TROUBLE;LNG:PY,JS,CURL
+- IF:ERR:NE:NULL→CMD:FIX;PRIO:H|ELSE:→CMD:OPT
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST;AUTH:JWT;DB:PSQL;CRUD:USER,PRODUCT;VAL:Y;ERR:Y;DOC:OAS'','
+- 'code: ''CMD:CODE;LNG:TS;FRM:EXPRESS;AUTH:JWT;DB:MONGO;VAL:Y;ERR:Y'','
+stability: stable
+mcp_exposed: true
+aliases:
+- ERR
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ERR (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ERR'
+keywords:
+- cmd

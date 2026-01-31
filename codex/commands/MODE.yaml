@@ -1,0 +1,22 @@
+id: cmd:MODE
+name: MODE
+syntax: MODE:<value>
+module_id: module:A
+description: Parameter key MODE
+examples:
+- CMD:CONF;VER:3.7.0;MODE:STRICT
+- SEC:POLICY;ENGINE:opa;FILE:./policy/comptext.rego;MODE:enforce
+- code:generate-v1;MODE:NEW;LNG:PY;TASK:new-feature
+- code:modify-v1;MODE:REFAC;LNG:PY;TASK:clean-feature
+- IF:MODE:EQ:BATCH→LOOP:$COUNT→CMD:PROC|ELSE:→CMD:PROC;SINGLE:Y
+- IF:MODE:EQ:TEST→LOOP:2→CMD:TEST|ELSE:→CMD:SKIP
+stability: stable
+mcp_exposed: true
+aliases:
+- MODE
+token_cost_hint: 1
+text_compact: '[PARAM] MODE
+
+  Syntax: MODE:<value>'
+keywords:
+- param

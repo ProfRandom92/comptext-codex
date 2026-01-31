@@ -1,0 +1,20 @@
+id: cmd:ENCR
+name: ENCR
+syntax: CMD:ENCR
+module_id: module:I
+description: Verschlüsselung
+examples:
+- CMD:AUTH;AUTH_MTH:JWT,MFA;CMD:ENCR;ENCR_TYP:AES;CMD:SAUD;STD:OWASP;CMD:COMPL;STD:GDPR
+- CMD:ENCR;ENCR_TYP:AES
+stability: stable
+mcp_exposed: true
+aliases:
+- ENCR
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ENCR (I, stable)
+
+  Intent: Verschlüsselung
+
+  Syntax: CMD:ENCR'
+keywords:
+- cmd

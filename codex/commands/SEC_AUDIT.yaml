@@ -1,0 +1,17 @@
+id: cmd:SEC_AUDIT
+name: SEC_AUDIT
+syntax: SEC:AUDIT
+module_id: module:I
+description: Token (auto-extracted)
+examples:
+- SEC:AUDIT;LOG:expansions;RETENTION:90d;FORMAT:json
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC:AUDIT
+token_cost_hint: 2
+text_compact: '[TOKEN] SEC:AUDIT (I, stable)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- SEC

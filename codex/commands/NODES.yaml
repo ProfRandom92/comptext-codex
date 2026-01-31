@@ -1,0 +1,18 @@
+id: cmd:NODES
+name: NODES
+syntax: CMD:NODES
+module_id: module:A
+description: '[{id,type,config},...]'
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- NODES
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:NODES (A, stable)
+
+  Intent: [{id,type,config},...]
+
+  Syntax: CMD:NODES'
+keywords:
+- cmd

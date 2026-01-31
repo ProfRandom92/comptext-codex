@@ -1,0 +1,17 @@
+id: cmd:STY_AKA
+name: STY_AKA
+syntax: STY:AKA
+module_id: module:A
+description: Akademisch
+examples:
+- CMD:ÜB;TRG:EN;STY:AKA
+stability: stable
+mcp_exposed: true
+aliases:
+- STY:AKA
+token_cost_hint: 1
+text_compact: '[TOKEN] STY:AKA (A)
+
+  Meaning: Akademisch'
+keywords:
+- STY

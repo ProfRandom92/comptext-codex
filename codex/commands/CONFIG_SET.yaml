@@ -1,0 +1,16 @@
+id: cmd:CONFIG_SET
+name: CONFIG_SET
+syntax: CONFIG:SET
+module_id: module:P
+description: Token (auto-extracted)
+examples: []
+stability: experimental
+mcp_exposed: false
+aliases:
+- CONFIG:SET
+token_cost_hint: 2
+text_compact: '[TOKEN] CONFIG:SET (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CONFIG

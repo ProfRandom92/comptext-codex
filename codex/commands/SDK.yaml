@@ -1,0 +1,24 @@
+id: cmd:SDK
+name: SDK
+syntax: SDK:<value>
+module_id: module:M
+description: Parameter key SDK
+examples:
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,PIPE;NAME:comptext-orchestrator
+- CMD:TOOL;NAME:execute_pipeline;DESC:CompText Pipeline ausführen;PARAMS:pipeline:str,context:json;RET:json;SDK:PY
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES,PIPE,ERRH;NAME:comptext-mcp;VER:2.0
+- CMD:PRMT;NAME:build_pipeline;DESC:Pipeline aus Beschreibung erstellen;ARGS:description:str,modules:list;SDK:PY
+- 'INPUT: CMD:MCPS;SDK:PY'
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES;TASK:SETUP
+- CMD:MCPS;SDK:TS;TRANS:SSE;CAP:TOOLS,PRMTS,LOG;PORT:8080;AUTH:APIKEY
+- CMD:TOOL;NAME:get_weather;DESC:Wetter abrufen;PARAMS:location:str,unit:str;SDK:PY
+stability: stable
+mcp_exposed: true
+aliases:
+- SDK
+token_cost_hint: 1
+text_compact: '[PARAM] SDK
+
+  Syntax: SDK:<value>'
+keywords:
+- param

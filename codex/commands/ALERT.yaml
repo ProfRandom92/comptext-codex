@@ -1,0 +1,19 @@
+id: cmd:ALERT
+name: ALERT
+syntax: CMD:ALERT
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- TRY:→CMD:DEPLOY|CATCH:E→CMD:ALERT;MSG:$E;CH:SLACK
+stability: stable
+mcp_exposed: true
+aliases:
+- ALERT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:ALERT (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:ALERT'
+keywords:
+- cmd

@@ -1,0 +1,21 @@
+id: cmd:STAT
+name: STAT
+syntax: CMD:STAT
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- CMD:STAT;PROJ:COMPTEXT;VER:3.5.2;OUT:SUMMARY
+- CMD:STAT;PROJ:COMPTEXT;VER:3.6.0;OUT:SUMMARY
+- CMD:STAT;FEAT:WEBIDE;OUT:PROGRESS
+stability: stable
+mcp_exposed: true
+aliases:
+- STAT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:STAT (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:STAT'
+keywords:
+- cmd

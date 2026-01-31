@@ -1,0 +1,18 @@
+id: cmd:CTYP_FORM
+name: CTYP_FORM
+syntax: CTYP:FORM
+module_id: module:K
+description: CTYP value
+examples:
+- CMD:CMPN;FRM:VUE;CSS:BOOT;CTYP:FORM
+- CMD:CMPN;FRM:VUE;CSS:BOOT;CTYP:FORM;TASK:VAL
+stability: stable
+mcp_exposed: true
+aliases:
+- CTYP:FORM
+token_cost_hint: 2
+text_compact: '[TOKEN] CTYP:FORM (K)
+
+  Meaning: '
+keywords:
+- CTYP

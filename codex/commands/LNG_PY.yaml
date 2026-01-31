@@ -1,0 +1,24 @@
+id: cmd:LNG_PY
+name: LNG_PY
+syntax: LNG:PY
+module_id: module:B
+description: Python
+examples:
+- CMD:CODE;LNG:PY|CMD:TEST;COV:80|CMD:DOCK;ACT:PUSH
+- CMD:CODE;LNG:PY;FRM:FAST          // 27 Tokens
+- 'test_prompt": "CODE;LNG:PY;FRM:FAST'
+- GEN:CODE;LNG:PY;TASK:"Eval Function
+- CMD:CODE;LNG:PY;FRM:FAST|CMD:TEST;FRM:PYTEST
+- C→T;LNG:PY;FRM:PYTEST
+- CMD:CODE;LNG:PY;FRM:FAST;TASK:API;ENDPOINT:/users
+- executor.execute("CMD:CODE;LNG:PY;TASK:model"),
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:PY
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:PY (B)
+
+  Meaning: Python'
+keywords:
+- LNG

@@ -1,0 +1,21 @@
+id: cmd:TERR
+name: TERR
+syntax: CMD:TERR
+module_id: module:J
+description: Terraform
+examples:
+- CMD:TERR;CLOUD:AWS;TASK:VPC,RDS
+- CMD:TERR;CLOUD:AWS;TASK:VPC,RDS;CMD:K8S;TASK:DEPLOY;INCL:SVC,ING,HPA;CMD:PIPE;CICD:GHA;TASK:BUILD,TEST,DEPLOY;CMD:MON;MON_TYP:LOG,METR,ALRT;TASK:PROM,GRAF;CMD:DOC;SECT:ARCH,TRBL;DET:M;AUD:TECH
+- EXPAND:CMD:TERR;ACT:PLAN,APPLY;BACKEND:S3
+stability: stable
+mcp_exposed: true
+aliases:
+- TERR
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:TERR (J, stable)
+
+  Intent: Terraform
+
+  Syntax: CMD:TERR'
+keywords:
+- cmd

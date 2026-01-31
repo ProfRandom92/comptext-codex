@@ -1,0 +1,18 @@
+id: cmd:EDGES
+name: EDGES
+syntax: CMD:EDGES
+module_id: module:A
+description: '[{from,to,cond},...]'
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- EDGES
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:EDGES (A, stable)
+
+  Intent: [{from,to,cond},...]
+
+  Syntax: CMD:EDGES'
+keywords:
+- cmd

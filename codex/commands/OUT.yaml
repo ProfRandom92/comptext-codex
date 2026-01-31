@@ -1,0 +1,19 @@
+id: cmd:OUT
+name: OUT
+syntax: CMD:OUT
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- IF:TOK:GT:4000→CMD:ZSF;LEN:S|ELSE:→CMD:OUT
+stability: stable
+mcp_exposed: true
+aliases:
+- OUT
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:OUT (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:OUT'
+keywords:
+- cmd

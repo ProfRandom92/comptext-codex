@@ -1,0 +1,26 @@
+id: cmd:LOG
+name: LOG
+syntax: CMD:LOG
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'fallback": "CMD:LOG;MSG:Pipeline failed'
+- 'INPUT: TRY:CMD:CODE;LNG:INVALID|CATCH:ERR→CMD:LOG;MSG:$ERR'
+- 'INPUT: TRY:CMD:A|CATCH:ERR→CMD:LOG;MSG:$ERR|THROW:$ERR'
+- 'INPUT: CMD:LOG;LVL:ERR;FMT:JSON'
+- 'INPUT: CMD:LOG;LVL:WARN'
+- 'INPUT: CMD:LOG;MAX:1000;ROTATE:Y'
+- TRY:→CMD:ACTION|CATCH:ERR→CMD:LOG;MSG:$ERR
+- CMD:LOG;LVL:ERR;FMT:JSON
+stability: stable
+mcp_exposed: true
+aliases:
+- LOG
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:LOG (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:LOG'
+keywords:
+- cmd

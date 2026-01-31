@@ -1,0 +1,16 @@
+id: cmd:ENCR_TYP_TLS
+name: ENCR_TYP_TLS
+syntax: ENCR_TYP:TLS
+module_id: module:I
+description: ENCR_TYP value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- ENCR_TYP:TLS
+token_cost_hint: 3
+text_compact: '[TOKEN] ENCR_TYP:TLS (I)
+
+  Meaning: '
+keywords:
+- ENCR_TYP

@@ -1,0 +1,24 @@
+id: cmd:LNG_TS
+name: LNG_TS
+syntax: LNG:TS
+module_id: module:B
+description: TypeScript
+examples:
+- ALIAS:MYTEST=CMD:TEST;LNG:TS;FRM:VITEST
+- '// Expected: CMD:TEST;LNG:TS;FRM:VITEST;COV:90'
+- '- CMD:CODE;LNG:TS;FRM:NEST'
+- 'EXPECT: CMD:TEST inferiert LNG:TS;FRM:JEST'
+- STEP:CMD:CODE;LNG:TS;FRM:NEST;FB:CMD:CODE;LNG:PY;FRM:FAST,
+- 'pipeline": "CMD:CODE;LNG:TS;FRM:NEST|CMD:TEST;COV:80|CMD:DOCK|CMD:K8S;ENV:prod",'
+- 'LNG:TS'': ''in TypeScript'','
+- CMD:CODE;LNG:TS;FRM:EXPRESS;TASK:${1:api}",
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:TS
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:TS (B)
+
+  Meaning: TypeScript'
+keywords:
+- LNG

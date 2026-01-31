@@ -1,0 +1,16 @@
+id: cmd:SEC_LVL_L
+name: SEC_LVL_L
+syntax: SEC_LVL:L
+module_id: module:I
+description: SEC_LVL value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- SEC_LVL:L
+token_cost_hint: 2
+text_compact: '[TOKEN] SEC_LVL:L (I)
+
+  Meaning: '
+keywords:
+- SEC_LVL

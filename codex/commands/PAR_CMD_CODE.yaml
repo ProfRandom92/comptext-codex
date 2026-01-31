@@ -1,0 +1,16 @@
+id: cmd:PAR_CMD_CODE
+name: PAR_CMD_CODE
+syntax: PAR:CMD:CODE
+module_id: module:A
+description: PAR value
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- PAR:CMD:CODE
+token_cost_hint: 3
+text_compact: '[TOKEN] PAR:CMD:CODE (A)
+
+  Meaning: '
+keywords:
+- PAR

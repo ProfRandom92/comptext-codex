@@ -1,0 +1,19 @@
+id: cmd:UNKNOWN
+name: UNKNOWN
+syntax: CMD:UNKNOWN
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'INPUT: CMD:UNKNOWN;LNG:PY'
+stability: stable
+mcp_exposed: true
+aliases:
+- UNKNOWN
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:UNKNOWN (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:UNKNOWN'
+keywords:
+- cmd

@@ -1,0 +1,24 @@
+id: cmd:VER
+name: VER
+syntax: VER:<value>
+module_id: module:A
+description: Parameter key VER
+examples:
+- CMD:STAT;PROJ:COMPTEXT;VER:3.5.2;OUT:SUMMARY
+- CMD:CONF;VER:3.7.0;MODE:STRICT
+- CMD:TEST;SCOPE:ALL;VER:3.6.0
+- CMD:MCPS;SDK:PY;TRANS:STDIO;CAP:TOOLS,RES,PIPE,ERRH;NAME:comptext-mcp;VER:2.0
+- CMD:STAT;PROJ:COMPTEXT;VER:3.6.0;OUT:SUMMARY
+- CMD:TEST;TYP:VAL;VER:3.5.2;FEAT:[FEATURE]
+- CMD:TEST;TYP:VAL;VER:3.5.2;FEAT:COMPOUND
+- CMD:MCPS;SDK:PY;TRANS:STDIO;NAME:my-server;VER:1.0.0
+stability: stable
+mcp_exposed: true
+aliases:
+- VER
+token_cost_hint: 1
+text_compact: '[PARAM] VER
+
+  Syntax: VER:<value>'
+keywords:
+- param

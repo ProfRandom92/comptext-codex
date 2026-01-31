@@ -1,0 +1,16 @@
+id: cmd:MIGRATE
+name: MIGRATE
+syntax: MIGRATE:<value>
+module_id: module:A
+description: Parameter key MIGRATE
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- MIGRATE
+token_cost_hint: 1
+text_compact: '[PARAM] MIGRATE
+
+  Syntax: MIGRATE:<value>'
+keywords:
+- param

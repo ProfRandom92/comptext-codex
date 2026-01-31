@@ -1,0 +1,19 @@
+id: cmd:FRM_NEXT
+name: FRM_NEXT
+syntax: FRM:NEXT
+module_id: module:B
+description: Next.js
+examples:
+- CMD:UI;FRM:NEXT;CSS:TAIL;CMD:ANIM;BRKP:ALL
+- EXPAND:CMD:CMPN;LNG:TSX;FRM:NEXT;TYP:PAGE;SSR:Y
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST;AUTH:JWT;DB:PSQL;CRUD:PRODUCT,ORDER,USER|CMD:UI;FRM:NEXT;LNG:TS;FEAT:CATALOG,CART,CHECKOUT|CMD:DOCK;ENV:PROD|CMD:K8S;DEPL:3;HPA:Y'','
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:NEXT
+token_cost_hint: 2
+text_compact: '[TOKEN] FRM:NEXT (B)
+
+  Meaning: Next.js'
+keywords:
+- FRM

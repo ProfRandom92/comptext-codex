@@ -1,0 +1,17 @@
+id: cmd:STY_INF
+name: STY_INF
+syntax: STY:INF
+module_id: module:A
+description: Informell
+examples:
+- CMD:ERKL;STY:INF;FMT:FLT;LEN:3S
+stability: stable
+mcp_exposed: true
+aliases:
+- STY:INF
+token_cost_hint: 1
+text_compact: '[TOKEN] STY:INF (A)
+
+  Meaning: Informell'
+keywords:
+- STY

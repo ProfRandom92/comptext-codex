@@ -1,0 +1,23 @@
+id: cmd:GRPH_LINE
+name: GRPH_LINE
+syntax: GRPH:LINE
+module_id: module:C
+description: Liniendiagramm
+examples:
+- CMD:PLOT;GRPH:LINE,BAR;AXIS:X=Zeit;Y=Wert;COL:VIB
+- CMD:CODE;LNG:PY;FRM:PND;TASK:DB_CONN;CMD:PREP;NORM:STD;CMD:ANAL;TASK:DESC_STATS;CMD:PLOT;GRPH:LINE,BAR,PIE;AXIS:X=Zeit;Y=Umsatz;COL:VIB;CMD:REP;SECT:OVW;DET:H;INCL:DIAG,TBL;AUD:MGT;STY:PRO
+- viz:render-v1;ACTION:CREATE;GRPH:LINE;AXIS:X=time,Y=temp
+- CMD:PLOT;GRPH:LINE;AXIS:X=time,Y=temp
+- viz:render-v1;ACTION:CREATE;GRPH:LINE;AXIS:X=time,Y=temp;COL:VIB
+- CMD:PLOT;GRPH:LINE;AXIS:X=time,Y=temp;COL:VIB
+- GRPH:LINE
+stability: stable
+mcp_exposed: true
+aliases:
+- GRPH:LINE
+token_cost_hint: 2
+text_compact: '[TOKEN] GRPH:LINE (C)
+
+  Meaning: Liniendiagramm'
+keywords:
+- GRPH

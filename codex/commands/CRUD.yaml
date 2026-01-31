@@ -1,0 +1,20 @@
+id: cmd:CRUD
+name: CRUD
+syntax: CRUD:<value>
+module_id: module:A
+description: Parameter key CRUD
+examples:
+- CMD:CODE;LNG:PY;FRM:FAST;TASK:API;AUTH:JWT;CRUD:USER,PRODUCT;DB:PSQL;ORM:SQLA;VAL:PYD;ERR:HTTP;RATE:Y;CORS:Y;DOC:OAS
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST;AUTH:JWT;DB:PSQL;CRUD:USER,PRODUCT'','
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST;AUTH:JWT;DB:PSQL;CRUD:USER,PRODUCT;VAL:Y;ERR:Y;DOC:OAS'','
+- 'code: ''CMD:CODE;LNG:PY;FRM:FAST;AUTH:JWT;DB:PSQL;CRUD:PRODUCT,ORDER,USER|CMD:UI;FRM:NEXT;LNG:TS;FEAT:CATALOG,CART,CHECKOUT|CMD:DOCK;ENV:PROD|CMD:K8S;DEPL:3;HPA:Y'','
+stability: stable
+mcp_exposed: true
+aliases:
+- CRUD
+token_cost_hint: 1
+text_compact: '[PARAM] CRUD
+
+  Syntax: CRUD:<value>'
+keywords:
+- param

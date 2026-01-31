@@ -1,0 +1,17 @@
+id: cmd:CACHE_STORE
+name: CACHE_STORE
+syntax: CACHE:STORE
+module_id: module:P
+description: Token (auto-extracted)
+examples:
+- CACHE:STORE;KEY:cmd_123;TAGS:[security,rbac,tenant:acme];TTL:24h
+stability: experimental
+mcp_exposed: false
+aliases:
+- CACHE:STORE
+token_cost_hint: 2
+text_compact: '[TOKEN] CACHE:STORE (P, experimental)
+
+  Meaning: Token (auto-extracted)'
+keywords:
+- CACHE

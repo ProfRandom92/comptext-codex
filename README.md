@@ -1,46 +1,55 @@
 # CompText-Codex
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Version](https://img.shields.io/badge/version-4.0.0-green.svg)](https://github.com/ProfRandom92/comptext-codex/releases)
+[![Commands](https://img.shields.io/badge/commands-415+-purple.svg)](#-commands-catalog)
 
 > A Domain-Specific Language (DSL) for efficient LLM interaction - reducing prompts by 70% with structured, composable commands.
 
-## 🚀 What is CompText-Codex?
+## What is CompText-Codex?
 
 CompText is a DSL designed to replace verbose natural language prompts with compact, unambiguous commands. Think of it as **"SQL for LLMs"** or **"shorthand for AI control"**.
 
 ### Before vs After
 
-❌ **Natural Language (127 tokens):**
+**Natural Language (62 tokens):**
 > "Please analyze this Python code, identify performance bottlenecks, suggest optimizations with code examples, explain the reasoning behind each optimization, and provide benchmark comparisons showing expected improvements"
 
-✅ **CompText (23 tokens):**
+**CompText (18 tokens):**
 ```
 @CODE_ANALYZE[perf_bottleneck] + @CODE_OPT[explain=detail, bench=compare]
 ```
 
-**Result: 70% token reduction** while being MORE precise.
+**Result: 71% token reduction** while being MORE precise. See [TOKEN_REDUCTION_RESULTS.md](TOKEN_REDUCTION_RESULTS.md) for comprehensive benchmarks.
 
 ---
 
-## 📦 What's Included?
+## What's Included?
 
-### **13 Production Modules**
+### **18 Production Modules (415+ Commands)**
 
-- **Module A - General**: Core commands, file ops, workflows
-- **Module B - Programming**: Code analysis, optimization, debugging
-- **Module C - Visualization**: Charts, diagrams, presentations  
-- **Module D - AI Control**: Model config, prompt engineering
-- **Module E - ML Pipelines**: AutoML, feature engineering
-- **Module F - Documentation**: API docs, tutorials, changelogs
-- **Module G - Testing**: Test generation, coverage, benchmarks
-- **Module H - Database**: Schema design, query optimization
-- **Module I - Security**: Vulnerability scans, compliance  
-- **Module J - DevOps**: CI/CD, containerization, monitoring
-- **Module K - Frontend/UI**: Component generation, responsive design
-- **Module L - ETL**: Data pipelines, transformations
-- **Module M - MCP Integration**: Multi-agent communication
+| Module | Name | Purpose |
+|--------|------|---------|
+| **A** | Core Commands | Essential DSL commands for text manipulation |
+| **B** | Analysis | Text analysis and insight generation |
+| **C** | Formatting | Document formatting and structure |
+| **D** | AI Control | Model selection, prompt governance, safety filters |
+| **E** | ML Pipelines | AutoML, feature engineering, experiment tracking |
+| **F** | Documentation | API docs, tutorials, changelogs, design docs |
+| **G** | Testing | Test generation, coverage insights, quality gates |
+| **H** | Database | Schema design, migrations, query optimization |
+| **I** | Security | Vulnerability scans, compliance, threat modeling |
+| **J** | DevOps | CI/CD workflows, observability, release automation |
+| **K** | Frontend/UI | Component scaffolding, accessibility, responsive design |
+| **L** | ETL | Data extraction, transformation, loading |
+| **M** | MCP Integration | Multi-agent messaging, tool routing |
+| **N** | Agent Orchestration | Multi-agent coordination, workflow management |
+| **O** | Observability | Metrics collection, distributed tracing |
+| **P** | Performance | Caching strategies, optimization hints |
+| **Q** | Quality Assurance | Code quality gates, linting, standards |
+| **R** | Release Management | Version control, changelog generation |
 
 ### **55+ Ready-to-Use Examples**
 - React dashboards with Tailwind CSS
@@ -176,25 +185,35 @@ Clear role definitions and task assignments.
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 comptext-codex/
-├── comptext/                 # Core DSL implementation
-│   ├── __init__.py
+├── src/comptext_codex/       # Core DSL implementation
 │   ├── parser.py             # Command parser
 │   ├── executor.py           # Command executor
-│   └── modules/              # 13 module implementations
+│   ├── store.py              # SQLite data layer
+│   ├── cli.py                # Command-line interface
+│   ├── repl.py               # Interactive REPL
+│   └── modules/              # 18 module implementations
 ├── comptext_mcp/             # MCP Server implementation
+├── codex/                    # DSL definitions
+│   ├── modules.yaml          # 18 module definitions
+│   ├── commands/             # 415+ individual command YAMLs
+│   └── profiles.yaml         # Usage profiles
 ├── examples/                 # 55+ usage examples
+├── public/                   # Web interface
+│   ├── playground.html       # Interactive DSL editor
+│   ├── demo.html             # Token reduction demo
+│   └── index.html            # Landing page
 ├── tests/                    # pytest test suite
-├── docs/                     # Documentation
+├── scripts/                  # Utility scripts
+├── codex.db                  # SQLite database
+├── TOKEN_REDUCTION_RESULTS.md # Benchmark results
 ├── README.md
 ├── QUICK_START.md
 ├── EXAMPLES.md
 ├── CONTRIBUTING.md
-├── requirements.txt
-├── setup.py
 └── LICENSE
 ```
 
@@ -206,20 +225,25 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ---
 
-## 📊 Performance Benchmarks
+## Performance Benchmarks
+
+Based on 16 test cases ([full results](TOKEN_REDUCTION_RESULTS.md)):
 
 | Metric | Natural Language | CompText | Improvement |
 |--------|------------------|----------|-------------|
-| Tokens per task | 250 avg | 75 avg | **70% reduction** |
-| Ambiguity errors | 15% | 2% | **87% reduction** |
-| Execution time | 1.2s | 0.8s | **33% faster** |
+| Total tokens (16 tasks) | 462 | 172 | **62.8% reduction** |
+| Best case (SQL Query Opt) | 36 tokens | 9 tokens | **75% reduction** |
+| Average reduction | - | - | **59.8%** |
+| Estimated API cost savings | - | - | **$8.70 per 1000 calls** |
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Language:** Python 3.8+
+- **Language:** Python 3.9+
+- **Database:** SQLite (embedded, zero-config)
 - **Protocol:** MCP (Model Context Protocol)
+- **Web Interface:** HTML5, JavaScript (vanilla)
 - **Testing:** pytest, coverage
 - **CI/CD:** GitHub Actions
 - **License:** MIT

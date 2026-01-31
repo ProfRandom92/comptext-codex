@@ -1,0 +1,19 @@
+id: cmd:KEY
+name: KEY
+syntax: KEY:<value>
+module_id: module:A
+description: Parameter key KEY
+examples:
+- SEC:SIGN;SRC:./script.ct;KEY:./private.pem;ALG:RSA256
+- CACHE:STORE;KEY:cmd_123;TAGS:[security,rbac,tenant:acme];TTL:24h
+- SEC:SIGN;SRC:./config.ct;KEY:ed25519;VERIFY:true
+stability: stable
+mcp_exposed: true
+aliases:
+- KEY
+token_cost_hint: 1
+text_compact: '[PARAM] KEY
+
+  Syntax: KEY:<value>'
+keywords:
+- param

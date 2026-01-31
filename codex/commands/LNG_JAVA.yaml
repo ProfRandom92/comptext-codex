@@ -1,0 +1,16 @@
+id: cmd:LNG_JAVA
+name: LNG_JAVA
+syntax: LNG:JAVA
+module_id: module:B
+description: Java
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:JAVA
+token_cost_hint: 2
+text_compact: '[TOKEN] LNG:JAVA (B)
+
+  Meaning: Java'
+keywords:
+- LNG

@@ -1,0 +1,17 @@
+id: cmd:LNG_SQL
+name: LNG_SQL
+syntax: LNG:SQL
+module_id: module:B
+description: SQL
+examples:
+- CMD:OPT;LNG:SQL;TASK:QRY_OPT
+stability: stable
+mcp_exposed: true
+aliases:
+- LNG:SQL
+token_cost_hint: 1
+text_compact: '[TOKEN] LNG:SQL (B)
+
+  Meaning: SQL'
+keywords:
+- LNG

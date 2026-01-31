@@ -1,0 +1,16 @@
+id: cmd:DBTYP_SQLT
+name: DBTYP_SQLT
+syntax: DBTYP:SQLT
+module_id: module:H
+description: SQLite
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- DBTYP:SQLT
+token_cost_hint: 2
+text_compact: '[TOKEN] DBTYP:SQLT (H)
+
+  Meaning: SQLite'
+keywords:
+- DBTYP

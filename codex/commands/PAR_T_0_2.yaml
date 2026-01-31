@@ -1,0 +1,16 @@
+id: cmd:PAR_T_0_2
+name: PAR_T_0_2
+syntax: PAR:T=0.2
+module_id: module:A
+description: Temperatur (Kreativität)
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- PAR:T=0.2
+token_cost_hint: 2
+text_compact: '[TOKEN] PAR:T=0.2 (A)
+
+  Meaning: Temperatur (Kreativität)'
+keywords:
+- PAR

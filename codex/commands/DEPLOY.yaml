@@ -1,0 +1,24 @@
+id: cmd:DEPLOY
+name: DEPLOY
+syntax: CMD:DEPLOY
+module_id: module:J
+description: Command (from Enterprise docs)
+examples:
+- →CMD:DEPLOY;ENV:STAGING
+- '|> CMD:DEPLOY;ENV:PROD;TARGET:k8s'
+- ct execute "CMD:DEPLOY;ENV:PROD" --dry-run
+- TRY:→CMD:DEPLOY|CATCH:→CMD:ROLLBACK|FINALLY:→CMD:NOTIFY
+- TRY:→CMD:DEPLOY|CATCH:E→CMD:ALERT;MSG:$E;CH:SLACK
+- →CMD:DEPLOY
+stability: stable
+mcp_exposed: true
+aliases:
+- DEPLOY
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:DEPLOY (J, stable)
+
+  Intent: Command (from Enterprise docs)
+
+  Syntax: CMD:DEPLOY'
+keywords:
+- cmd

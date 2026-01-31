@@ -1,0 +1,26 @@
+id: cmd:MOCK
+name: MOCK
+syntax: CMD:MOCK
+module_id: module:G
+description: Mock-Generierung (V3.5.2)
+examples:
+- 'INPUT: CMD:MOCK;TYP:API;FRM:PYTEST'
+- CMD:MOCK;TYP:<mock-typ>;SRC:<quelle>;FRM:<framework>
+- CMD:MOCK;TYP:OBJ;SRC:CLS;LNG:PY
+- CMD:MOCK;TYP:API;SRC:SPEC;DATA:EDGE;LNG:TS
+- CMD:MOCK;TYP:DB;FRM:FAKE;LNG:PY;VERIF:Y
+- CMD:MOCK;TYP:OBJ | CMD:TEST;TYP:UNIT;COV:90
+- CMD:MOCK;TYP:${1|OBJ,API,DB,SVC|};SRC:${2|CLS,INT,SPEC|};LNG:${3|PY,TS,JAVA|}${4:;VERIF:${5|Y,N|}}
+- 'body": ["CMD:MOCK;TYP:${1|OBJ,API,DB|};LNG:${2|PY,TS|}"],'
+stability: stable
+mcp_exposed: true
+aliases:
+- MOCK
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:MOCK (G, stable)
+
+  Intent: Mock-Generierung (V3.5.2)
+
+  Syntax: CMD:MOCK'
+keywords:
+- cmd

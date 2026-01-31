@@ -1,0 +1,18 @@
+id: cmd:MDL_LR
+name: MDL_LR
+syntax: MDL:LR
+module_id: module:E
+description: MDL value
+examples:
+- result = parser.parse('CMD:TRAIN;MDL:LR,RF,XGB')
+- CMD:PRED;MDL:LR
+stability: stable
+mcp_exposed: true
+aliases:
+- MDL:LR
+token_cost_hint: 1
+text_compact: '[TOKEN] MDL:LR (E)
+
+  Meaning: '
+keywords:
+- MDL

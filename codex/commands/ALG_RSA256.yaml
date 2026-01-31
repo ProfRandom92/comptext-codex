@@ -1,0 +1,17 @@
+id: cmd:ALG_RSA256
+name: ALG_RSA256
+syntax: ALG:RSA256
+module_id: module:A
+description: Token (from Enterprise docs)
+examples:
+- SEC:SIGN;SRC:./script.ct;KEY:./private.pem;ALG:RSA256
+stability: stable
+mcp_exposed: true
+aliases:
+- ALG:RSA256
+token_cost_hint: 2
+text_compact: '[TOKEN] ALG:RSA256 (A, stable)
+
+  Meaning: Token (from Enterprise docs)'
+keywords:
+- ALG

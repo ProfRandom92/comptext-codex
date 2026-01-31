@@ -1,0 +1,20 @@
+id: cmd:SCHEMA
+name: SCHEMA
+syntax: CMD:SCHEMA
+module_id: module:A
+description: Command (from Web Playground lexer)
+examples:
+- CMD:CODE;LNG:PY;FRM:FLASK;TASK:API;CMD:SCHEMA;DBTYP:PSQL
+- '|> CMD:SCHEMA;DBTYP:PSQL'
+stability: stable
+mcp_exposed: true
+aliases:
+- SCHEMA
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:SCHEMA (A, stable)
+
+  Intent: Command (from Web Playground lexer)
+
+  Syntax: CMD:SCHEMA'
+keywords:
+- cmd

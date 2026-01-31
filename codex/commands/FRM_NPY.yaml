@@ -1,0 +1,16 @@
+id: cmd:FRM_NPY
+name: FRM_NPY
+syntax: FRM:NPY
+module_id: module:B
+description: NumPy
+examples: []
+stability: stable
+mcp_exposed: true
+aliases:
+- FRM:NPY
+token_cost_hint: 1
+text_compact: '[TOKEN] FRM:NPY (B)
+
+  Meaning: NumPy'
+keywords:
+- FRM

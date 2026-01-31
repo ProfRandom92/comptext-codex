@@ -1,0 +1,22 @@
+id: cmd:DATA
+name: DATA
+syntax: CMD:DATA
+module_id: module:A
+description: Command (auto-extracted)
+examples:
+- 'EXPECT_EXPAND: CMD:DATA;SRC:CSV|CMD:VIZ;TYP:BAR;SRC:$PREV'
+- 'INPUT_OLD: CMD:DATA;FRM:PANDAS'
+- 'INPUT_NEW: CMD:DATA;FRM:PND'
+- CMD:DATA;SRC:sales.csv;OP:aggregate
+stability: stable
+mcp_exposed: true
+aliases:
+- DATA
+token_cost_hint: 1
+text_compact: '[COMMAND] CMD:DATA (A, stable)
+
+  Intent: Command (auto-extracted)
+
+  Syntax: CMD:DATA'
+keywords:
+- cmd
