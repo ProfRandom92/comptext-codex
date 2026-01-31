@@ -31,6 +31,7 @@ python -m comptext_mcp.server --test
 |----------|--------------|--------------|
 | **[SETUP_LOKAL_DE.md](SETUP_LOKAL_DE.md)** | Vollständige Installations- und Setup-Anleitung | Erste Installation, detaillierte Infos |
 | **[MCP_INTEGRATION_DE.md](MCP_INTEGRATION_DE.md)** | MCP Server Integration mit Claude Code/Desktop | Nach Basis-Installation |
+| **[AUTOMATION_SETUP_DE.md](AUTOMATION_SETUP_DE.md)** | Repository-Automatisierung (PR, Commit, Push, Branch-Switching) | Für autonome Agenten-Operationen |
 | **[SCHNELLSTART_CHECKLISTE.md](SCHNELLSTART_CHECKLISTE.md)** | Schritt-für-Schritt-Checkliste | Schneller Überblick, Status-Check |
 | **[setup_lokal.sh](setup_lokal.sh)** | Automatisches Setup-Skript | Einfache Installation |
 
@@ -38,6 +39,7 @@ python -m comptext_mcp.server --test
 
 - **[README.md](README.md)** - Projekt-Übersicht (Englisch)
 - **[QUICK_START.md](QUICK_START.md)** - Schnelleinstieg (Englisch)
+- **[AUTOMATION_SETUP.md](AUTOMATION_SETUP.md)** - Repository Automation (Englisch)
 - **[EXAMPLES.md](EXAMPLES.md)** - Beispiele (Englisch)
 - **[codex/MODULE_CATALOG.md](codex/MODULE_CATALOG.md)** - Modul-Katalog
 

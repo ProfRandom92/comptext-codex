@@ -162,10 +162,15 @@ result = parser.execute(command, dataset="data.csv")
 ## 📚 Documentation
 
 - **[Quick Start Guide](QUICK_START.md)** - Get up and running in 5 minutes
+- **[Repository Automation](AUTOMATION_SETUP.md)** - Autonomous PR, commit, push, and branch operations
 - **[Examples](EXAMPLES.md)** - 55+ production-ready examples
 - **[Module Catalog](codex/MODULE_CATALOG.md)** - 13 modules with security/privacy guardrails
 - **[Example Catalog](codex/EXAMPLE_CATALOG.md)** - Category index pointing to all snippets
 - **[Contributing](CONTRIBUTING.md)** - How to contribute
+
+### German Documentation
+- **[Deutsche Dokumentation](README_DE.md)** - Complete German documentation
+- **[Automatisierung Setup](AUTOMATION_SETUP_DE.md)** - Repository automation guide (German)
 
 ---
 
