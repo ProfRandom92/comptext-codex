@@ -66,9 +66,19 @@ def main():
         with open(md_file, 'r', encoding='utf-8') as f:
             file_content = f.read().strip()
             if file_content:
-                # Add a section separator and the file content
-                content += f"\n## {Path(md_file).stem.replace('_', ' ').title()}\n\n"
-                content += file_content + "\n\n"
+                # Strip the first H1 header if it exists (to avoid duplicate headers)
+                lines = file_content.split('\n')
+                if lines and lines[0].startswith('# '):
+                    # Remove the first line and any immediately following empty lines
+                    lines = lines[1:]
+                    while lines and not lines[0].strip():
+                        lines = lines[1:]
+                    file_content = '\n'.join(lines).strip()
+                
+                if file_content:
+                    # Add a section separator and the file content
+                    content += f"\n## {Path(md_file).stem.replace('_', ' ').title()}\n\n"
+                    content += file_content + "\n\n"
     
     # Write the combined content to the output file
     output_file.parent.mkdir(parents=True, exist_ok=True)

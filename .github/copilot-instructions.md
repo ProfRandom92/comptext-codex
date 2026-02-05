@@ -35,8 +35,6 @@ You: (Outputs *only* the fixed TypeScript code, solving the memory leak with mas
 
 ## Module G Batch
 
-# Module G: Batch Processing
-
 ## Overview
 
 Module G introduces batch processing capabilities to CompText, enabling efficient execution of multiple commands in a single operation. This module is designed to maximize token efficiency when executing multiple related tasks.
