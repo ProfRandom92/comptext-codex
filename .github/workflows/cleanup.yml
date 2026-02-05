@@ -1,0 +1,63 @@
+name: Branch Cleanup (Janitor)
+
+# Manual trigger to clean up stale branches
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup-branches:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: Clean up stale branches
+        run: |
+          echo "🧹 Starting branch cleanup..."
+          echo "Fetching all remote branches..."
+          git fetch --all
+          
+          # Get all remote branches except main
+          branches=$(git branch -r | grep -v '\->' | grep -v 'origin/main' | sed 's/origin\///' | xargs)
+          
+          if [ -z "$branches" ]; then
+            echo "✅ No stale branches to delete (only main exists)"
+            exit 0
+          fi
+          
+          echo "📋 Branches to delete:"
+          echo "$branches"
+          echo ""
+          
+          # Delete each branch
+          deleted_count=0
+          failed_count=0
+          for branch in $branches; do
+            echo "🗑️  Deleting branch: $branch"
+            if git push origin --delete "$branch" 2>&1; then
+              echo "✅ Deleted: $branch"
+              deleted_count=$((deleted_count + 1))
+            else
+              echo "❌ Failed to delete: $branch"
+              failed_count=$((failed_count + 1))
+            fi
+          done
+          
+          echo ""
+          echo "🎉 Cleanup complete!"
+          echo "✅ Successfully deleted: $deleted_count branch(es)"
+          if [ $failed_count -gt 0 ]; then
+            echo "❌ Failed to delete: $failed_count branch(es)"
+          fi
