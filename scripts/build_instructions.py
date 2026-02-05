@@ -66,18 +66,25 @@ def main():
         with open(md_file, 'r', encoding='utf-8') as f:
             file_content = f.read().strip()
             if file_content:
-                # Strip the first H1 header if it exists (to avoid duplicate headers)
+                # Extract the first H1 header if it exists (to use as section title)
                 lines = file_content.split('\n')
+                section_title = None
                 if lines and lines[0].startswith('# '):
+                    # Extract the H1 header text (without the '# ' prefix)
+                    section_title = lines[0][2:].strip()
                     # Remove the first line and any immediately following empty lines
                     lines = lines[1:]
                     while lines and not lines[0].strip():
                         lines = lines[1:]
                     file_content = '\n'.join(lines).strip()
                 
+                # If no H1 header found, generate title from filename
+                if not section_title:
+                    section_title = Path(md_file).stem.replace('_', ' ').title()
+                
                 if file_content:
                     # Add a section separator and the file content
-                    content += f"\n## {Path(md_file).stem.replace('_', ' ').title()}\n\n"
+                    content += f"\n## {section_title}\n\n"
                     content += file_content + "\n\n"
     
     # Write the combined content to the output file

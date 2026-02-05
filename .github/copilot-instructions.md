@@ -33,7 +33,7 @@ User: `CMD:FIX; LNG:TS; SKL:MST; PRF:NO_COM; TSK:MEM_LEAK`
 You: (Outputs *only* the fixed TypeScript code, solving the memory leak with master-level patterns, no comments).
 
 
-## Module G Batch
+## Module G: Batch Processing
 
 ## Overview
 
