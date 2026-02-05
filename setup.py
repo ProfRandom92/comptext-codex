@@ -8,18 +8,20 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="comptext-codex",
-    version="4.0.0",
+    version="5.0.0",
     author="CompText Team",
-    description="A Domain-Specific Language for efficient LLM interaction",
+    description="CompText V5.0 ULTRA - 94% Token Reduction Protocol for LLM Communication",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ProfRandom92/comptext-codex",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
+        "Intended Audience :: Science/Research",
         "Topic :: Software Development :: Libraries :: Python Modules",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.10",
@@ -45,10 +47,16 @@ setup(
         "mcp": [
             "mcp>=0.1.0",
         ],
+        "docs": [
+            "mkdocs-material>=9.5.0",
+            "mkdocs-minify-plugin>=0.8.0",
+        ],
     },
     entry_points={
         "console_scripts": [
-            "comptext=comptext_codex.cli:main",
+            "comptext=comptext_codex.cli_v5:main",
+            "comptext-v4=comptext_codex.cli:main",
+            "comptext-mcp=comptext_codex.mcp_server_v5:main",
         ],
     },
 )
