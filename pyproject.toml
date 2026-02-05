@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "comptext-codex"
-version = "4.0.0"
-description = "Token-efficient DSL for LLM interactions - Python library"
-readme = "README.md"
+version = "5.0.0"
+description = "CompText V5.0 ULTRA: 94% token reduction protocol for LLM interactions"
+readme = "README_V5.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
-    {name = "ProfRandom92", email = "your.email@example.com"}
+    {name = "ProfRandom92", email = "your.email@example.com"},
+    {name = "Claude Sonnet 4.5", email = "noreply@anthropic.com"}
 ]
 maintainers = [
     {name = "ProfRandom92", email = "your.email@example.com"}
@@ -19,14 +20,21 @@ keywords = [
     "llm",
     "dsl",
     "token-optimization",
+    "token-reduction",
     "ai",
     "nlp",
     "language",
     "mcp",
-    "comptext"
+    "comptext",
+    "compression",
+    "efficiency",
+    "cost-savings",
+    "api-optimization",
+    "ultra",
+    "v5"
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
@@ -37,6 +45,8 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Communications",
+    "Topic :: Text Processing :: Linguistic",
     "Typing :: Typed",
 ]
 dependencies = [
@@ -44,10 +54,13 @@ dependencies = [
     "typing-extensions>=4.5.0",
     "PyYAML>=6.0",
     "click>=8.0.0",
+    "rich>=13.0.0",
 ]
 
 [project.scripts]
-comptext = "comptext_codex.cli:main"
+comptext = "comptext_codex.cli_v5:main"
+comptext-v4 = "comptext_codex.cli:main"
+comptext-mcp = "comptext_codex.mcp_server_v5:main"
 
 [project.optional-dependencies]
 dev = [
@@ -63,19 +76,29 @@ docs = [
     "mkdocs-material>=9.5.0",
     "mkdocs-minify-plugin>=0.8.0",
 ]
+mcp = [
+    "mcp>=0.1.0",
+]
+all = [
+    "mcp>=0.1.0",
+]
 
 [project.urls]
 Homepage = "https://comptext-txsu.vercel.app"
 Documentation = "https://profrandom92.github.io/comptext-docs"
 Repository = "https://github.com/ProfRandom92/comptext-codex"
 Issues = "https://github.com/ProfRandom92/comptext-codex/issues"
-Changelog = "https://github.com/ProfRandom92/comptext-codex/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/ProfRandom92/comptext-codex/blob/main/CHANGELOG_V5.md"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+comptext_codex = ["py.typed"]
+"*" = ["*.md", "*.yaml", "*.yml"]
 
 [tool.black]
 line-length = 88

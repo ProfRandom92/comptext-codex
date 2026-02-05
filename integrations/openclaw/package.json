@@ -1,0 +1,32 @@
+{
+  "name": "@comptext/openclaw-skill",
+  "version": "5.0.0",
+  "description": "CompText V5.0 ULTRA skill for OpenClaw - Save 94% on API bills",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "openclaw",
+    "comptext",
+    "token-reduction",
+    "cost-savings",
+    "llm-optimization",
+    "api-efficiency"
+  ],
+  "author": "CompText Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.1.0"
+  },
+  "peerDependencies": {
+    "comptext-codex": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ProfRandom92/comptext-codex.git",
+    "directory": "integrations/openclaw"
+  }
+}

@@ -1,0 +1,51 @@
+# CompText V5.0 ULTRA - Package Manifest
+# Include spec files and documentation in distribution
+
+# Include all documentation files
+include README.md
+include README_V5.md
+include QUICK_START_V5.md
+include CHANGELOG.md
+include CHANGELOG_V5.md
+include LICENSE
+include PROJECT_SUMMARY.md
+
+# Include spec directory (MODULE H and others)
+recursive-include spec *.md
+recursive-include spec *.yaml
+recursive-include spec *.yml
+
+# Include codex directory (module catalog)
+recursive-include codex *.md
+recursive-include codex *.yaml
+recursive-include codex *.yml
+
+# Include examples
+recursive-include examples *.py
+recursive-include examples *.md
+
+# Include GitHub workflows for transparency
+recursive-include .github/workflows *.yml
+
+# Include copilot instructions (system prompts)
+include .github/copilot-instructions.md
+
+# Include build system files
+include pyproject.toml
+include setup.py
+include setup.cfg
+
+# Include type stubs
+recursive-include src *.pyi
+include src/comptext_codex/py.typed
+
+# Exclude test files from distribution
+recursive-exclude tests *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+# Exclude development files
+exclude .gitignore
+exclude .pre-commit-config.yaml
+exclude pytest.ini
+exclude mypy.ini

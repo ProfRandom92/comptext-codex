@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "comptext-v5-ultra": {
+      "command": "comptext-mcp",
+      "args": [],
+      "env": {},
+      "metadata": {
+        "name": "CompText V5.0 ULTRA",
+        "description": "94% token reduction protocol for LLM communication",
+        "version": "5.0.0",
+        "provider": "CompText",
+        "category": "optimization"
+      }
+    }
+  }
+}
