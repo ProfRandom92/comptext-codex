@@ -24,6 +24,11 @@ recursive-include codex *.yml
 recursive-include examples *.py
 recursive-include examples *.md
 
+# Include OpenClaw integration
+recursive-include integrations/openclaw *.js
+recursive-include integrations/openclaw *.json
+recursive-include integrations/openclaw *.md
+
 # Include GitHub workflows for transparency
 recursive-include .github/workflows *.yml
 
