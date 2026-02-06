@@ -82,17 +82,27 @@ def comptext_parse(command: str) -> str:
         parser = CompTextParserV5()
         result = parser.parse(command)
         
-        if result.get('error'):
-            return f"❌ Parse Error: {result['error']}"
+        # Handle list result from parser
+        if isinstance(result, list) and len(result) > 0:
+            cmd = result[0]
+        else:
+            return f"❌ Parse Error: Unexpected result format"
         
         # Format output
         output = []
         output.append(f"✅ Parsed CompText Command: {command}")
-        output.append(f"   Command: {result.get('command', 'N/A')}")
+        output.append(f"   Command: {cmd.command}")
+        output.append(f"   Language: {cmd.language}")
         
-        if 'params' in result:
+        if cmd.task:
+            output.append(f"   Task: {cmd.task}")
+        
+        if cmd.modifiers:
+            output.append(f"   Modifiers: {', '.join(cmd.modifiers)}")
+        
+        if cmd.params:
             output.append("   Parameters:")
-            for key, value in result['params'].items():
+            for key, value in cmd.params.items():
                 output.append(f"     {key}: {value}")
         
         return "\n".join(output)
