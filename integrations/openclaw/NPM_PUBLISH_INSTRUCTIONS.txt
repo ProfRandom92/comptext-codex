@@ -1,0 +1,37 @@
+==================================================================
+NPM PUBLISH INSTRUCTIONS FOR OPENCLAW SKILL
+==================================================================
+
+STEP 1: Login to NPM
+---------------------------------------
+npm login
+
+(Enter your npmjs.com credentials when prompted)
+
+STEP 2: Publish Package
+---------------------------------------
+npm publish --access public
+
+This will publish: @comptext/openclaw-skill@5.0.0
+
+STEP 3: Verify
+---------------------------------------
+Visit: https://www.npmjs.com/package/@comptext/openclaw-skill
+
+Or test installation:
+npm install @comptext/openclaw-skill
+
+==================================================================
+
+PACKAGE INFO:
+- Name: @comptext/openclaw-skill
+- Version: 5.0.0
+- Description: Save 94% on API bills with CompText compression
+- Files: index.js, comptext-skill.js, README.md, package.json
+
+ALTERNATIVE: Skip NPM for now
+---------------------------------------
+OpenClaw integration is already included in the PyPI package!
+Users can access it from: integrations/openclaw/ after pip install
+
+==================================================================

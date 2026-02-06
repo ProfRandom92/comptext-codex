@@ -1,0 +1,28 @@
+# CompText V5.0 ULTRA - Quick Deploy Commands
+
+## OPTION 1: Deploy to Production PyPI (RECOMMENDED IF YOU HAVE TOKEN)
+cd /c/comptext-codex
+python -m twine upload dist/*
+# Enter: __token__ (username)
+# Enter: pypi-... (your token as password)
+
+## OPTION 2: Deploy to Test PyPI First (SAFER)
+cd /c/comptext-codex
+python -m twine upload --repository testpypi dist/*
+# Test installation:
+pip install --index-url https://test.pypi.org/simple/ comptext-codex==5.0.0
+
+## OPTION 3: Deploy OpenClaw to NPM
+cd /c/comptext-codex/integrations/openclaw
+npm login
+npm publish --access public
+
+## VERIFY AFTER DEPLOYMENT
+# Wait 2-3 minutes, then:
+pip install comptext-codex==5.0.0
+comptext --version
+comptext reference
+
+## CHECK ONLINE
+# PyPI: https://pypi.org/project/comptext-codex/5.0.0/
+# NPM: https://www.npmjs.com/package/@comptext/openclaw-skill
