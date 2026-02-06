@@ -4,6 +4,9 @@
 [![PyPI](https://img.shields.io/pypi/v/comptext-codex?color=blue&style=for-the-badge)](https://pypi.org/project/comptext-codex/)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Efficiency](https://img.shields.io/badge/Token_Reduction-94%25-brightgreen?style=for-the-badge)](https://github.com/ProfRandom92/comptext-codex)
+[![Claude Teams](https://img.shields.io/badge/Agent_Teams-Ready-blueviolet?style=for-the-badge)](https://github.com/ProfRandom92/comptext-codex)
+
+**CompText V5.0** is optimized for **Claude Agent Teams**. It acts as a high-speed compression layer, allowing agents to exchange context with 94% less token overhead.
 
 **CompText** is a deterministic protocol that compresses verbose context into compact command structures (`C;P:FIB`), reducing token usage by up to 94% compared to raw text ingestion.
 
