@@ -75,6 +75,7 @@ def token_count(text: str, model: str = "cl100k_base") -> int:
             logger.warning("Tiktoken error: %s. Falling back to regex.", e)
 
     # Robust Fallback: words AND punctuation separately
+    # Note: This is an approximation; results may differ from TikToken.
     return len(re.findall(r"\w+|[^\w\s]", text, re.UNICODE))
 
 
