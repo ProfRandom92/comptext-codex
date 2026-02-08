@@ -4,6 +4,10 @@ CompText V5.0 ULTRA Stress Test - Legacy Monster Generator
 Generates a massive Java monolith with 5000+ lines and hidden bugs
 """
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 import random
 
 def generate_method(class_name, method_num, indent="    "):
