@@ -6,6 +6,7 @@ from comptext_codex.token_reduction import (
     calculate_reduction,
     generate_markdown_report,
     main,
+    print_rich_table,
     token_count,
     write_report,
 )
@@ -105,3 +106,27 @@ def test_main_function(tmp_path: Path):
     assert output_path.exists()
     content = output_path.read_text(encoding="utf-8")
     assert "Token Reduction Results" in content
+
+
+def test_print_rich_table(capsys):
+    """Test that print_rich_table produces console output."""
+    print_rich_table(DEFAULT_CASES)
+    captured = capsys.readouterr()
+    assert "Token Reduction Results" in captured.out
+    assert "%" in captured.out
+
+
+def test_token_count_uses_bpe_or_regex():
+    """Token count returns a positive integer for typical text."""
+    count = token_count("Hello, world!")
+    assert isinstance(count, int)
+    assert count > 0
+
+
+def test_token_count_regex_fallback(monkeypatch):
+    """Token count falls back to regex when tiktoken is unavailable."""
+    import comptext_codex.token_reduction as mod
+
+    monkeypatch.setattr(mod, "_ENC", None)
+    assert mod.token_count("hello world") == 2
+    assert mod.token_count("it's a test!") == 6  # it, ', s, a, test, !

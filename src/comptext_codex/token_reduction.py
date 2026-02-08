@@ -2,9 +2,17 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Sequence
+
+try:
+    import tiktoken
+
+    _ENC = tiktoken.get_encoding("cl100k_base")
+except Exception:  # pragma: no cover
+    _ENC = None
 
 
 @dataclass(frozen=True)
@@ -50,8 +58,13 @@ DEFAULT_CASES: Sequence[TokenReductionCase] = (
 
 
 def token_count(text: str) -> int:
-    """Return a simple whitespace token count."""
-    return len([token for token in text.split() if token])
+    """Return a BPE token count using tiktoken (cl100k_base).
+
+    Falls back to a regex-based approximation when tiktoken is unavailable.
+    """
+    if _ENC is not None:
+        return len(_ENC.encode(text))
+    return len(re.findall(r"\w+|[^\w\s]", text))
 
 
 def calculate_reduction(case: TokenReductionCase) -> dict[str, Any]:
@@ -111,5 +124,34 @@ def main(output_path: Path | None = None) -> None:
     print(f"✅ Token reduction report written to {target}")
 
 
+def print_rich_table(cases: Iterable[TokenReductionCase]) -> None:
+    """Print a rich console table summarising token reductions."""
+    from rich.console import Console
+    from rich.table import Table
+
+    title = "Token Reduction Results (BPE / cl100k_base)"
+    if _ENC is None:
+        title = "Token Reduction Results (regex fallback)"
+    table = Table(title=title)
+    table.add_column("Case", style="cyan")
+    table.add_column("Original Tokens", justify="right")
+    table.add_column("CompText Tokens", justify="right")
+    table.add_column("Reduction", justify="right")
+    table.add_column("Reduction %", justify="right", style="green")
+
+    for case in cases:
+        m = calculate_reduction(case)
+        table.add_row(
+            m["name"],
+            str(m["original_tokens"]),
+            str(m["comptext_tokens"]),
+            str(m["token_reduction"]),
+            f"{m['reduction_pct']}%",
+        )
+
+    Console().print(table)
+
+
 if __name__ == "__main__":
+    print_rich_table(DEFAULT_CASES)
     main()
