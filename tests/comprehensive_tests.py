@@ -6,8 +6,9 @@ Tests all functionality with various scenarios
 import sys
 import os
 
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Add parent directory to path so we can import modules from the project root
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, ROOT_DIR)
 
 def test_banner():
     print("=" * 60)
@@ -61,7 +62,7 @@ def test_analyze_basic():
 
     # Test 1.1: Find function definitions
     def t1():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "def ")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "def ")
         matches = result.count("[server.py:")
         return test_case(
             "Find function definitions (def )",
@@ -71,7 +72,7 @@ def test_analyze_basic():
 
     # Test 1.2: Find imports
     def t2():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "import")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "import")
         matches = result.count("[server.py:")
         return test_case(
             "Find import statements",
@@ -81,7 +82,7 @@ def test_analyze_basic():
 
     # Test 1.3: Find FastMCP usage
     def t3():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "FastMCP")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "FastMCP")
         matches = result.count("[server.py:")
         return test_case(
             "Find FastMCP references",
@@ -91,7 +92,7 @@ def test_analyze_basic():
 
     # Test 1.4: Case insensitive search
     def t4():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "FASTMCP")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "FASTMCP")
         matches = result.count("[server.py:")
         return test_case(
             "Case insensitive search (FASTMCP)",
@@ -101,7 +102,7 @@ def test_analyze_basic():
 
     # Test 1.5: No matches scenario
     def t5():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "ZZZNOEXIST")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "ZZZNOEXIST")
         no_matches = "No matches found" in result or "Found 0 match(es)" in result
         return test_case(
             "No matches scenario",
@@ -124,7 +125,7 @@ def test_analyze_advanced():
 
     # Test 2.1: Search in README
     def t1():
-        result = comptext_analyze("C:\\comptext-codex\\README.md", "Agent Teams")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "README.md"), "Agent Teams")
         matches = result.count("[README.md:")
         return test_case(
             "Search README for 'Agent Teams'",
@@ -134,7 +135,7 @@ def test_analyze_advanced():
 
     # Test 2.2: Search for TODO comments
     def t2():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "TODO")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "TODO")
         # May or may not have TODOs, just check it doesn't error
         return test_case(
             "Search for TODO comments",
@@ -144,7 +145,7 @@ def test_analyze_advanced():
 
     # Test 2.3: Search for decorators
     def t3():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "@mcp")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "@mcp")
         matches = result.count("[server.py:")
         return test_case(
             "Find @mcp decorators",
@@ -154,7 +155,7 @@ def test_analyze_advanced():
 
     # Test 2.4: Search for docstrings
     def t4():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", '"""')
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), '"""')
         matches = result.count("[server.py:")
         return test_case(
             "Find docstring markers",
@@ -243,7 +244,7 @@ def test_token_efficiency():
 
     # Test 4.1: Surgical precision (only matches, no full dump)
     def t1():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "def ")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "def ")
         lines = result.split("\n")
         # Should have summary + matches, not entire file
         return test_case(
@@ -254,7 +255,7 @@ def test_token_efficiency():
 
     # Test 4.2: Format validation [file:line] content
     def t2():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "def ")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "def ")
         has_format = "[server.py:" in result
         return test_case(
             "Output format [file:line] validated",
@@ -264,7 +265,7 @@ def test_token_efficiency():
 
     # Test 4.3: Summary line present
     def t3():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "def ")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "def ")
         has_summary = "Found" in result and "match(es)" in result
         return test_case(
             "Summary line present",
@@ -286,7 +287,7 @@ def test_error_handling():
     # Test 5.1: Non-existent file
     def t1():
         try:
-            result = comptext_analyze("C:\\nonexistent\\file.py", "test")
+            result = comptext_analyze(os.path.join(ROOT_DIR, "nonexistent_file.py"), "test")
             return test_case(
                 "Non-existent file handling",
                 "Error" in result or "not found" in result.lower(),
@@ -318,7 +319,7 @@ def test_error_handling():
 
     # Test 5.3: Empty query
     def t3():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "")
         return test_case(
             "Empty query handling",
             True,
@@ -338,7 +339,7 @@ def test_real_world():
 
     # Test 6.1: Find all tool definitions
     def t1():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "@mcp.tool")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "@mcp.tool")
         matches = result.count("[server.py:")
         return test_case(
             "Find all @mcp.tool decorators",
@@ -348,7 +349,7 @@ def test_real_world():
 
     # Test 6.2: Search for error handling
     def t2():
-        result = comptext_analyze("C:\\comptext-codex\\server.py", "except")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "except")
         return test_case(
             "Search for exception handling",
             True,
@@ -357,7 +358,7 @@ def test_real_world():
 
     # Test 6.3: Find version references
     def t3():
-        result = comptext_analyze("C:\\comptext-codex\\README.md", "5.0")
+        result = comptext_analyze(os.path.join(ROOT_DIR, "README.md"), "5.0")
         matches = result.count("[README.md:")
         return test_case(
             "Find version references in README",
@@ -367,8 +368,8 @@ def test_real_world():
 
     # Test 6.4: Multi-file concept (search in different files)
     def t4():
-        result1 = comptext_analyze("C:\\comptext-codex\\server.py", "fastmcp")
-        result2 = comptext_analyze("C:\\comptext-codex\\README.md", "Agent Teams")
+        result1 = comptext_analyze(os.path.join(ROOT_DIR, "server.py"), "fastmcp")
+        result2 = comptext_analyze(os.path.join(ROOT_DIR, "README.md"), "Agent Teams")
         both_work = "[server.py:" in result1 and "[README.md:" in result2
         return test_case(
             "Multi-file search capability",

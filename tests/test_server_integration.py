@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Test CompText MCP Server Tools"""
 import sys
-sys.path.insert(0, r'C:\comptext-codex')
+import os
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, ROOT_DIR)
 
 from server import comptext_analyze, comptext_parse
 
@@ -13,7 +15,7 @@ print()
 # Test 1: comptext_analyze
 print("TEST 1: Analyzing server.py for 'def comptext'")
 print("-" * 60)
-result = comptext_analyze(r'C:\comptext-codex\server.py', 'def comptext')
+result = comptext_analyze(os.path.join(ROOT_DIR, 'server.py'), 'def comptext')
 # Remove emojis for console compatibility
 result_clean = result.replace('✅', '[OK]').replace('🔍', '[SEARCH]').replace('❌', '[ERROR]')
 print(result_clean)
@@ -30,7 +32,7 @@ print()
 # Test 3: Search in README
 print("TEST 3: Searching README.md for 'Agent Teams'")
 print("-" * 60)
-result3 = comptext_analyze(r'C:\comptext-codex\README.md', 'Agent Teams')
+result3 = comptext_analyze(os.path.join(ROOT_DIR, 'README.md'), 'Agent Teams')
 result3_clean = result3.replace('✅', '[OK]').replace('🔍', '[SEARCH]').replace('❌', '[ERROR]')
 print(result3_clean)
 print()
