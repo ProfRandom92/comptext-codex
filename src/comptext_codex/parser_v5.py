@@ -4,6 +4,8 @@ import re
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 
+from .token_reduction import token_count
+
 
 @dataclass
 class CompTextCommandV5:
@@ -297,9 +299,9 @@ class CompTextParserV5:
         Returns:
             Dictionary with token statistics
         """
-        # Rough token estimation (1 token ≈ 0.75 words or 4 chars)
-        nl_tokens = len(natural_language.split())
-        v5_tokens = len(v5_command.split())
+        # Use tiktoken-based token counting from token_reduction module
+        nl_tokens = token_count(natural_language)
+        v5_tokens = token_count(v5_command)
 
         reduction_pct = round((1 - v5_tokens / nl_tokens) * 100, 1) if nl_tokens > 0 else 0
 

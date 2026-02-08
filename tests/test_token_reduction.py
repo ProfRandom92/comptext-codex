@@ -27,7 +27,11 @@ def test_token_count_single_word():
 
 
 def test_calculate_reduction_has_positive_delta():
-    metrics = calculate_reduction(DEFAULT_CASES[0])
+    metrics = calculate_reduction(
+        DEFAULT_CASES[0].name,
+        DEFAULT_CASES[0].original,
+        DEFAULT_CASES[0].comptext,
+    )
     assert metrics["original_tokens"] > metrics["comptext_tokens"]
     assert (
         metrics["token_reduction"]
@@ -38,36 +42,33 @@ def test_calculate_reduction_has_positive_delta():
 
 def test_calculate_reduction_with_equal_tokens():
     """Test reduction when original and comptext have same token count."""
-    case = TokenReductionCase(
-        name="Equal",
-        original="hello world",
-        comptext="test case",
+    metrics = calculate_reduction(
+        "Equal",
+        "hello world",
+        "test case",
     )
-    metrics = calculate_reduction(case)
     assert metrics["token_reduction"] == 0
     assert metrics["reduction_pct"] == 0.0
 
 
 def test_calculate_reduction_with_more_comptext_tokens():
     """Test reduction when comptext has more tokens than original."""
-    case = TokenReductionCase(
-        name="Negative",
-        original="one",
-        comptext="two three four",
+    metrics = calculate_reduction(
+        "Negative",
+        "one",
+        "two three four",
     )
-    metrics = calculate_reduction(case)
     assert metrics["token_reduction"] == 0
     assert metrics["reduction_pct"] == 0.0
 
 
 def test_calculate_reduction_with_empty_original():
     """Test reduction with empty original text."""
-    case = TokenReductionCase(
-        name="Empty",
-        original="",
-        comptext="test",
+    metrics = calculate_reduction(
+        "Empty",
+        "",
+        "test",
     )
-    metrics = calculate_reduction(case)
     assert metrics["original_tokens"] == 0
     assert metrics["reduction_pct"] == 0.0
 

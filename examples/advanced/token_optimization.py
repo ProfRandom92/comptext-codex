@@ -46,7 +46,9 @@ def main():
     for scenario in scenarios:
         natural_tokens = token_count(scenario["natural"])
         comptext_tokens = token_count(scenario["comptext"])
-        reduction = calculate_reduction(scenario["natural"], scenario["comptext"])
+        reduction = calculate_reduction(
+            scenario["name"], scenario["natural"], scenario["comptext"]
+        )
 
         total_natural += natural_tokens
         total_comptext += comptext_tokens
@@ -54,7 +56,7 @@ def main():
         print(f"Scenario: {scenario['name']}")
         print(f"  Natural Language: {natural_tokens} tokens")
         print(f"  CompText:         {comptext_tokens} tokens")
-        print(f"  Reduction:        {reduction:.1f}%")
+        print(f"  Reduction:        {reduction['reduction_pct']:.1f}%")
         print(f"  Tokens Saved:     {natural_tokens - comptext_tokens}")
         print()
 

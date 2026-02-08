@@ -2,9 +2,20 @@
 
 from __future__ import annotations
 
+import logging
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterable, Sequence
+
+try:
+    import tiktoken
+
+    TIKTOKEN_AVAILABLE = True
+except ImportError:
+    TIKTOKEN_AVAILABLE = False
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -49,22 +60,39 @@ DEFAULT_CASES: Sequence[TokenReductionCase] = (
 )
 
 
-def token_count(text: str) -> int:
-    """Return a simple whitespace token count."""
-    return len([token for token in text.split() if token])
+def token_count(text: str, model: str = "cl100k_base") -> int:
+    """Return a precise token count using tiktoken (OpenAI/Anthropic standard).
+
+    Falls back to robust regex counting if tiktoken is not installed.
+    """
+    if not text:
+        return 0
+    if TIKTOKEN_AVAILABLE:
+        try:
+            encoding = tiktoken.get_encoding(model)
+            return len(encoding.encode(text))
+        except Exception as e:
+            logger.warning("Tiktoken error: %s. Falling back to regex.", e)
+
+    # Robust Fallback: words AND punctuation separately
+    return len(re.findall(r"\w+|[^\w\s]", text, re.UNICODE))
 
 
-def calculate_reduction(case: TokenReductionCase) -> dict[str, Any]:
+def calculate_reduction(
+    name: str, original: str, comptext: str
+) -> dict[str, Any]:
     """Calculate token reduction metrics for a single case."""
-    original_tokens = token_count(case.original)
-    comptext_tokens = token_count(case.comptext)
+    original_tokens = token_count(original)
+    comptext_tokens = token_count(comptext)
     reduction = max(original_tokens - comptext_tokens, 0)
-    reduction_pct = 0.0
-    if original_tokens:
-        reduction_pct = round((reduction / original_tokens) * 100, 1)
+    reduction_pct = (
+        round((reduction / original_tokens) * 100, 1)
+        if original_tokens > 0
+        else 0.0
+    )
 
     return {
-        "name": case.name,
+        "name": name,
         "original_tokens": original_tokens,
         "comptext_tokens": comptext_tokens,
         "token_reduction": reduction,
@@ -74,7 +102,10 @@ def calculate_reduction(case: TokenReductionCase) -> dict[str, Any]:
 
 def generate_markdown_report(cases: Iterable[TokenReductionCase]) -> str:
     """Generate a markdown table summarizing token reductions."""
-    metrics: list[dict[str, Any]] = [calculate_reduction(case) for case in cases]
+    metrics: list[dict[str, Any]] = [
+        calculate_reduction(case.name, case.original, case.comptext)
+        for case in cases
+    ]
     lines = [
         "# Token Reduction Results",
         "",
