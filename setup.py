@@ -3,12 +3,12 @@
 
 from setuptools import setup, find_packages
 
-with open("README_V5.md", "r", encoding="utf-8") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
     name="comptext-codex",
-    version="5.0.1",
+    version="5.0.3",
     author="CompText Team",
     description="CompText V5.0 ULTRA - 94% Token Reduction Protocol for LLM Communication",
     long_description=long_description,
@@ -34,6 +34,7 @@ setup(
         "pydantic>=2.0.0",
         "pyyaml>=6.0",
         "rich>=13.0.0",
+        "tiktoken>=0.5.0",
     ],
     extras_require={
         "dev": [

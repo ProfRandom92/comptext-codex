@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "comptext-codex"
-version = "5.0.1"
+version = "5.0.3"
 description = "CompText V5.0 ULTRA: 94% token reduction protocol for LLM interactions"
-readme = "README_V5.md"
+readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
@@ -55,6 +55,7 @@ dependencies = [
     "PyYAML>=6.0",
     "click>=8.0.0",
     "rich>=13.0.0",
+    "tiktoken>=0.5.0",
 ]
 
 [project.scripts]

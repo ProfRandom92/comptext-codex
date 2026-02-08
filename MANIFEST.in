@@ -3,12 +3,16 @@
 
 # Include all documentation files
 include README.md
-include README_V5.md
-include QUICK_START_V5.md
-include CHANGELOG.md
-include CHANGELOG_V5.md
 include LICENSE
-include PROJECT_SUMMARY.md
+
+# Include module source files
+include src/comptext_codex/modules/*.py
+
+# Include documentation
+recursive-include docs *
+
+# Include agent-skills
+recursive-include agent-skills *
 
 # Include spec directory (MODULE H and others)
 recursive-include spec *.md
@@ -31,9 +35,6 @@ recursive-include integrations/openclaw *.md
 
 # Include GitHub workflows for transparency
 recursive-include .github/workflows *.yml
-
-# Include copilot instructions (system prompts)
-include .github/copilot-instructions.md
 
 # Include build system files
 include pyproject.toml

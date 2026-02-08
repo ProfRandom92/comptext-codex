@@ -47,4 +47,4 @@ __all__ = [
     "CommandMeta",
 ]
 
-__version__ = "4.0.0"
+__version__ = "5.0.3"
