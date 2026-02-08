@@ -4,6 +4,8 @@ import re
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 
+from .token_reduction import token_count
+
 
 @dataclass
 class CompTextCommandV5:
@@ -288,7 +290,7 @@ class CompTextParserV5:
         return '; '.join(parts)
 
     def calculate_token_reduction(self, natural_language: str, v5_command: str) -> Dict[str, Any]:
-        """Calculate token reduction statistics.
+        """Calculate token reduction statistics using tiktoken BPE encoding.
 
         Args:
             natural_language: Original natural language request
@@ -297,9 +299,8 @@ class CompTextParserV5:
         Returns:
             Dictionary with token statistics
         """
-        # Rough token estimation (1 token ≈ 0.75 words or 4 chars)
-        nl_tokens = len(natural_language.split())
-        v5_tokens = len(v5_command.split())
+        nl_tokens = token_count(natural_language)
+        v5_tokens = token_count(v5_command)
 
         reduction_pct = round((1 - v5_tokens / nl_tokens) * 100, 1) if nl_tokens > 0 else 0
 

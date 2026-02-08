@@ -1,4 +1,4 @@
-"""CompText Modules - Implementation of 13 production modules (A-M)."""
+"""CompText Modules - Implementation of 14 production modules (A-N)."""
 
 from .module_a import ModuleA
 from .module_b import ModuleB
@@ -13,8 +13,10 @@ from .module_j import ModuleJ
 from .module_k import ModuleK
 from .module_l import ModuleL
 from .module_m import ModuleM
+from .module_n import ModuleN
 
 __all__ = [
     'ModuleA', 'ModuleB', 'ModuleC', 'ModuleD', 'ModuleE', 'ModuleF',
-    'ModuleG', 'ModuleH', 'ModuleI', 'ModuleJ', 'ModuleK', 'ModuleL', 'ModuleM'
+    'ModuleG', 'ModuleH', 'ModuleI', 'ModuleJ', 'ModuleK', 'ModuleL',
+    'ModuleM', 'ModuleN',
 ]

@@ -15,13 +15,18 @@ def temp_db():
     fd, path = tempfile.mkstemp(suffix=".db")
     os.close(fd)
     yield path
-    if os.path.exists(path):
-        os.unlink(path)
-    # Clean up WAL files
-    for ext in ["-wal", "-shm"]:
-        wal_path = path + ext
-        if os.path.exists(wal_path):
-            os.unlink(wal_path)
+    # Best-effort cleanup; on Windows a stale thread-local SQLite connection
+    # can keep the file locked briefly after threads join.
+    import gc, time
+    gc.collect()
+    for target in [path] + [path + ext for ext in ("-wal", "-shm")]:
+        for attempt in range(3):
+            try:
+                if os.path.exists(target):
+                    os.unlink(target)
+                break
+            except PermissionError:
+                time.sleep(0.05 * (attempt + 1))
 
 
 @pytest.fixture
@@ -66,8 +71,12 @@ class TestCodexStoreConnection:
         results = []
 
         def worker():
-            module = store.get_module("T")
-            results.append(module is not None)
+            try:
+                module = store.get_module("T")
+                results.append(module is not None)
+            finally:
+                # Close the thread-local connection so Windows can unlink the file.
+                store.close()
 
         threads = [threading.Thread(target=worker) for _ in range(5)]
         for t in threads:

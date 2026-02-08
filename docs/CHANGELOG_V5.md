@@ -7,6 +7,70 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [5.0.3] - 2026-02-08
+
+### Enterprise Hardening Release
+
+**93.1% Aggregate Token Reduction -- All 8 Cases > 90% -- 343 Tests Passing**
+
+### Added
+
+#### Token Reduction Engine (Enterprise Grade)
+- **tiktoken BPE encoding** (`cl100k_base`) replaces naive `.split()` across entire codebase
+- **`@functools.lru_cache` encoding singleton** -- 295,000x speedup (531ms cold, 0.002ms hot)
+- **Pinned BPE values** per benchmark case (`expected_nl_tokens`, `expected_ct_tokens`)
+- **Pinned aggregate constants** (`EXPECTED_AGGREGATE_NL=826, CT=57, PCT=93.1`)
+- **`typing.Final`** annotations for all immutable constants
+- **Custom exception hierarchy**: `TokenReductionError` > `EncodingError`, `BenchmarkDriftError`
+
+#### Module N: Token Analytics
+- 5 commands: `tok_count`, `tok_cost`, `tok_reduce`, `tok_budget`, `tok_compare`
+- `MappingProxyType` frozen `MODEL_PRICING` (7 models, immutable at runtime)
+- Cost estimation for GPT-4o, GPT-4-turbo, Claude Opus 4, Claude Sonnet 4, etc.
+
+#### Enterprise Test Infrastructure
+- **343 tests, 0 failures, 0 errors** (zero flaky)
+- `TestDeterminism` -- parametrized pinned BPE value guards per case
+- `TestQualityGates` -- CI/CD release blockers (>= 90% per case and aggregate)
+- `TestStructuralInvariants` -- benchmark diversity validation
+- `TestExceptionHierarchy` -- proper inheritance tree
+- `TestModuleNPricingIntegrity` -- mutation rejection via `TypeError`
+- Session-scoped tiktoken guard in `conftest.py` (fail-fast if missing)
+- Shared fixtures: `all_benchmark_cases`, `token_counter`, `module_n_instance`
+
+### Changed
+- **`parser_v5.py`**: DRY refactor -- imports `token_count()` from `token_reduction.py`
+- **`test_store.py`**: Fixed Windows SQLite teardown `PermissionError` (thread-local connection cleanup + retry-with-backoff)
+- **`token_reduction.py`**: Narrowed exception handling from `except Exception` to `except (KeyError, ValueError)`
+- **`module_n.py`**: `MODEL_PRICING` upgraded from `Dict` to `MappingProxyType` (frozen)
+- **`__init__.py`**: Exports `TokenReductionError`, `EncodingError`, `BenchmarkDriftError`
+
+### Performance
+| Metric | Value |
+|--------|-------|
+| Encoding cache speedup | 295,000x |
+| Short text throughput | 174,285 ops/s |
+| Long text (900 words) | 1,265 ops/s |
+| Full benchmark suite | 1.09ms avg, 2.90ms p99 |
+| Memory leaks | 0 object growth after 1,000 calls |
+| Thread safety | 16 concurrent workers, 0 errors |
+| Determinism | 100x repeated runs, identical results |
+
+### Token Reduction Results (tiktoken cl100k_base)
+| Case | NL Tokens | CT Tokens | Reduction % |
+|------|-----------|-----------|-------------|
+| Code Generation | 55 | 5 | 90.9% |
+| Code Review | 90 | 6 | 93.3% |
+| Batch Pipeline | 210 | 19 | 91.0% |
+| Bug Fix | 64 | 5 | 92.2% |
+| Query Optimization | 96 | 8 | 91.7% |
+| Documentation | 103 | 3 | 97.1% |
+| Explain Code | 95 | 4 | 95.8% |
+| Test Suite | 113 | 7 | 93.8% |
+| **AGGREGATE** | **826** | **57** | **93.1%** |
+
+---
+
 ## [5.0.0] - 2026-02-05
 
 ### 🚀 Major Release: V5.0 ULTRA

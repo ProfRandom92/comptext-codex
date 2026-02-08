@@ -7,7 +7,13 @@ Migration from Notion/YAML to SQLite-based architecture provides:
 - Type-safe metadata via dataclasses
 """
 
-from .token_reduction import calculate_reduction, token_count
+from .token_reduction import (
+    calculate_reduction,
+    token_count,
+    BenchmarkDriftError,
+    EncodingError,
+    TokenReductionError,
+)
 from .token_report import build_token_report, load_commands, load_modules
 from .parser import CompTextParser, CompTextCommand, parse
 from .executor import CompTextExecutor, ExecutionResult, execute
@@ -26,6 +32,11 @@ __all__ = [
     # Token utilities
     "token_count",
     "calculate_reduction",
+    # Exceptions
+    "TokenReductionError",
+    "EncodingError",
+    "BenchmarkDriftError",
+    # Report utilities
     "build_token_report",
     "load_commands",
     "load_modules",
