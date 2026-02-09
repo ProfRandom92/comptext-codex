@@ -91,8 +91,9 @@ Repository = "https://github.com/ProfRandom92/comptext-codex"
 Issues = "https://github.com/ProfRandom92/comptext-codex/issues"
 Changelog = "https://github.com/ProfRandom92/comptext-codex/blob/main/CHANGELOG_V5.md"
 
-[tool.setuptools]
-package-dir = {"" = "src"}
+[tool.setuptools.package-dir]
+"" = "src"
+"comptext_mcp" = "comptext_mcp"
 
 [tool.setuptools.packages.find]
 where = ["src"]

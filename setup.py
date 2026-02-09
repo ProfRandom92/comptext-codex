@@ -14,8 +14,8 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ProfRandom92/comptext-codex",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    packages=find_packages(where="src") + ["comptext_mcp"],
+    package_dir={"": "src", "comptext_mcp": "comptext_mcp"},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
