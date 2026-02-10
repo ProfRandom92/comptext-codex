@@ -37,7 +37,7 @@ class StateCompressor:
     ]
 
     TEMPERATURE_PATTERN = re.compile(
-        r"(\d{2,3}(?:\.\d)?)\s*°?\s*[CcFf]"
+        r"(\d{2,3}(?:\.\d)?)\s*°?\s*([CcFf])"
     )
     HEART_RATE_PATTERN = re.compile(
         r"(?:heart\s*rate|hr|pulse)[\s:a-z]*?(\d{2,3})\s*(?:bpm)?",
@@ -70,7 +70,7 @@ class StateCompressor:
         vitals: dict = {}
         temp_match = self.TEMPERATURE_PATTERN.search(raw_text)
         if temp_match:
-            unit = "C" if "c" in raw_text[temp_match.end() - 1].lower() else "F"
+            unit = temp_match.group(2).upper()
             vitals["temperature"] = f"{temp_match.group(1)}°{unit}"
 
         hr_match = self.HEART_RATE_PATTERN.search(raw_text)
