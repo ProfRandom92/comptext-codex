@@ -229,7 +229,7 @@ def ensure_modules_loaded() -> None:
     """Import all module files so decorators run and modules register."""
     import importlib
 
-    for letter in "abcdefghijklm":
+    for letter in "abcdefghijklmn":
         try:
             importlib.import_module(f"comptext_codex.modules.module_{letter}")
         except ImportError:

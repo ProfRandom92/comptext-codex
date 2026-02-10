@@ -1,6 +1,13 @@
-"""CompText DSL Parser - Parses CompText commands into structured format."""
+"""CompText DSL Parser - Parses CompText commands into structured format.
+
+.. deprecated:: 5.1.0
+    The V4 parser is superseded by :class:`comptext_codex.parser_v5.CompTextParserV5`.
+    Use the V5.0 ULTRA parser for all new integrations.  The V4 parser will be
+    removed in a future major release.
+"""
 
 import re
+import warnings
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 
@@ -33,10 +40,19 @@ class CompTextParser:
     def __init__(self, codex_dir: Optional[str] = None, use_store: bool = False):
         """Initialize parser.
 
+        .. deprecated:: 5.1.0
+            Use :class:`comptext_codex.parser_v5.CompTextParserV5` instead.
+
         Args:
             codex_dir: Optional path to YAML codex directory (legacy)
             use_store: If True, load definitions from SQLite CodexStore
         """
+        warnings.warn(
+            "CompTextParser (V4) is deprecated and will be removed in a future "
+            "release. Migrate to CompTextParserV5 for the V5.0 ULTRA protocol.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         self.codex_dir = codex_dir
         self._command_registry: Dict[str, Dict[str, Any]] = {}
         self._use_store = use_store

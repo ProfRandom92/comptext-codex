@@ -3,8 +3,15 @@
 from typing import Any, Dict, List, Optional, Callable
 from dataclasses import dataclass
 import logging
+import warnings
 
 from .parser import CompTextCommand, CompTextParser
+from .exceptions import (
+    ExecutionError,
+    ModuleNotFoundError_,
+    CommandNotFoundError,
+    HandlerError,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -54,8 +61,14 @@ class CompTextExecutor:
 
     def _load_modules_legacy(self):
         """Fallback: Dynamically load module implementations via importlib."""
+        warnings.warn(
+            "Legacy module loading via importlib is deprecated. "
+            "Ensure the registry module is importable.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         import importlib
-        for code in "ABCDEFGHIJKLM":
+        for code in "ABCDEFGHIJKLMN":
             try:
                 module_name = f"comptext_codex.modules.module_{code.lower()}"
                 module = importlib.import_module(module_name)
@@ -158,14 +171,19 @@ class CompTextExecutor:
                 return self._execute_fallback(cmd, context)
 
         except Exception as e:
-            logger.error(f"Error executing {cmd.module}:{cmd.command}: {e}")
+            wrapped = HandlerError(
+                f"Error executing {cmd.module}:{cmd.command}: {e}"
+            )
+            wrapped.__cause__ = e
+            logger.error(str(wrapped))
             return ExecutionResult(
                 success=False,
                 result=None,
-                error=str(e),
+                error=str(wrapped),
                 metadata={
                     'module': cmd.module,
-                    'command': cmd.command
+                    'command': cmd.command,
+                    'exception_type': type(e).__name__,
                 }
             )
 

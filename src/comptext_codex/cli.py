@@ -1,7 +1,13 @@
-"""CLI entrypoint for CompText Codex utilities."""
+"""CLI entrypoint for CompText Codex utilities (legacy V4).
+
+.. deprecated:: 5.1.0
+    The ``comptext-v4`` CLI is deprecated.  Use the ``comptext`` command
+    (powered by :mod:`comptext_codex.cli_v5`) for V5.0 ULTRA features.
+"""
 
 from __future__ import annotations
 
+import warnings
 from pathlib import Path
 
 import click
@@ -18,7 +24,13 @@ from .token_report import (
 
 @click.group()
 def main() -> None:
-    """CompText Codex command-line tools."""
+    """CompText Codex command-line tools (legacy V4 CLI)."""
+    warnings.warn(
+        "The comptext-v4 CLI is deprecated. Use the 'comptext' command "
+        "(V5.0 ULTRA) instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
 
 
 @main.command("token-report")

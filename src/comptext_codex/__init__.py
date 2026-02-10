@@ -7,12 +7,23 @@ Migration from Notion/YAML to SQLite-based architecture provides:
 - Type-safe metadata via dataclasses
 """
 
+from .exceptions import (
+    CompTextError,
+    ParserError,
+    InvalidSyntaxError,
+    UnknownCommandError,
+    ExecutionError,
+    ModuleNotFoundError_,
+    CommandNotFoundError,
+    HandlerError,
+    TokenReductionError,
+    EncodingError,
+    BenchmarkDriftError,
+    ConfigurationError,
+)
 from .token_reduction import (
     calculate_reduction,
     token_count,
-    BenchmarkDriftError,
-    EncodingError,
-    TokenReductionError,
 )
 from .token_report import build_token_report, load_commands, load_modules
 from .parser import CompTextParser, CompTextCommand, parse
@@ -32,10 +43,19 @@ __all__ = [
     # Token utilities
     "token_count",
     "calculate_reduction",
-    # Exceptions
+    # Exception hierarchy
+    "CompTextError",
+    "ParserError",
+    "InvalidSyntaxError",
+    "UnknownCommandError",
+    "ExecutionError",
+    "ModuleNotFoundError_",
+    "CommandNotFoundError",
+    "HandlerError",
     "TokenReductionError",
     "EncodingError",
     "BenchmarkDriftError",
+    "ConfigurationError",
     # Report utilities
     "build_token_report",
     "load_commands",
@@ -48,7 +68,7 @@ __all__ = [
     "CompTextREPL",
     "parse",
     "execute",
-    # New: SQLite Store & Registry
+    # SQLite Store & Registry
     "CodexStore",
     "registry",
     "codex_module",

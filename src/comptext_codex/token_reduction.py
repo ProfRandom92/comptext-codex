@@ -24,16 +24,14 @@ logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Enterprise exception hierarchy
+# Re-export from central exceptions module for backward compatibility.
 # ---------------------------------------------------------------------------
 
-class TokenReductionError(Exception):
-    """Base exception for token reduction operations."""
-
-class EncodingError(TokenReductionError):
-    """Raised when BPE encoding fails or is unavailable."""
-
-class BenchmarkDriftError(TokenReductionError):
-    """Raised when pinned benchmark values drift from expected."""
+from .exceptions import (  # noqa: E402
+    TokenReductionError,
+    EncodingError,
+    BenchmarkDriftError,
+)
 
 # ---------------------------------------------------------------------------
 # Encoding singleton – avoids repeated deserialization of the BPE vocabulary
@@ -222,19 +220,12 @@ EXPECTED_AGGREGATE_PCT: Final[float] = 93.1
 
 
 # ---------------------------------------------------------------------------
-# Core token counting
+# Core token counting (with LRU cache for repeated inputs)
 # ---------------------------------------------------------------------------
 
-def token_count(text: str, model: str = ENCODING_MODEL) -> int:
-    """Return a precise token count using tiktoken BPE (cl100k_base).
-
-    Falls back to a regex-based heuristic if tiktoken is unavailable.
-    The fallback is intentionally conservative and will produce different
-    values than BPE – CI tests guard against accidental fallback usage.
-    """
-    if not text:
-        return 0
-
+@functools.lru_cache(maxsize=1024)
+def _cached_token_count(text: str, model: str) -> int:
+    """Cached inner implementation of token counting."""
     if TIKTOKEN_AVAILABLE:
         try:
             enc = _get_encoding(model)
@@ -245,6 +236,20 @@ def token_count(text: str, model: str = ENCODING_MODEL) -> int:
     # Regex fallback: split on word boundaries AND punctuation
     tokens = re.findall(r"\w+|[^\w\s]", text, re.UNICODE)
     return len(tokens)
+
+
+def token_count(text: str, model: str = ENCODING_MODEL) -> int:
+    """Return a precise token count using tiktoken BPE (cl100k_base).
+
+    Results are cached (LRU, up to 1024 entries) to avoid redundant
+    encoding of the same text.  Falls back to a regex-based heuristic
+    if tiktoken is unavailable.  The fallback is intentionally
+    conservative and will produce different values than BPE – CI tests
+    guard against accidental fallback usage.
+    """
+    if not text:
+        return 0
+    return _cached_token_count(text, model)
 
 
 # ---------------------------------------------------------------------------

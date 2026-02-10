@@ -112,10 +112,18 @@ comptext-mcp
 
 ## 📚 Documentation
 
-- **[Quick Start Guide](./docs/quickstart/QUICK_START_V5.md)** - 5-minute tutorial
-- **[Complete User Guide](./docs/archive/README_V5.md)** - Full documentation
-- **[Technical Specification](spec/module_h_hyper_compression.md)** - Protocol details
-- **[OpenClaw Integration](integrations/openclaw/README.md)** - Agent optimization
+| Guide | Description |
+|:------|:------------|
+| **[Quick Start](./docs/quickstart/QUICK_START_V5.md)** | 5-minute tutorial to get up and running |
+| **[Syntax Reference](./docs/guides/syntax.md)** | Full command, language, and modifier reference |
+| **[Module Guide](./docs/guides/modules.md)** | Overview of all 14 modules (A-N) |
+| **[API Reference](./docs/api/)** | Parser, Executor, and Module APIs |
+| **[MCP Integration](./docs/tutorials/mcp-integration.md)** | Setting up the MCP server for agent teams |
+| **[OpenClaw Integration](./integrations/openclaw/README.md)** | Agent optimization skill |
+| **[Technical Spec](./spec/module_h_hyper_compression.md)** | Protocol details and hyper-compression |
+| **[Exception Hierarchy](./src/comptext_codex/exceptions.py)** | Unified error handling reference |
+| **[Changelog](./CHANGELOG_V5.md)** | Release notes and migration guide |
+| **[Contributing](./CONTRIBUTING.md)** | How to contribute to CompText |
 
 ---
 

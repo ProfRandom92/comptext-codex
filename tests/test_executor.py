@@ -81,8 +81,9 @@ class TestCompTextExecutor:
         results = executor.execute("@UNKNOWN_COMMAND[param=value]")
 
         assert len(results) == 1
-        # Should not fail, but return simulated result
-        assert results[0].success is True
+        # Unknown commands on a registered module now report failure
+        # with a structured error (CommandNotFoundError).
+        assert results[0].error is not None
 
     def test_execute_convenience_function(self):
         """Test convenience execute function."""

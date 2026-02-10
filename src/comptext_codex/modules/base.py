@@ -7,6 +7,8 @@ decorator system), but it provides a convenient ``execute`` dispatcher.
 from abc import ABC
 from typing import Any, Dict, List
 
+from comptext_codex.exceptions import CommandNotFoundError, HandlerError
+
 
 class BaseModule(ABC):
     """Base class for all CompText modules.
@@ -29,5 +31,14 @@ class BaseModule(ABC):
         handler_name = f"execute_{cmd.command.lower()}"
         if hasattr(self, handler_name):
             handler = getattr(self, handler_name)
-            return handler(*cmd.args, context=context, **cmd.kwargs)
-        raise NotImplementedError(f"Command {cmd.command} not implemented in {self.__class__.__name__}")
+            try:
+                return handler(*cmd.args, context=context, **cmd.kwargs)
+            except (CommandNotFoundError, HandlerError):
+                raise
+            except Exception as exc:
+                raise HandlerError(
+                    f"{self.__class__.__name__}.{handler_name} failed: {exc}"
+                ) from exc
+        raise CommandNotFoundError(
+            f"Command {cmd.command} not implemented in {self.__class__.__name__}"
+        )
