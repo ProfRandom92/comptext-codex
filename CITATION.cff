@@ -1,5 +1,4 @@
-citation-format: ciff-version
-version: 1.2.0
+cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "CompText Codex Library"
 authors:

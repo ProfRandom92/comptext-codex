@@ -89,7 +89,7 @@ Homepage = "https://comptext-txsu.vercel.app"
 Documentation = "https://profrandom92.github.io/comptext-docs"
 Repository = "https://github.com/ProfRandom92/comptext-codex"
 Issues = "https://github.com/ProfRandom92/comptext-codex/issues"
-Changelog = "https://github.com/ProfRandom92/comptext-codex/blob/main/CHANGELOG_V5.md"
+Changelog = "https://github.com/ProfRandom92/comptext-codex/blob/main/docs/CHANGELOG_V5.md"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

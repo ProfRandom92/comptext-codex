@@ -113,9 +113,9 @@ comptext-mcp
 ## 📚 Documentation
 
 - **[Quick Start Guide](./docs/quickstart/QUICK_START_V5.md)** - 5-minute tutorial
-- **[Complete User Guide](./docs/archive/README_V5.md)** - Full documentation
-- **[Technical Specification](spec/module_h_hyper_compression.md)** - Protocol details
-- **[OpenClaw Integration](integrations/openclaw/README.md)** - Agent optimization
+- **[Getting Started](./docs/guides/getting-started.md)** - Installation and first steps
+- **[Technical Specification](./spec/module_h_hyper_compression.md)** - Protocol details
+- **[Changelog](./docs/CHANGELOG_V5.md)** - Release history
 
 ---
 

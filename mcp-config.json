@@ -2,7 +2,7 @@
   "mcpServers": {
     "comptext": {
       "command": "python",
-      "args": ["C:\\comptext-codex\\server.py"],
+      "args": ["server.py"],
       "env": {},
       "description": "CompText Speed Server - High-speed context analyzer for Agent Teams"
     }
