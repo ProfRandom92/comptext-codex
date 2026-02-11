@@ -1,6 +1,7 @@
 """CompText V5.0 ULTRA MCP Server Implementation."""
 
 import json
+import sys
 from typing import Any, Dict, List, Optional
 from dataclasses import dataclass, asdict
 
