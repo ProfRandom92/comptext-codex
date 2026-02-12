@@ -7,6 +7,7 @@ Migration from Notion/YAML to SQLite-based architecture provides:
 - Type-safe metadata via dataclasses
 """
 
+from .kvtc import KVTCCompressor
 from .token_reduction import (
     calculate_reduction,
     token_count,
@@ -29,6 +30,8 @@ from .registry import (
 )
 
 __all__ = [
+    # KVTC Strategy
+    "KVTCCompressor",
     # Token utilities
     "token_count",
     "calculate_reduction",
