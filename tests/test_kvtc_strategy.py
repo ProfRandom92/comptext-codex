@@ -83,7 +83,7 @@ class TestKVTCStrategy:
         assert compressor.compress("") == ""
 
     def test_custom_sink_window_sizes(self) -> None:
-        """Custom sink/window sizes are honoured."""
+        """Custom sink/window sizes are honored."""
         text = _make_varied_text(500)
         compressor = KVTCCompressor(sink_chars=50, window_chars=100)
         result = compressor.compress(text)

@@ -9,8 +9,6 @@ intact and reduces overall token count.
 
 from __future__ import annotations
 
-from typing import Optional
-
 from .modules.module_a import ModuleA
 
 
