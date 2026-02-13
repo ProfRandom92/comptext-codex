@@ -1,7 +1,7 @@
 """Comprehensive tests for CompText V5.0 ULTRA Parser."""
 
 import pytest
-from src.comptext_codex.parser_v5 import (
+from comptext_codex.parser_v5 import (
     CompTextParserV5,
     CompTextCommandV5,
     parse_v5,

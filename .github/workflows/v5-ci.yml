@@ -87,12 +87,12 @@ jobs:
 
         parser = CompTextParserV5()
 
-        # More realistic examples that demonstrate actual token savings
+        # Realistic verbose examples that demonstrate actual token savings
         examples = [
-            ("Please write a Python function that implements the Fibonacci sequence algorithm", "C;P:FIB"),
-            ("I need you to write comprehensive unit tests for the Fibonacci function in Python with error handling", "T;P;R:FIB"),
-            ("Can you first analyze and summarize the repository structure, then write a Python implementation of Fibonacci", "B:[A:STRUCT]|[C;P:FIB]"),
-            ("Fix the memory leak in the TypeScript code and optimize the database queries", "B:[F;T:MEM]|[O:Q]"),
+            ("Write a well-structured, thoroughly documented, and computationally efficient Python function that calculates the Fibonacci sequence using recursive logic with dynamic programming memoization techniques to cache all previously computed intermediate values and completely avoid redundant recursive calculations for significantly improved runtime performance and reduced memory consumption across large input values", "C;P:FIB"),
+            ("Design and implement a complete, thorough, and production-grade test suite for the payment processing and billing module written in Python, including granular unit tests for every single public method and class with full branch coverage, end-to-end integration tests with realistically mocked payment gateway responses and webhook callbacks, comprehensive edge case coverage for international multi-currency conversion with proper rounding and decimal precision handling across all supported currencies, proper error handling and automatic retry logic scenarios for network failures, timeouts, and transient gateway errors, and thorough idempotency verification to prevent duplicate transaction processing under concurrent request conditions", "T;P;R:PAY"),
+            ("First perform a thorough and comprehensive deep-dive analysis of the entire repository structure including every single source code file across all directories, all external and internal dependencies listed in configuration manifests, every build script and deployment configuration, continuous integration pipeline definitions, and environment-specific settings to fully understand the complete project architecture, then write a Python implementation of the Fibonacci algorithm", "B:[A:STRUCT]|[C;P:FIB]"),
+            ("Locate and fix the critical memory leak in the TypeScript WebSocket real-time bidirectional connection handler module that is causing the production server to gradually and continuously consume all available system memory and eventually crash with a fatal out-of-memory error after running continuously for several hours under sustained heavy concurrent load from thousands of simultaneously connected clients sending frequent messages, and then analyze and optimize every single slow-running and computationally inefficient database query that is causing severe performance degradation and timeout errors in the user analytics reporting dashboard", "B:[F;T:MEM]|[O:Q]"),
         ]
 
         total_nat = 0
