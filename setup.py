@@ -8,7 +8,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="comptext-codex",
-    version="5.0.3",
+    version="5.0.4",
     author="CompText Team",
     description="CompText V5.0 ULTRA - 94% Token Reduction Protocol for LLM Communication",
     long_description=long_description,
