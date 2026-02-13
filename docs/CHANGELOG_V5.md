@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [5.0.4] - 2026-02-13
+
+### Stabilization & Architecture Readiness
+
+- CI/CD-Pipeline stabilisiert (robuste Token-Berechnung isoliert von externen Netzwerk-Dependencies).
+- Package-Imports bereinigt (src-Namespace Konflikte behoben).
+- Architektur-Readiness etabliert: Synergistische Nutzung von CompText (Application-Layer Token-Reduktion) mit Hardware-Layer Kompressionsverfahren wie NVIDIAs KV Cache Transform Coding (kvtc).
+
+---
+
 ## [5.0.3] - 2026-02-08
 
 ### Enterprise Hardening Release
