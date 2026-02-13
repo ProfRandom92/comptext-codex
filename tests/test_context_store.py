@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+from pydantic import ValidationError
 
 from comptext_codex.context_store import (
     CompressedState,
@@ -26,7 +27,8 @@ class TestCompressKvCachePy:
     def test_compressed_smaller_than_raw(self):
         data = [float(i) / 1000 for i in range(1000)]
         compressed = _compress_kv_cache_py(data, 4)
-        assert len(compressed) < len(data)
+        # Raw float32 data would be 4000 bytes; compressed should be smaller
+        assert len(compressed) < len(data) * 4
 
     def test_bit_budget_affects_output(self):
         data = [0.5, 1.0, 0.25]
@@ -60,7 +62,7 @@ class TestCompressedState:
         assert state.bit_budget == 8
 
     def test_bit_budget_validation_min(self):
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             CompressedState(
                 state_id="test-3",
                 payload=b"\x00",
@@ -69,7 +71,7 @@ class TestCompressedState:
             )
 
     def test_bit_budget_validation_max(self):
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             CompressedState(
                 state_id="test-4",
                 payload=b"\x00",
