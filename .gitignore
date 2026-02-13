@@ -210,3 +210,7 @@ __marimo__/
 codex.db
 pr-sync-bundle.bundle
 TOKEN_REDUCTION_RESULTS.md
+
+# Rust build artifacts
+src/comptext_codex/rust_core/target/
+src/comptext_codex/rust_core/Cargo.lock

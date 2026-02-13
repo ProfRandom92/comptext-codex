@@ -19,6 +19,7 @@ from .parser import CompTextParser, CompTextCommand, parse
 from .executor import CompTextExecutor, ExecutionResult, execute
 from .repl import CompTextREPL
 from .store import CodexStore
+from .context_store import ContextStore, CompressedState
 from .registry import (
     registry,
     codex_module,
@@ -50,6 +51,9 @@ __all__ = [
     "execute",
     # New: SQLite Store & Registry
     "CodexStore",
+    # KVTC Context Store
+    "ContextStore",
+    "CompressedState",
     "registry",
     "codex_module",
     "codex_command",

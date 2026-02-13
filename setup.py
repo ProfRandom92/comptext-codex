@@ -31,6 +31,7 @@ setup(
     python_requires=">=3.10",
     install_requires=[
         "click>=8.0.0",
+        "numpy>=1.24.0",
         "pydantic>=2.0.0",
         "pyyaml>=6.0",
         "rich>=13.0.0",
