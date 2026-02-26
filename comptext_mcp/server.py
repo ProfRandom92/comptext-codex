@@ -6,6 +6,7 @@ import logging
 
 from comptext_codex.parser import CompTextParser
 from comptext_codex.executor import CompTextExecutor
+from comptext_codex.kvtc import KVTCCompressor
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +27,7 @@ class CompTextMCPServer:
         self.codex_dir = codex_dir
         self.parser = CompTextParser(codex_dir=codex_dir)
         self.executor = CompTextExecutor(codex_dir=codex_dir)
+        self.kvtc = KVTCCompressor()
         self.tools: Dict[str, Dict[str, Any]] = {}
         self._register_tools()
 
@@ -56,6 +58,29 @@ class CompTextMCPServer:
                 'command': cmd['command']
             }
 
+        # Register KVTC-based compress_content tool
+        self.tools['compress_content'] = {
+            'name': 'compress_content',
+            'description': (
+                'Compress content using the KVTC strategy. '
+                'Preserves system instructions (Attention Sinks at the start) '
+                'and recent context (Sliding Window at the end) while '
+                'compressing the middle section.'
+            ),
+            'input_schema': {
+                'type': 'object',
+                'properties': {
+                    'text': {
+                        'type': 'string',
+                        'description': 'Text content to compress'
+                    }
+                },
+                'required': ['text']
+            },
+            'module': 'A',
+            'command': 'compress_content'
+        }
+
     def list_tools(self) -> List[Dict[str, Any]]:
         """List available MCP tools.
 
@@ -66,6 +91,9 @@ class CompTextMCPServer:
 
     def call_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """Execute an MCP tool.
+
+        Uses the KVTC strategy by default for ``compress_content``, which
+        preserves system instructions (Sinks) and recent context (Window).
 
         Args:
             tool_name: Name of the tool to execute
@@ -79,6 +107,25 @@ class CompTextMCPServer:
         """
         if tool_name not in self.tools:
             raise ValueError(f"Tool {tool_name} not found")
+
+        # Handle compress_content via KVTC compressor
+        if tool_name == 'compress_content':
+            text = arguments.get('text', '')
+            try:
+                compressed = self.kvtc.compress(text)
+                return {
+                    'success': True,
+                    'result': compressed,
+                    'error': None,
+                    'metadata': {'strategy': 'kvtc'}
+                }
+            except Exception as e:
+                logger.error("Error in compress_content: %s", e)
+                return {
+                    'success': False,
+                    'result': None,
+                    'error': str(e)
+                }
 
         command = arguments.get('command', '')
         context = arguments.get('context', {})
