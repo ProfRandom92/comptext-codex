@@ -1,0 +1,29 @@
+{
+  "_comment": "Copy this to ~/ai-lab/mcp/hermes-mcp.json and fill in YOUR_USER and YOUR_PAT_HERE. Do NOT commit the filled version.",
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/YOUR_USER/ai-lab/repos"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_PAT_HERE"
+      }
+    },
+    "comptext": {
+      "command": "python3",
+      "args": ["-m", "comptext_mcp.server"],
+      "cwd": "/home/YOUR_USER/ai-lab/repos/comptext-mcp-server",
+      "env": {
+        "COMPTEXT_MODE": "local",
+        "COMPTEXT_DB": "/home/YOUR_USER/ai-lab/repos/comptext-mcp-server/data/index.db"
+      }
+    }
+  }
+}
