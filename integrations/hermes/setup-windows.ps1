@@ -66,11 +66,13 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# --- 7. Hermes installieren (Node 18+ vorausgesetzt) ---
+# --- 7. Hermes installieren (lokal, ohne Admin-Rechte) ---
 $nodeVer = node --version 2>$null
 if ($nodeVer) {
     Write-Host "Node-Version: $nodeVer" -ForegroundColor Green
-    npm install -g @nousresearch/hermes-agent
+    # Lokal in $AI_LAB installieren — kein -g, keine EACCES-Probleme
+    npm install --prefix "$AI_LAB" @nousresearch/hermes-agent
+    $env:PATH = "$AI_LAB\node_modules\.bin;$env:PATH"
     hermes --version
 } else {
     Write-Host "Node.js nicht gefunden. Bitte installieren: https://nodejs.org" -ForegroundColor Red
@@ -81,13 +83,20 @@ if ($nodeVer) {
 Copy-Item "$AI_LAB\repos\comptext-codex\SOUL.md"     "$AI_LAB\hermes-home\SOUL.md"     -Force
 Copy-Item "$AI_LAB\repos\comptext-codex\.hermes.md"  "$AI_LAB\hermes-home\.hermes.md"  -Force
 
-# --- 9. MCP-Config aus Template erstellen ---
+# --- 9. MCP-Config erstellen + Pfade dynamisch eintragen ---
 Copy-Item "$AI_LAB\repos\comptext-codex\integrations\hermes\mcp-config.example.json" `
           "$AI_LAB\mcp\hermes-mcp.json" -Force
 
-# Platzhalter automatisch ersetzen
+# JSON-sichere Pfade: Backslashes escapen (Single -> Double)
+$JsonAI_LAB   = ($AI_LAB -replace '\\', '\\\\')
+$JsonVenvPy   = ("$AI_LAB\venv-comptext\Scripts\python.exe" -replace '\\', '\\\\')
+$JsonMCPExe   = ("$AI_LAB\venv-comptext\Scripts\comptext-mcp.exe" -replace '\\', '\\\\')
+
 (Get-Content "$AI_LAB\mcp\hermes-mcp.json") `
-    -replace "YOUR_USER", $env:USERNAME `
+    -replace 'YOUR_USER',        $env:USERNAME `
+    -replace 'YOUR_AI_LAB',      $JsonAI_LAB `
+    -replace '"comptext-mcp"',   "`"$JsonMCPExe`"" `
+    -replace '"python3"',        "`"$JsonVenvPy`"" `
     | Set-Content "$AI_LAB\mcp\hermes-mcp.json"
 
 # --- 10. Abschluss ---
@@ -98,7 +107,7 @@ Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "JETZT BEARBEITEN: $AI_LAB\mcp\hermes-mcp.json"
 Write-Host "  -> YOUR_PAT_HERE ersetzen durch deinen GitHub PAT"
-Write-Host "  (YOUR_USER wurde bereits automatisch auf '$env:USERNAME' gesetzt)"
+Write-Host "  (YOUR_USER + Pfade wurden automatisch gesetzt)"
 Write-Host ""
 Write-Host "Dann starten:"
 Write-Host "  cd $AI_LAB\hermes-home"
@@ -107,5 +116,7 @@ Write-Host ""
 Write-Host "Erster Prompt:"
 Write-Host "  > Read SOUL.md and .hermes.md, then summarize your operating parameters."
 Write-Host ""
-Write-Host "venv bei jedem neuen Terminal reaktivieren:"
+Write-Host "venv reaktivieren (bei neuem Terminal):"
 Write-Host "  & $AI_LAB\venv-comptext\Scripts\Activate.ps1"
+Write-Host "PATH für Hermes reaktivieren:"
+Write-Host "  `$env:PATH = '$AI_LAB\node_modules\.bin;' + `$env:PATH"
