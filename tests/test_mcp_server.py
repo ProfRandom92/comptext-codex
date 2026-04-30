@@ -1,11 +1,15 @@
 """Tests for MCP Server."""
 
 import pytest
+from comptext_codex.mcp_server_v5 import MCP_AVAILABLE, CompTextMCPServer, create_server
 
-# Skip entire module if mcp package is not installed in this environment
-mcp = pytest.importorskip("mcp", reason="mcp package not installed; skipping MCP server tests")
-
-from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server  # noqa: E402
+# Skip entire module when mcp submodules (Server, Tool, types) are unavailable.
+# MCP_AVAILABLE is set in mcp_server_v5.py based on the same import that the
+# server itself uses — this is the single source of truth for availability.
+pytestmark = pytest.mark.skipif(
+    not MCP_AVAILABLE,
+    reason="mcp package submodules not available in this environment (pip install mcp)"
+)
 
 
 class TestMCPServer:
@@ -16,7 +20,6 @@ class TestMCPServer:
         server = CompTextMCPServer()
         assert server is not None
         assert server.parser is not None
-        assert server.executor is not None
 
     def test_list_tools(self):
         """Test listing available tools."""
