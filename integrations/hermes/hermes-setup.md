@@ -41,6 +41,30 @@ python -c "from comptext_codex.mcp_server_v5 import create_server; print('MCP im
 
 ---
 
+## Verify Installation Path (important for MCP config)
+
+Run this after `pip install -e ".[mcp]"` to understand how the package is installed:
+
+```bash
+python -c "import comptext_codex; print(comptext_codex.__file__)"
+```
+
+**Interpret the output:**
+
+| Output path contains | Meaning | Action |
+|---|---|---|
+| `.../site-packages/comptext_codex/__init__.py` | Clean install in site-packages | Remove `PYTHONPATH` from `hermes-mcp.json` |
+| `.../comptext-codex/src/comptext_codex/__init__.py` | Editable install via `.pth` file | `PYTHONPATH` is redundant but harmless — can remove |
+| `ModuleNotFoundError` | Package not installed in active environment | Re-run `pip install -e ".[mcp]"` in the **correct** venv |
+
+> **If the import fails**, the problem is the Python environment — not `PYTHONPATH`.
+> The MCP server process must run in the **same environment** where `pip install` was executed.
+> If Hermes spawns the server in a subprocess, verify it inherits your venv or uses the full Python path.
+
+`PYTHONPATH` in the MCP config is kept as a fallback for edge cases (e.g., the MCP host spawns processes without inheriting the shell environment). Once verified that the import works without it, you can remove it.
+
+---
+
 ## Directory Layout
 
 ```
@@ -97,6 +121,8 @@ The example template is at `integrations/hermes/mcp-config.example.json`.
 > ⚠️ Replace `YOUR_USER` and `YOUR_PAT_HERE` before use.
 > `comptext-mcp` must be on your PATH (run `pip install -e ".[mcp]"` in comptext-codex first).
 > **Never commit this file with real credentials.**
+>
+> Run the installation path verification above before deciding whether to keep or remove `PYTHONPATH`.
 
 ---
 
@@ -194,6 +220,7 @@ Start with Phase 1. Move to the next phase only after verifying the previous one
 | `comptext-mcp: command not found` | Run `pip install -e ".[mcp]"` in comptext-codex root |
 | `ImportError: MCP package not installed` | Run `pip install mcp` or `pip install -e ".[mcp]"` |
 | `from comptext_codex import ...` fails | Run `pip install -e .` first; package uses src-layout |
+| Import works in shell but fails via Hermes MCP | Hermes spawns a subprocess — set full Python path as `command` or keep `PYTHONPATH` in env |
 | Hermes creates commits on `main` | Re-read SOUL.md; check `.hermes.md` Forbidden Actions |
 | pytest import errors | Ensure `pip install -e .` was run in comptext-codex |
 | GitHub PAT permission denied | Verify PAT has `repo` scope and is for ProfRandom92 account |
