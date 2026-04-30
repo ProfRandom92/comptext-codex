@@ -1,7 +1,7 @@
 """Tests for MCP Server."""
 
 import pytest
-from comptext_mcp.server import CompTextMCPServer, create_server
+from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server
 
 
 class TestMCPServer:
