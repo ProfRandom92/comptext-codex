@@ -3,6 +3,10 @@
 MCP_AVAILABLE is patched to True for every test via the autouse fixture so
 these tests always run — no skips, regardless of whether the mcp package
 is installed in the test environment.
+
+Note: the old `Server` mock is intentionally removed — the module no longer
+exposes a `Server` symbol after the FastMCP refactor.  Only MCP_AVAILABLE
+needs patching for environments where mcp is not installed.
 """
 import pytest
 from unittest.mock import MagicMock
@@ -10,9 +14,8 @@ from unittest.mock import MagicMock
 
 @pytest.fixture(autouse=True)
 def mock_mcp(monkeypatch):
-    """Patch MCP_AVAILABLE=True and Server=MagicMock for every test."""
+    """Patch MCP_AVAILABLE=True for every test."""
     monkeypatch.setattr("comptext_codex.mcp_server_v5.MCP_AVAILABLE", True)
-    monkeypatch.setattr("comptext_codex.mcp_server_v5.Server", MagicMock)
 
 
 from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server  # noqa: E402
@@ -22,7 +25,7 @@ class TestMCPServer:
     """Test cases for CompText MCP Server."""
 
     def test_server_initialization(self):
-        """Test server initializes correctly."""
+        """Test server initialises correctly."""
         server = CompTextMCPServer()
         assert server is not None
         assert server.parser is not None

@@ -45,12 +45,15 @@ _EXPECTED_TOOLS = {
 
 @pytest.mark.asyncio
 async def test_initialize_returns_correct_server_info() -> None:
-    """Server must respond to initialize with correct name and version."""
+    """Server must respond to initialize with the correct server name.
+
+    Note: FastMCP reports the MCP SDK version in serverInfo.version, not the
+    application version.  We therefore only assert on the server name.
+    """
     async with stdio_client(_SERVER_PARAMS) as (read, write):
         async with ClientSession(read, write) as session:
             result = await session.initialize()
     assert result.serverInfo.name == "comptext-v5-ultra"
-    assert result.serverInfo.version == "5.0.0"
 
 
 @pytest.mark.asyncio
@@ -76,9 +79,9 @@ async def test_call_parse_v5_simple_command() -> None:
     assert data["success"] is True
     assert data["count"] >= 1
     cmd = data["commands"][0]
-    assert cmd["command_char"] == "C", f"Expected command_char='C', got {cmd['command_char']!r}"
-    assert cmd["language_char"] == "P", f"Expected language_char='P', got {cmd['language_char']!r}"
-    assert cmd["task"] == "FIB", f"Expected task='FIB', got {cmd['task']!r}"
+    assert cmd["command_char"] == "C", f"Expected 'C', got {cmd['command_char']!r}"
+    assert cmd["language_char"] == "P", f"Expected 'P', got {cmd['language_char']!r}"
+    assert cmd["task"] == "FIB", f"Expected 'FIB', got {cmd['task']!r}"
 
 
 @pytest.mark.asyncio
@@ -112,9 +115,15 @@ async def test_call_get_v5_reference_returns_full_catalogue() -> None:
 
 @pytest.mark.asyncio
 async def test_call_tool_unknown_tool_returns_error() -> None:
-    """Calling a nonexistent tool must return an error, not crash the server."""
+    """Calling a nonexistent tool must return an error response.
+
+    FastMCP returns isError=True rather than raising a client-side exception,
+    so we check the response flag instead of using pytest.raises.
+    """
     async with stdio_client(_SERVER_PARAMS) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
-            with pytest.raises(Exception):
-                await session.call_tool("nonexistent_tool", {})
+            result = await session.call_tool("nonexistent_tool", {})
+    assert result.isError is True, (
+        "Expected isError=True for unknown tool, got a successful response"
+    )

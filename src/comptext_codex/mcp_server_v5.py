@@ -201,8 +201,11 @@ class CompTextMCPServer:
     # ------------------------------------------------------------------
 
     def list_tools(self) -> List[Dict[str, Any]]:
-        """Return list of registered tool names."""
-        return [{"name": name} for name in _TOOL_FUNCS]
+        """Return list of registered tools with name and description."""
+        return [
+            {"name": name, "description": (fn.__doc__ or "").strip().splitlines()[0]}
+            for name, fn in _TOOL_FUNCS.items()
+        ]
 
     def call_tool(self, name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         """Call a tool by name (synchronous shim for unit tests)."""
