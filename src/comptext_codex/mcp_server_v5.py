@@ -6,14 +6,18 @@ from typing import Any, Dict, List, Optional
 from dataclasses import dataclass, asdict
 
 try:
-    from mcp import Server, Tool, types
+    from mcp.server import Server
+    from mcp.types import Tool
+    import mcp.types as types
     MCP_AVAILABLE = True
 except ImportError:
     MCP_AVAILABLE = False
-    # Fallback for when MCP is not installed
-    class Server:
+    # Fallback stubs so the module remains importable without mcp installed
+    class Server:  # type: ignore[no-redef]
         pass
-    class Tool:
+    class Tool:  # type: ignore[no-redef]
+        pass
+    class types:  # type: ignore[no-redef]
         pass
 
 from .parser_v5 import CompTextParserV5, CompTextCommandV5
