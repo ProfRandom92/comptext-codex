@@ -19,6 +19,28 @@ hermes --version
 
 ---
 
+## Install CompText Codex (required before starting MCP)
+
+The `comptext-mcp` CLI script is only available after installing the package:
+
+```bash
+cd ~/ai-lab/repos/comptext-codex
+
+# Install with MCP extras
+pip install -e ".[mcp]"
+
+# Verify the MCP entrypoint is available
+comptext-mcp --help
+
+# Verify the MCP server can be imported (stdio server — no HTTP, no --dry-run)
+python -c "from comptext_codex.mcp_server_v5 import create_server; print('MCP import OK')"
+```
+
+> ⚠️ `comptext-mcp` starts a **stdio MCP server**. It does not expose HTTP endpoints and has no `--dry-run` flag.
+> The import test above is the correct way to verify the server is functional.
+
+---
+
 ## Directory Layout
 
 ```
@@ -29,7 +51,6 @@ hermes --version
   repos/
     comptext-codex/    ← git clone https://github.com/ProfRandom92/comptext-codex
     comptext-dsl/      ← git clone https://github.com/ProfRandom92/comptext-dsl (if exists)
-    comptext-mcp-server/ ← git clone https://github.com/ProfRandom92/comptext-mcp-server
   mcp/
     hermes-mcp.json    ← see MCP config section below
 ```
@@ -38,7 +59,8 @@ hermes --version
 
 ## MCP Configuration
 
-Save as `~/ai-lab/mcp/hermes-mcp.json`:
+Save as `~/ai-lab/mcp/hermes-mcp.json`.
+The example template is at `integrations/hermes/mcp-config.example.json`.
 
 ```json
 {
@@ -61,20 +83,20 @@ Save as `~/ai-lab/mcp/hermes-mcp.json`:
       "description": "GitHub: issues, PRs, branches for ProfRandom92 repos"
     },
     "comptext": {
-      "command": "python3",
-      "args": ["-m", "comptext_mcp.server"],
-      "cwd": "/home/YOUR_USER/ai-lab/repos/comptext-mcp-server",
+      "command": "comptext-mcp",
+      "args": [],
       "env": {
-        "COMPTEXT_MODE": "local",
-        "COMPTEXT_DB": "/home/YOUR_USER/ai-lab/repos/comptext-mcp-server/data/index.db"
+        "PYTHONPATH": "/home/YOUR_USER/ai-lab/repos/comptext-codex/src"
       },
-      "description": "CompText MCP Server — module search, DSL queries, health check"
+      "description": "CompText V5 MCP Server (stdio) — parse, encode, benchmark, token reduction"
     }
   }
 }
 ```
 
-> ⚠️ Replace `YOUR_USER` and `YOUR_PAT_HERE` before use. Never commit this file with real secrets.
+> ⚠️ Replace `YOUR_USER` and `YOUR_PAT_HERE` before use.
+> `comptext-mcp` must be on your PATH (run `pip install -e ".[mcp]"` in comptext-codex first).
+> **Never commit this file with real credentials.**
 
 ---
 
@@ -119,16 +141,23 @@ Task: "Read SOUL.md and .hermes.md for context. Then:
 6. If pytest passes and you find a trivial fix (single file, <10 lines): create a hermes/* branch and open a draft PR."
 ```
 
-### Job 2 — MCP Health Check
+### Job 2 — MCP Server Verification
 ```
 Schedule: every day at 08:00
-Task: "Call the comptext MCP server /health endpoint. If it returns non-200, write a one-line alert to /reports/mcp-health.log and create a GitHub issue titled 'hermes: MCP server health check failed YYYY-MM-DD'."
+Task: "Run: python -c 'from comptext_codex.mcp_server_v5 import create_server; print(\"MCP OK\")'
+If the import fails, append a one-line error to /reports/mcp-health.log
+and create a GitHub issue titled 'hermes: MCP server import failed YYYY-MM-DD'."
 ```
+
+> Note: `comptext-mcp` is a stdio server — there is no HTTP /health endpoint to poll.
+> The import test above is the correct health check mechanism.
 
 ### Job 3 — Weekly Spec Drift Check
 ```
 Schedule: every Monday at 07:00
-Task: "Compare all files in /spec with their corresponding /examples and /tests. For each spec construct, verify: (a) there is at least one example, (b) there is at least one test. Report gaps as a markdown table in /reports/spec-drift-YYYY-WW.md."
+Task: "Compare all files in /spec with their corresponding /examples and /tests.
+For each spec construct, verify: (a) there is at least one example, (b) there is at least one test.
+Report gaps as a markdown table in /reports/spec-drift-YYYY-WW.md."
 ```
 
 ---
@@ -150,7 +179,7 @@ Hermes will only ever create branches matching `hermes/*` and open draft PRs.
 | Phase | What Hermes can do | Trigger |
 |---|---|---|
 | **1 — Read-only** | Read files, run pytest locally, write reports | Manual |
-| **2 — MCP** | Query comptext MCP server for modules/search | Manual |
+| **2 — MCP** | Use comptext-mcp (stdio) for parse/encode/benchmark | Manual |
 | **3 — Write (branch)** | Create `hermes/*` branches, open draft PRs | Manual + Nightly |
 | **4 — Full automation** | All nightly jobs active, MCP health alerts | Nightly |
 
@@ -162,8 +191,10 @@ Start with Phase 1. Move to the next phase only after verifying the previous one
 
 | Problem | Solution |
 |---|---|
-| Hermes creates commits on `main` | Check `.hermes.md` Forbidden Actions section; re-read SOUL.md |
-| MCP server 503 on start | Wait 5s, retry. Check `python server.py --dry-run` manually |
+| `comptext-mcp: command not found` | Run `pip install -e ".[mcp]"` in comptext-codex root |
+| `ImportError: MCP package not installed` | Run `pip install mcp` or `pip install -e ".[mcp]"` |
+| `from comptext_codex import ...` fails | Run `pip install -e .` first; package uses src-layout |
+| Hermes creates commits on `main` | Re-read SOUL.md; check `.hermes.md` Forbidden Actions |
 | pytest import errors | Ensure `pip install -e .` was run in comptext-codex |
 | GitHub PAT permission denied | Verify PAT has `repo` scope and is for ProfRandom92 account |
-| Hermes ignores `.hermes.md` | Ensure file is in repo root and Hermes session was started from that directory |
+| Hermes ignores `.hermes.md` | Ensure file is in repo root and Hermes session started from that directory |

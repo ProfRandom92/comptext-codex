@@ -1,5 +1,10 @@
 {
   "_comment": "Copy this to ~/ai-lab/mcp/hermes-mcp.json and fill in YOUR_USER and YOUR_PAT_HERE. Do NOT commit the filled version.",
+  "_notes": [
+    "comptext-mcp is a stdio MCP server — no HTTP, no /health endpoint.",
+    "Run 'pip install -e .[mcp]' in comptext-codex before using the comptext server.",
+    "PYTHONPATH must point to comptext-codex/src (src-layout package)."
+  ],
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -17,12 +22,10 @@
       }
     },
     "comptext": {
-      "command": "python3",
-      "args": ["-m", "comptext_mcp.server"],
-      "cwd": "/home/YOUR_USER/ai-lab/repos/comptext-mcp-server",
+      "command": "comptext-mcp",
+      "args": [],
       "env": {
-        "COMPTEXT_MODE": "local",
-        "COMPTEXT_DB": "/home/YOUR_USER/ai-lab/repos/comptext-mcp-server/data/index.db"
+        "PYTHONPATH": "/home/YOUR_USER/ai-lab/repos/comptext-codex/src"
       }
     }
   }

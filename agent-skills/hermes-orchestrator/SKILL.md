@@ -1,7 +1,7 @@
 # SKILL: hermes-orchestrator
-**Version:** 1.0.0  
-**Author:** Hermes / ProfRandom92  
-**Last verified:** 2026-04-30  
+**Version:** 1.1.0
+**Author:** Hermes / ProfRandom92
+**Last verified:** 2026-04-30
 **Tags:** orchestration, comptext, repo-maintenance, mcp, review
 
 ---
@@ -71,8 +71,8 @@ Determine task type:
 ```
 1. For each file in /examples:
    a. Identify which spec section it demonstrates
-   b. Run: python -c "from comptext_codex import ...; ..." (or equivalent)
-   c. Compare actual output to expected output in example
+   b. Run example and capture output
+   c. Compare actual output to expected output (if .expected file exists)
    d. Flag mismatches
 2. Cross-check: every spec construct should have ≥1 example
 3. Output: consistency matrix in report
@@ -98,7 +98,7 @@ PRECONDITIONS:
 ```
 1. Write summary (max 12 bullet points)
 2. Prioritize: P1 (blocking), P2 (important), P3 (nice-to-have)
-3. If nightly sweep: send summary to configured output (Telegram/file/issue comment)
+3. If nightly sweep: append summary to /reports/nightly-YYYY-MM-DD.md
 4. Update this SKILL.md with any new pitfalls discovered
 ```
 
@@ -106,7 +106,15 @@ PRECONDITIONS:
 
 ## Pitfalls
 - **Grammar files are fragile.** Never edit `/grammar/` without running `python scripts/validate_grammar.py` immediately after.
-- **MCP server needs warm-up.** If `/health` returns 503 on first call, wait 3s and retry once.
+- **MCP server is stdio-only — no HTTP, no /health endpoint.**
+  The `comptext-mcp` command starts a stdio MCP server. There is no HTTP layer and no `/health` route.
+  To verify the server works, use the Python import check:
+  ```bash
+  python -c "from comptext_codex.mcp_server_v5 import create_server; print('OK')"
+  ```
+  The `mcp` package must be installed (`pip install -e ".[mcp]"`). If the import fails, that is the error — not a 503.
+- **MCP package is optional.** `mcp_server_v5.py` guards with `try/except ImportError`. If `MCP_AVAILABLE = False`, `create_server()` will raise `ImportError`. Always check with the import test above before assuming the server is running.
+- **src-layout — modules are under `src/`.** After cloning, run `pip install -e .` from repo root before any `python -c "from comptext_codex..."` call. Without this, Python cannot find the package.
 - **Example outputs may be cached.** If an example has a `.expected` file, always compare against it — not against your own generated output.
 - **Spec may have multiple versions.** Check `/spec/` for versioned files; always use the highest version.
 - **`pyproject.toml` vs `setup.py` conflict.** This repo has both — use `pyproject.toml` as the authoritative build config.
