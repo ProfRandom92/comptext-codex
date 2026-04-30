@@ -1,15 +1,21 @@
-"""Tests for MCP Server."""
+"""Tests for CompText MCP Server.
 
+MCP_AVAILABLE is patched to True for every test via the autouse fixture so
+these tests always run — no skips, regardless of whether the mcp package
+is installed in the test environment.
+"""
 import pytest
-from comptext_codex.mcp_server_v5 import MCP_AVAILABLE, CompTextMCPServer, create_server
+from unittest.mock import MagicMock
 
-# Skip entire module when mcp submodules (Server, Tool, types) are unavailable.
-# MCP_AVAILABLE is set in mcp_server_v5.py based on the same import that the
-# server itself uses — this is the single source of truth for availability.
-pytestmark = pytest.mark.skipif(
-    not MCP_AVAILABLE,
-    reason="mcp package submodules not available in this environment (pip install mcp)"
-)
+
+@pytest.fixture(autouse=True)
+def mock_mcp(monkeypatch):
+    """Patch MCP_AVAILABLE=True and Server=MagicMock for every test."""
+    monkeypatch.setattr("comptext_codex.mcp_server_v5.MCP_AVAILABLE", True)
+    monkeypatch.setattr("comptext_codex.mcp_server_v5.Server", MagicMock)
+
+
+from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server  # noqa: E402
 
 
 class TestMCPServer:
@@ -28,65 +34,59 @@ class TestMCPServer:
 
         assert isinstance(tools, list)
         assert len(tools) > 0
-        assert all('name' in tool for tool in tools)
-        assert all('description' in tool for tool in tools)
+        assert all("name" in tool for tool in tools)
+        assert all("description" in tool for tool in tools)
 
     def test_call_tool(self):
         """Test calling a tool."""
         server = CompTextMCPServer()
+        result = server.call_tool("parse_v5", {"command": "C;P:FIB"})
 
-        tools = server.list_tools()
-        if tools:
-            tool_name = tools[0]['name']
-            result = server.call_tool(tool_name, {'command': '@A:compress test text'})
-
-            assert 'success' in result
-            assert 'result' in result
+        assert "success" in result
+        assert result["success"] is True
+        assert "result" in result
 
     def test_call_nonexistent_tool(self):
-        """Test calling non-existent tool raises error."""
+        """Test calling non-existent tool raises ValueError."""
         server = CompTextMCPServer()
 
-        with pytest.raises(ValueError):
-            server.call_tool('nonexistent_tool', {})
+        with pytest.raises(ValueError, match="Unknown tool"):
+            server.call_tool("nonexistent_tool", {})
 
     def test_handle_tools_list_request(self):
         """Test handling tools/list request."""
         server = CompTextMCPServer()
-        response = server.handle_request('tools/list', {})
+        response = server.handle_request("tools/list", {})
 
-        assert 'tools' in response
-        assert isinstance(response['tools'], list)
+        assert "tools" in response
+        assert isinstance(response["tools"], list)
 
     def test_handle_tools_call_request(self):
         """Test handling tools/call request."""
         server = CompTextMCPServer()
-        tools = server.list_tools()
+        response = server.handle_request(
+            "tools/call",
+            {"name": "parse_v5", "arguments": {"command": "C;P:FIB"}},
+        )
 
-        if tools:
-            tool_name = tools[0]['name']
-            response = server.handle_request('tools/call', {
-                'name': tool_name,
-                'arguments': {'command': '@A:compress text'}
-            })
-
-            assert 'success' in response
+        assert "success" in response
+        assert response["success"] is True
 
     def test_handle_initialize_request(self):
         """Test handling initialize request."""
         server = CompTextMCPServer()
-        response = server.handle_request('initialize', {})
+        response = server.handle_request("initialize", {})
 
-        assert 'protocolVersion' in response
-        assert 'serverInfo' in response
-        assert 'capabilities' in response
+        assert "protocolVersion" in response
+        assert "serverInfo" in response
+        assert "capabilities" in response
 
     def test_handle_unknown_method(self):
-        """Test handling unknown method."""
+        """Test handling unknown method returns error."""
         server = CompTextMCPServer()
-        response = server.handle_request('unknown_method', {})
+        response = server.handle_request("unknown_method", {})
 
-        assert 'error' in response
+        assert "error" in response
 
     def test_create_server_factory(self):
         """Test server factory function."""
@@ -94,5 +94,5 @@ class TestMCPServer:
         assert isinstance(server, CompTextMCPServer)
 
 
-if __name__ == '__main__':
-    pytest.main([__file__, '-v'])
+if __name__ == "__main__":
+    pytest.main([__file__, "-v"])
