@@ -1,7 +1,11 @@
 """Tests for MCP Server."""
 
 import pytest
-from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server
+
+# Skip entire module if mcp package is not installed in this environment
+mcp = pytest.importorskip("mcp", reason="mcp package not installed; skipping MCP server tests")
+
+from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server  # noqa: E402
 
 
 class TestMCPServer:
@@ -28,7 +32,6 @@ class TestMCPServer:
         """Test calling a tool."""
         server = CompTextMCPServer()
 
-        # Get first available tool
         tools = server.list_tools()
         if tools:
             tool_name = tools[0]['name']
