@@ -1,0 +1,21 @@
+{
+  "schema": "SPARK-V7-SCHEMA",
+  "version": 1,
+  "name": "comptext_codex_plan_header_research_only",
+  "fixture_type": "synthetic_spark_style",
+  "required_field_paths": [
+    "$.plan_id",
+    "$.plan_sha256",
+    "$.catalog_sha256",
+    "$.step_count",
+    "$.execution_allowed",
+    "$.approval_state",
+    "$.research_only"
+  ],
+  "non_claims": [
+    "not_a_signature_or_human_approval",
+    "not_a_full_json_schema_validation",
+    "does_not_verify_tool_semantics",
+    "no_execution_authority"
+  ]
+}

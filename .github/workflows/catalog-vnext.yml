@@ -1,0 +1,79 @@
+name: Codex vNext Catalog Gate
+
+on:
+  push:
+    branches:
+      - experiment/codex-v6-catalog-gate-20261122
+  pull_request:
+    paths:
+      - "experiments/vnext/catalog*"
+      - "experiments/vnext/catalog_snapshots/**"
+      - "tests/test_vnext_catalog*.py"
+      - "tests/test_vnext_core_compiler.py"
+      - "tests/test_vnext_agy_core.py"
+      - "experiments/vnext/core*"
+      - "experiments/vnext/agy-*"
+      - "experiments/vnext/examples/**"
+      - ".github/workflows/catalog-vnext.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install isolated supported development dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,mcp]" "mcp>=1,<2" "pytest-asyncio"
+      - name: Full tests
+        run: python -m pytest tests/ -q --override-ini addopts="" --disable-warnings --tb=short
+      - name: Regenerate and compare complete catalog and review queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/codex-regenerated"
+          git show aa59150:codex.db > "$RUNNER_TEMP/codex-regenerated/codex.db"
+          python -m experiments.vnext.catalog_cli export --legacy-db "$RUNNER_TEMP/codex-regenerated/codex.db" --yaml-root codex --out "$RUNNER_TEMP/codex-regenerated/catalog.json"
+          cmp experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json "$RUNNER_TEMP/codex-regenerated/catalog.json"
+          python -m experiments.vnext.catalog_cli index --catalog "$RUNNER_TEMP/codex-regenerated/catalog.json" --out "$RUNNER_TEMP/codex-regenerated/index.sqlite"
+          python -m experiments.vnext.quality_gate --catalog "$RUNNER_TEMP/codex-regenerated/catalog.json" --out "$RUNNER_TEMP/codex-regenerated/review.md"
+          cmp experiments/vnext/review/legacy-aa59150-quarantine-81.md "$RUNNER_TEMP/codex-regenerated/review.md"
+      - name: Validate versioned catalog with no execution rights
+        run: |
+          python -m experiments.vnext.catalog_cli inspect --catalog experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json
+          python - <<'PY'
+          from experiments.vnext.catalog import load_catalog
+          p="experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json"
+          c=load_catalog(p)
+          s=c["stats"]
+          assert s["legacy_rows"]==415
+          assert s["yaml_matches"]==368
+          assert s["quarantined_rows"]==81
+          assert s["auto_authorized_commands"]==0
+          assert all(x["runtime_execute_allowed"] is False for x in c["commands"])
+          print("Catalog release gate: read-only verified, no executable commands")
+          PY
+      - name: Verify draft-only Core-10 plan in CI
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m experiments.vnext.core_cli             --request experiments/vnext/examples/core10-synthetic-request.json             --catalog experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json             --core experiments/vnext/core10.manifest.json             --output "$RUNNER_TEMP/codex-core10-ci.json"
+          python - <<'PYCODE'
+          import json,os,pathlib
+          p=pathlib.Path(os.environ["RUNNER_TEMP"])/"codex-core10-ci.json"
+          c=json.loads(p.read_text(encoding="utf8"))
+          assert c["execution_allowed"] is False
+          assert c["approval_state"] == "not_requested"
+          assert len(c["steps"])==3
+          assert all(x["execution_allowed"] is False for x in c["steps"])
+          print("Core10 release gate: plan is explicitly non-executable")
+          PYCODE

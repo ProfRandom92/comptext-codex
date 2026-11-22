@@ -1,7 +1,9 @@
 """Tests for MCP Server."""
 
 import pytest
-from comptext_mcp.server import CompTextMCPServer, create_server
+# The legacy tests referenced an obsolete package never present in this repo.
+# Exercise the actual installed CLI entrypoint instead.
+from comptext_codex.mcp_server_v5 import CompTextMCPServer, create_server
 
 
 class TestMCPServer:
@@ -90,3 +92,11 @@ class TestMCPServer:
 
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
+
+
+def test_mcp_v5_rejects_ignored_tokens_to_prevent_semantic_loss():
+    server = CompTextMCPServer()
+    for source in ["C;P;Z:FIB", "C;P;P:FIB", "C;R;P:FIB", "X;P:FIB"]:
+        result = server.call_tool("parse_v5", {"command": source})
+        assert result["success"] is False, source
+        assert result["result"]["can_execute"] is False
