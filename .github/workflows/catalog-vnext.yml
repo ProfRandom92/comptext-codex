@@ -1,0 +1,46 @@
+name: Codex vNext Catalog Gate
+
+on:
+  push:
+    branches:
+      - experiment/codex-v6-catalog-gate-20261122
+  pull_request:
+    paths:
+      - "experiments/vnext/catalog*"
+      - "experiments/vnext/catalog_snapshots/**"
+      - "tests/test_vnext_catalog*.py"
+      - ".github/workflows/catalog-vnext.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install isolated supported development dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev,mcp]" "mcp>=1,<2" "pytest-asyncio"
+      - name: Full tests
+        run: python -m pytest tests/ -q --override-ini addopts="" --disable-warnings --tb=short
+      - name: Validate versioned catalog with no execution rights
+        run: |
+          python -m experiments.vnext.catalog_cli inspect --catalog experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json
+          python - <<'PY'
+          from experiments.vnext.catalog import load_catalog
+          p="experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json"
+          c=load_catalog(p)
+          s=c["stats"]
+          assert s["legacy_rows"]==415
+          assert s["yaml_matches"]==368
+          assert s["quarantined_rows"]==81
+          assert s["auto_authorized_commands"]==0
+          assert all(x["runtime_execute_allowed"] is False for x in c["commands"])
+          print("Catalog release gate: read-only verified, no executable commands")
+          PY
