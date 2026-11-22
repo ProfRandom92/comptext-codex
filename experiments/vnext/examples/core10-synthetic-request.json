@@ -1,0 +1,27 @@
+{
+  "catalog_sha256": "f51e00d712c9466e32071872bb2e220194d06d2af080915806e482ad5df41ebc",
+  "steps": [
+    {
+      "arguments": {
+        "text": "Read synthetic benchmark results and summarize risks."
+      },
+      "command_id": 1,
+      "id": "summarize"
+    },
+    {
+      "arguments": {
+        "indent": 2,
+        "text": "{\"valid\":true}"
+      },
+      "command_id": 14,
+      "id": "format"
+    },
+    {
+      "arguments": {
+        "target": "tests/test_parser_v5.py"
+      },
+      "command_id": 360,
+      "id": "testproposal"
+    }
+  ]
+}
