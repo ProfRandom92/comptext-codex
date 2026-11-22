@@ -20,6 +20,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
@@ -29,6 +31,17 @@ jobs:
           python -m pip install -e ".[dev,mcp]" "mcp>=1,<2" "pytest-asyncio"
       - name: Full tests
         run: python -m pytest tests/ -q --override-ini addopts="" --disable-warnings --tb=short
+      - name: Regenerate and compare complete catalog and review queue
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/codex-regenerated"
+          git show aa59150:codex.db > "$RUNNER_TEMP/codex-regenerated/codex.db"
+          python -m experiments.vnext.catalog_cli export --legacy-db "$RUNNER_TEMP/codex-regenerated/codex.db" --yaml-root codex --out "$RUNNER_TEMP/codex-regenerated/catalog.json"
+          cmp experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json "$RUNNER_TEMP/codex-regenerated/catalog.json"
+          python -m experiments.vnext.catalog_cli index --catalog "$RUNNER_TEMP/codex-regenerated/catalog.json" --out "$RUNNER_TEMP/codex-regenerated/index.sqlite"
+          python -m experiments.vnext.quality_gate --catalog "$RUNNER_TEMP/codex-regenerated/catalog.json" --out "$RUNNER_TEMP/codex-regenerated/review.md"
+          cmp experiments/vnext/review/legacy-aa59150-quarantine-81.md "$RUNNER_TEMP/codex-regenerated/review.md"
       - name: Validate versioned catalog with no execution rights
         run: |
           python -m experiments.vnext.catalog_cli inspect --catalog experiments/vnext/catalog_snapshots/legacy-aa59150-catalog-f51e00d712c9.json
