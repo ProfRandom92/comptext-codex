@@ -1,344 +1,241 @@
-"""CompText V5.0 ULTRA MCP Server Implementation."""
+"""CompText V5 legacy compatibility MCP server, strictly read-only.
 
-import json
-import sys
-from typing import Any, Dict, List, Optional
-from dataclasses import dataclass, asdict
+The old module used an API that never matched the installed MCP SDK,
+and printed a protocol-breaking banner to stdout. This implementation
+supports MCP SDK 1.x, preserves legacy read-only tool names, and NEVER
+executes arbitrary agent commands or promotes syntax to authorization.
+"""
+from __future__ import annotations
 
-try:
-    from mcp import Server, Tool, types
-    MCP_AVAILABLE = True
-except ImportError:
-    MCP_AVAILABLE = False
-    # Fallback for when MCP is not installed
-    class Server:
-        pass
-    class Tool:
-        pass
+from typing import Any
+from mcp.server.fastmcp import FastMCP
 
-from .parser_v5 import CompTextParserV5, CompTextCommandV5
+from .parser_v5 import CompTextParserV5
+
+MAX_INPUT = 16384
+MAX_BATCH = 100
 
 
-@dataclass
-class MCPToolResult:
-    """Result from an MCP tool execution."""
-    success: bool
-    data: Any
-    error: Optional[str] = None
-    metadata: Optional[Dict[str, Any]] = None
+class _ReadOnlyExecutor:
+    """Compatibility boundary: no execution capability is exposed."""
+
+    def execute(self, *_: Any, **__: Any) -> None:
+        raise PermissionError("legacy Codex MCP is read-only")
 
 
 class CompTextMCPServer:
-    """MCP Server for CompText V5.0 ULTRA Protocol.
+    """Compat layer with seven read-only V5 tools and a working stdio server."""
 
-    Provides tools for parsing, encoding, and analyzing V5.0 ULTRA commands
-    through the Model Context Protocol.
-    """
-
-    def __init__(self):
-        """Initialize MCP server."""
-        if not MCP_AVAILABLE:
-            raise ImportError("MCP package not installed. Install with: pip install mcp")
-
+    def __init__(self) -> None:
         self.parser = CompTextParserV5()
-        self.server = Server("comptext-v5-ultra")
-
-        # Register tools
+        self.executor = _ReadOnlyExecutor()
+        self.server = FastMCP("comptext-v5-compat-readonly")
+        self._callbacks: dict[str, Any] = {}
         self._register_tools()
 
-    def _register_tools(self):
-        """Register MCP tools."""
+    def _registered(self, name: str, function: Any) -> None:
+        self._callbacks[name] = function
 
-        @self.server.tool(
-            name="parse_v5",
-            description="Parse a CompText V5.0 ULTRA command into structured format",
-            parameters={
-                "command": {
-                    "type": "string",
-                    "description": "V5.0 ULTRA command to parse (e.g., 'C;P:FIB' or 'B:[D:SUM]|[C;P:FIB]')"
+    def _safe_parse(self, command: str) -> dict[str, Any]:
+        if type(command) is not str or not 1 <= len(command) <= MAX_INPUT:
+            return {"success": False, "reason": "INVALID_COMMAND", "can_execute": False}
+        if any(ord(x) < 32 for x in command):
+            return {"success": False, "reason": "INVALID_CONTROL_CHAR", "can_execute": False}
+        try:
+            parsed = self.parser.parse(command)
+        except (ValueError, TypeError, IndexError):
+            return {"success": False, "reason": "INVALID_COMMAND", "can_execute": False}
+        if not parsed or len(parsed) > MAX_BATCH or any(x.command not in self.parser.COMMANDS for x in parsed):
+            return {"success": False, "reason": "UNKNOWN_OPCODE", "can_execute": False}
+        for item in parsed:
+            # The historic parser silently ignores unknown/duplicated tokens.
+            # Such lossy normalization must not be treated as a valid command.
+            parts = item.raw.split(":", 1)[0].split(";")
+            if not parts or parts[0] != item.command:
+                return {"success": False, "reason": "UNKNOWN_OPCODE", "can_execute": False}
+            seen_language = False
+            for part in parts[1:]:
+                if part in self.parser.LANGUAGES and not seen_language:
+                    seen_language = True
+                elif part in self.parser.MODIFIERS:
+                    continue
+                else:
+                    return {"success": False, "reason": "UNKNOWN_OR_DUPLICATE_TOKEN", "can_execute": False}
+        return {
+            "success": True,
+            "commands": [
+                {
+                    "command": self.parser.COMMANDS[x.command],
+                    "command_char": x.command,
+                    "language": self.parser.LANGUAGES.get(x.language) if x.language else None,
+                    "modifiers": [self.parser.MODIFIERS.get(m, m) for m in x.modifiers],
+                    "task": x.task,
+                    "raw": x.raw,
                 }
-            }
+                for x in parsed
+            ],
+            "can_execute": False,
+            "authorization": "EXTERNAL_VERIFIER_REQUIRED",
+        }
+
+    def _safe_encode(
+        self, command: str, language: str | None = None,
+        modifiers: list[str] | None = None,
+        task: str | None = None,
+    ) -> dict[str, Any]:
+        if type(command) is not str or command.upper() not in self.parser.COMMANDS_REV:
+            return {"success": False, "reason": "UNKNOWN_OPCODE", "can_execute": False}
+        if language is not None and (
+            type(language) is not str or language.upper() not in self.parser.LANGUAGES_REV
+        ):
+            return {"success": False, "reason": "UNKNOWN_LANGUAGE", "can_execute": False}
+        if modifiers is not None and (
+            type(modifiers) is not list or len(modifiers)>16 or
+            any(type(x) is not str or x.upper() not in self.parser.MODIFIERS_REV for x in modifiers)
+        ):
+            return {"success": False, "reason": "UNKNOWN_MODIFIER", "can_execute": False}
+        if task is not None and (
+            type(task) is not str or len(task)>1024 or any(ord(x)<32 for x in task)
+        ):
+            return {"success": False, "reason": "INVALID_TASK", "can_execute": False}
+        result=self.parser.encode(
+            command.upper(),
+            language.upper() if language else None,
+            [x.upper() for x in modifiers] if modifiers else None,
+            task,
         )
-        async def parse_v5(command: str) -> Dict[str, Any]:
-            """Parse V5.0 ULTRA command."""
-            try:
-                results = self.parser.parse(command)
+        return {"success": True, "v5_command": result, "can_execute": False}
 
-                commands = []
-                for cmd in results:
-                    commands.append({
-                        "command": self.parser.COMMANDS.get(cmd.command, cmd.command),
-                        "command_char": cmd.command,
-                        "language": self.parser.LANGUAGES.get(cmd.language, cmd.language) if cmd.language else None,
-                        "language_char": cmd.language,
-                        "modifiers": [self.parser.MODIFIERS.get(m, m) for m in cmd.modifiers] if cmd.modifiers else [],
-                        "modifier_chars": cmd.modifiers,
-                        "task": cmd.task,
-                        "raw": cmd.raw
-                    })
+    def _register_tools(self) -> None:
+        @self.server.tool()
+        def parse_v5(command: str) -> dict[str, Any]:
+            """Parse V5 mnemonic into metadata; no command execution."""
+            return self._safe_parse(command)
+        self._registered("parse_v5",parse_v5)
 
-                return {
-                    "success": True,
-                    "count": len(commands),
-                    "commands": commands
-                }
-            except Exception as e:
-                return {
-                    "success": False,
-                    "error": str(e)
-                }
+        @self.server.tool()
+        def encode_v5(
+            command: str, language: str | None = None,
+            modifiers: list[str] | None = None,
+            task: str | None = None,
+        ) -> dict[str, Any]:
+            """Encode supported V5 mnemonic names as text only."""
+            return self._safe_encode(command,language,modifiers,task)
+        self._registered("encode_v5",encode_v5)
 
-        @self.server.tool(
-            name="encode_v5",
-            description="Encode a command to V5.0 ULTRA format",
-            parameters={
-                "command": {
-                    "type": "string",
-                    "description": "Command name (e.g., 'CODE', 'TEST', 'DOCUMENT')"
-                },
-                "language": {
-                    "type": "string",
-                    "description": "Optional language (e.g., 'PYTHON', 'JAVASCRIPT')",
-                    "optional": True
-                },
-                "modifiers": {
-                    "type": "array",
-                    "description": "Optional modifiers (e.g., ['ROBUST', 'CONCISE'])",
-                    "optional": True
-                },
-                "task": {
-                    "type": "string",
-                    "description": "Optional task name",
-                    "optional": True
-                }
-            }
-        )
-        async def encode_v5(command: str, language: Optional[str] = None,
-                           modifiers: Optional[List[str]] = None,
-                           task: Optional[str] = None) -> Dict[str, Any]:
-            """Encode command to V5.0 ULTRA format."""
-            try:
-                result = self.parser.encode(
-                    command.upper(),
-                    language.upper() if language else None,
-                    [m.upper() for m in modifiers] if modifiers else None,
-                    task
-                )
+        @self.server.tool()
+        def encode_batch_v5(commands: list[dict[str, Any]]) -> dict[str, Any]:
+            """Encode a bounded, validated batch of mnemonics without execution."""
+            if type(commands) is not list or not 1 <= len(commands) <= MAX_BATCH:
+                return {"success": False, "reason": "INVALID_BATCH", "can_execute": False}
+            output=[]
+            for item in commands:
+                if type(item) is not dict or set(item)-{"command","language","modifiers","task"}:
+                    return {"success": False, "reason": "INVALID_BATCH_ENTRY", "can_execute": False}
+                value=self._safe_encode(**item)
+                if not value["success"]:
+                    return value
+                output.append(value["v5_command"])
+            return {"success": True, "v5_batch":"B:"+"|".join("["+x+"]" for x in output),
+                    "count":len(output),"can_execute":False}
+        self._registered("encode_batch_v5",encode_batch_v5)
 
-                return {
-                    "success": True,
-                    "v5_command": result,
-                    "input": {
-                        "command": command,
-                        "language": language,
-                        "modifiers": modifiers,
-                        "task": task
-                    }
-                }
-            except Exception as e:
-                return {
-                    "success": False,
-                    "error": str(e)
-                }
+        @self.server.tool()
+        def calculate_token_reduction(natural_language: str, v5_command: str) -> dict[str, Any]:
+            """Compute BPE token lengths of provided strings, not semantic equivalence."""
+            if any(type(x) is not str or len(x)>MAX_INPUT for x in (natural_language,v5_command)):
+                return {"success":False,"reason":"INVALID_INPUT","can_execute":False}
+            if not self._safe_parse(v5_command)["success"]:
+                return {"success":False,"reason":"INVALID_OPCODE","can_execute":False}
+            metrics=self.parser.calculate_token_reduction(natural_language,v5_command)
+            return {"success":True,"statistics":metrics,"semantic_equivalence_verified":False,
+                    "can_execute":False}
+        self._registered("calculate_token_reduction",calculate_token_reduction)
 
-        @self.server.tool(
-            name="encode_batch_v5",
-            description="Encode multiple commands to V5.0 ULTRA batch format",
-            parameters={
-                "commands": {
-                    "type": "array",
-                    "description": "Array of command objects with command, language, modifiers, task"
-                }
-            }
-        )
-        async def encode_batch_v5(commands: List[Dict[str, Any]]) -> Dict[str, Any]:
-            """Encode batch of commands to V5.0 ULTRA format."""
-            try:
-                batch_input = []
-                for cmd_dict in commands:
-                    batch_input.append((
-                        cmd_dict.get('command', '').upper(),
-                        cmd_dict.get('language', '').upper() if cmd_dict.get('language') else None,
-                        [m.upper() for m in cmd_dict.get('modifiers', [])] if cmd_dict.get('modifiers') else None,
-                        cmd_dict.get('task')
-                    ))
+        @self.server.tool()
+        def convert_v5_to_v4(v5_command: str) -> dict[str, Any]:
+            """Return legacy V4 mnemonic strings; no tool execution."""
+            parsed=self._safe_parse(v5_command)
+            if not parsed["success"]:
+                return parsed
+            converted=[self.parser.to_v4_format(c) for c in self.parser.parse(v5_command)]
+            return {"success":True,"v4_output":converted,"can_execute":False}
+        self._registered("convert_v5_to_v4",convert_v5_to_v4)
 
-                result = self.parser.encode_batch(batch_input)
-
-                return {
-                    "success": True,
-                    "v5_batch": result,
-                    "count": len(commands)
-                }
-            except Exception as e:
-                return {
-                    "success": False,
-                    "error": str(e)
-                }
-
-        @self.server.tool(
-            name="calculate_token_reduction",
-            description="Calculate token reduction statistics for V5.0 ULTRA",
-            parameters={
-                "natural_language": {
-                    "type": "string",
-                    "description": "Original natural language request"
-                },
-                "v5_command": {
-                    "type": "string",
-                    "description": "V5.0 ULTRA encoded command"
-                }
-            }
-        )
-        async def calculate_token_reduction(natural_language: str, v5_command: str) -> Dict[str, Any]:
-            """Calculate token reduction statistics."""
-            try:
-                stats = self.parser.calculate_token_reduction(natural_language, v5_command)
-
-                return {
-                    "success": True,
-                    "statistics": stats
-                }
-            except Exception as e:
-                return {
-                    "success": False,
-                    "error": str(e)
-                }
-
-        @self.server.tool(
-            name="convert_v5_to_v4",
-            description="Convert V5.0 ULTRA command to V4.0 format",
-            parameters={
-                "v5_command": {
-                    "type": "string",
-                    "description": "V5.0 ULTRA command to convert"
-                }
-            }
-        )
-        async def convert_v5_to_v4(v5_command: str) -> Dict[str, Any]:
-            """Convert V5 to V4 format."""
-            try:
-                results = self.parser.parse(v5_command)
-
-                v4_commands = []
-                for cmd in results:
-                    v4_format = self.parser.to_v4_format(cmd)
-                    v4_commands.append(v4_format)
-
-                return {
-                    "success": True,
-                    "v5_input": v5_command,
-                    "v4_output": v4_commands,
-                    "count": len(v4_commands)
-                }
-            except Exception as e:
-                return {
-                    "success": False,
-                    "error": str(e)
-                }
-
-        @self.server.tool(
-            name="get_v5_reference",
-            description="Get V5.0 ULTRA syntax reference (commands, languages, modifiers)",
-            parameters={}
-        )
-        async def get_v5_reference() -> Dict[str, Any]:
-            """Get V5.0 ULTRA reference."""
+        @self.server.tool()
+        def get_v5_reference() -> dict[str, Any]:
+            """Return supported V5 opcode vocabulary, without authority claims."""
             return {
-                "success": True,
-                "version": "5.0.0",
-                "commands": {char: full for char, full in self.parser.COMMANDS.items()},
-                "languages": {char: full for char, full in self.parser.LANGUAGES.items()},
-                "modifiers": {char: full for char, full in self.parser.MODIFIERS.items()},
-                "syntax": {
-                    "simple": "CMD;LANG:TASK",
-                    "with_modifiers": "CMD;LANG;MOD:TASK",
-                    "batch": "B:[CMD1]|[CMD2]|[CMD3]"
-                },
-                "examples": [
-                    {"v5": "C;P:FIB", "description": "Code Python Fibonacci"},
-                    {"v5": "T;P;R:FIB", "description": "Test Python (Robust) Fibonacci"},
-                    {"v5": "B:[D:SUM]|[C;P:FIB]|[E;C:WHY]", "description": "Batch: Document + Code + Explain"}
-                ]
+                "success":True,
+                "version":"5.0.4-compat",
+                "commands":dict(self.parser.COMMANDS),
+                "languages":dict(self.parser.LANGUAGES),
+                "modifiers":dict(self.parser.MODIFIERS),
+                "can_execute":False,
             }
+        self._registered("get_v5_reference",get_v5_reference)
 
-        @self.server.tool(
-            name="benchmark_v5",
-            description="Run benchmark comparing natural language to V5.0 ULTRA",
-            parameters={
-                "examples": {
-                    "type": "array",
-                    "description": "Array of {natural, v5} example pairs"
-                }
-            }
-        )
-        async def benchmark_v5(examples: List[Dict[str, str]]) -> Dict[str, Any]:
-            """Run V5 benchmark."""
-            try:
-                results = []
-                total_natural_tokens = 0
-                total_v5_tokens = 0
+        @self.server.tool()
+        def benchmark_v5(examples: list[dict[str,str]]) -> dict[str, Any]:
+            """Benchmark BPE string lengths; no semantic fidelity assertion."""
+            if type(examples) is not list or not 1<=len(examples)<=MAX_BATCH:
+                return {"success":False,"reason":"INVALID_BENCHMARK","can_execute":False}
+            results=[]
+            for item in examples:
+                if type(item) is not dict or set(item)!={"natural","v5"}:
+                    return {"success":False,"reason":"INVALID_EXAMPLE","can_execute":False}
+                measured=calculate_token_reduction(item["natural"],item["v5"])
+                if not measured["success"]:
+                    return measured
+                results.append(measured["statistics"])
+            return {"success":True,"count":len(results),"examples":results,
+                    "semantic_equivalence_verified":False,"can_execute":False}
+        self._registered("benchmark_v5",benchmark_v5)
 
-                for example in examples:
-                    stats = self.parser.calculate_token_reduction(
-                        example['natural'],
-                        example['v5']
-                    )
-                    results.append(stats)
-                    total_natural_tokens += stats['natural_tokens']
-                    total_v5_tokens += stats['v5_tokens']
+    def list_tools(self) -> list[dict[str, str]]:
+        return [{"name":t.name,"description":t.description or ""}
+                for t in self.server._tool_manager.list_tools()]
 
-                avg_reduction = round(
-                    (1 - total_v5_tokens / total_natural_tokens) * 100, 1
-                ) if total_natural_tokens > 0 else 0
+    def call_tool(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
+        """Local compatibility helper, explicitly no external tool execution."""
+        fn=self._callbacks.get(name)
+        if fn is None:
+            raise ValueError("unknown read-only tool")
+        if type(arguments) is not dict:
+            return {"success":False,"result":None,"can_execute":False}
+        try:
+            payload=fn(**arguments)
+            return {"success":bool(payload.get("success")), "result":payload,"can_execute":False}
+        except (TypeError,ValueError,KeyError) as exc:
+            return {"success":False,"result":None,"reason":"INVALID_ARGUMENTS",
+                    "can_execute":False}
 
-                return {
-                    "success": True,
-                    "examples": results,
-                    "aggregate": {
-                        "total_natural_tokens": total_natural_tokens,
-                        "total_v5_tokens": total_v5_tokens,
-                        "total_saved": total_natural_tokens - total_v5_tokens,
-                        "average_reduction_percent": avg_reduction
-                    }
-                }
-            except Exception as e:
-                return {
-                    "success": False,
-                    "error": str(e)
-                }
+    def handle_request(self, method: str, params: dict[str, Any]) -> dict[str, Any]:
+        """Legacy test adapter. Actual MCP JSON-RPC is owned by FastMCP."""
+        if method=="tools/list":
+            return {"tools":self.list_tools()}
+        if method=="tools/call":
+            return self.call_tool(params.get("name",""),params.get("arguments",{}))
+        if method=="initialize":
+            return {"protocolVersion":"2025-06-18",
+                    "serverInfo":{"name":"comptext-v5-compat-readonly","version":"5.0.4"},
+                    "capabilities":{"tools":{"listChanged":False}}}
+        return {"error":{"code":-32601,"message":"Method not found"}}
 
-    async def start(self, transport: str = "stdio"):
-        """Start the MCP server.
-
-        Args:
-            transport: Transport type ("stdio", "sse", etc.)
-        """
-        await self.server.run(transport)
+    async def start(self, transport: str="stdio") -> None:
+        if transport!="stdio":
+            raise ValueError("only stdio supported")
+        await self.server.run_stdio_async()
 
 
 def create_server() -> CompTextMCPServer:
-    """Create and return a new CompText MCP server instance."""
     return CompTextMCPServer()
 
 
-# CLI entry point for MCP server
-def main():
-    """Main entry point for MCP server."""
-    import asyncio
-
-    if not MCP_AVAILABLE:
-        print("Error: MCP package not installed")
-        print("Install with: pip install mcp")
-        sys.exit(1)
-
-    server = create_server()
-
-    print("CompText V5.0 ULTRA MCP Server")
-    print("Listening on stdio...")
-
-    asyncio.run(server.start("stdio"))
+def main() -> None:
+    """MCP stdio CLI entrypoint. Write no banners or debug output to stdout."""
+    create_server().server.run(transport="stdio")
 
 
-if __name__ == '__main__':
+if __name__=="__main__":
     main()
